@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selaras Wedding Planner — Merayakan Kisahmu</title>
+
+<!-- Bootstrap 5 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ivory:#FAF6EF;
+    --sage:#5C6B54;
+    --sage-dark:#3E4A38;
+    --gold:#B08D4F;
+    --blush:#E3C9BE;
+    --charcoal:#2B2723;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    font-family:'Jost', sans-serif;
+    color:var(--charcoal);
+    background:var(--ivory);
+    font-weight:300;
+    letter-spacing:.01em;
+  }
+
+  h1,h2,h3,.display-font{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    letter-spacing:.01em;
+  }
+
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    font-size:.72rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+
+  /* ===== Wax seal signature element ===== */
+  .seal{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #C9A05F, var(--gold) 60%, #8C6A34 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 3px 8px rgba(0,0,0,.25), inset 0 2px 4px rgba(255,255,255,.35);
+    flex-shrink:0;
+  }
+  .seal svg{ width:26px; height:26px; }
+  .seal-sm{ width:38px;height:38px; }
+  .seal-sm svg{ width:18px;height:18px; }
+
+  /* ===== Navbar ===== */
+  .navbar-custom{
+    background:rgba(250,246,239,0.0);
+    transition:all .35s ease;
+    padding:1.3rem 0;
+  }
+  .navbar-custom.scrolled{
+    background:rgba(250,246,239,0.96);
+    box-shadow:0 2px 18px rgba(0,0,0,.06);
+    padding:.7rem 0;
+  }
+  .navbar-brand{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.6rem;
+    font-weight:600;
+    color:var(--sage-dark) !important;
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  .brand-logo{ width:40px; height:40px; flex-shrink:0; }
+  .brand-logo-lg{ width:64px; height:64px; flex-shrink:0; }
+  .nav-link{
+    font-size:.85rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--charcoal) !important;
+    margin:0 .6rem;
+  }
+  .nav-link:hover{ color:var(--gold) !important; }
+
+  /* ===== Hero ===== */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    background:
+      radial-gradient(ellipse at 15% 20%, rgba(184,155,111,.16), transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(92,107,84,.14), transparent 55%),
+      var(--ivory);
+    overflow:hidden;
+  }
+  .hero-ring{
+    position:absolute;
+    border:1px solid rgba(176,141,79,.35);
+    border-radius:50%;
+  }
+  .hero .ring1{ width:520px;height:520px; top:-120px; right:-160px; }
+  .hero .ring2{ width:320px;height:320px; bottom:-100px; left:-100px; border-color:rgba(92,107,84,.3); }
+
+  .hero-eyebrow-row{ display:flex; align-items:center; gap:1rem; }
+  .hero-line{ height:1px; width:60px; background:var(--gold); }
+
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 5rem);
+    line-height:1.08;
+    color:var(--sage-dark);
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .hero p.lead-text{
+    font-size:1.05rem;
+    max-width:480px;
+    color:#4b463f;
+  }
+
+  .btn-gold{
+    background:var(--gold);
+    border:1px solid var(--gold);
+    color:#fff;
+    padding:.8rem 2.1rem;
+    font-size:.85rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    border-radius:0;
+    transition:all .3s ease;
+  }
+  .btn-gold:hover{ background:transparent; color:var(--gold); }
+
+  .btn-outline-sage{
+    border:1px solid var(--sage-dark);
+    color:var(--sage-dark);
+    padding:.8rem 2.1rem;
+    font-size:.85rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    border-radius:0;
+    background:transparent;
+    transition:all .3s ease;
+  }
+  .btn-outline-sage:hover{ background:var(--sage-dark); color:#fff; }
+
+  /* ===== Sections ===== */
+  section{ padding:6.5rem 0; }
+  .section-title{
+    font-size:clamp(2rem, 3.4vw, 2.8rem);
+    color:var(--sage-dark);
+  }
+  .divider-ribbon{
+    width:1px;
+    height:56px;
+    background:linear-gradient(var(--gold), transparent);
+    margin:0 auto;
+  }
+
+  .bg-sage{ background:var(--sage-dark); color:var(--ivory); }
+  .bg-sage .section-title, .bg-sage h3{ color:var(--ivory); }
+  .bg-sage .eyebrow{ color:var(--blush); }
+
+  /* Stats */
+  .stat-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:3rem;
+    color:var(--gold);
+    font-weight:600;
+  }
+  .stat-label{ font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; opacity:.85; }
+
+  /* Service cards */
+  .service-card{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.05);
+    padding:2.4rem 1.8rem;
+    height:100%;
+    transition:all .35s ease;
+  }
+  .service-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(60,55,45,.1);
+    border-color:var(--gold);
+  }
+  .service-icon{
+    width:56px;height:56px;
+    border:1px solid var(--gold);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+    color:var(--gold);
+    margin-bottom:1.3rem;
+  }
+
+  /* Process */
+  .process-item{ position:relative; padding-left:0; }
+  .process-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1rem;
+    color:var(--gold);
+    letter-spacing:.05em;
+  }
+
+  /* Packages */
+  .package-card{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.06);
+    padding:2.6rem 2rem;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+  .package-card.featured{
+    background:var(--sage-dark);
+    color:var(--ivory);
+    border:none;
+    transform:scale(1.04);
+    box-shadow:0 20px 50px rgba(62,74,56,.25);
+  }
+  .package-card.featured .package-price, .package-card.featured h3{ color:#fff; }
+  .package-card.featured .feature-list li{ color:rgba(255,255,255,.88); }
+  .package-price{
+    font-family:'Cormorant Garamond', serif;
+    font-size:2.4rem;
+    color:var(--sage-dark);
+    margin:.6rem 0 1.2rem;
+  }
+  .feature-list{ list-style:none; padding:0; margin:0 0 1.8rem; font-size:.92rem; }
+  .feature-list li{ padding:.4rem 0; border-bottom:1px dashed rgba(0,0,0,.08); }
+  .package-card.featured .feature-list li{ border-bottom:1px dashed rgba(255,255,255,.15); }
+  .feature-list li i{ color:var(--gold); margin-right:.5rem; }
+
+  /* Gallery */
+  .gallery-item{
+    overflow:hidden;
+    position:relative;
+  }
+  .gallery-item img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .6s ease;
+    filter:saturate(.92);
+  }
+  .gallery-item:hover img{ transform:scale(1.08); }
+
+  /* Testimonials */
+  .testi-card{
+    background:#fff;
+    padding:2.6rem;
+    text-align:center;
+    max-width:640px;
+    margin:0 auto;
+  }
+  .testi-quote{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.5rem;
+    color:var(--sage-dark);
+    line-height:1.5;
+  }
+  .carousel-indicators [data-bs-target]{
+    background-color:var(--gold);
+    width:8px;height:8px;border-radius:50%;
+  }
+
+  /* Contact */
+  .form-control{
+    border-radius:0;
+    border:1px solid rgba(0,0,0,.15);
+    padding:.75rem 1rem;
+    background:transparent;
+  }
+  .form-control:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 .15rem rgba(176,141,79,.2);
+  }
+  label{ font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--sage-dark); margin-bottom:.35rem; }
+
+  footer{
+    background:var(--charcoal);
+    color:rgba(250,246,239,.7);
+    padding:3.2rem 0 1.6rem;
+  }
+  footer .footer-brand{
+    font-family:'Cormorant Garamond', serif;
+    color:var(--ivory);
+    font-size:1.6rem;
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+  }
+  footer a{ color:rgba(250,246,239,.7); text-decoration:none; }
+  footer a:hover{ color:var(--gold); }
+
+  /* Reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(24px); transition:all .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.show{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .gallery-item img{ transition:none; }
+  }
+
+  a:focus-visible, button:focus-visible, .form-control:focus-visible{
+    outline:2px solid var(--gold); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="#top">
+      <svg class="brand-logo" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="42" fill="none" stroke="#5C6B54" stroke-width="1.4"/>
+        <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+        <g fill="none" stroke="#5C6B54" stroke-width="1.6" stroke-linecap="round">
+          <path d="M26,72 C19,64 19,50 26,40"/>
+          <path d="M94,72 C101,64 101,50 94,40"/>
+        </g>
+        <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#3E4A38">S</text>
+      </svg>
+      <span>Selaras <span style="color:var(--gold)">•</span> Wedding</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <i class="bi bi-list fs-2"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+      <ul class="navbar-nav align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+        <li class="nav-item"><a class="nav-link" href="#layanan">Layanan</a></li>
+        <li class="nav-item"><a class="nav-link" href="#proses">Proses</a></li>
+        <li class="nav-item"><a class="nav-link" href="#paket">Paket</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeri">Galeri</a></li>
+        <li class="nav-item mt-3 mt-lg-0 ms-lg-2">
+          <a href="login.html" class="nav-link">Masuk</a>
+        </li>
+        <li class="nav-item mt-2 mt-lg-0">
+          <a href="register.html" class="btn btn-outline-sage me-2">Daftar</a>
+        </li>
+        <li class="nav-item mt-2 mt-lg-0">
+          <a href="#kontak" class="btn btn-gold">Konsultasi</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <div class="hero-ring ring1"></div>
+  <div class="hero-ring ring2"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="hero-eyebrow-row mb-4 reveal">
+          <span class="hero-line"></span>
+          <span class="eyebrow">Wedding Planner &amp; Kurator Acara</span>
+        </div>
+        <h1 class="mb-4 reveal">Setiap Kisah<br>Layak Dirayakan<br><em>dengan Selaras</em></h1>
+        <p class="lead-text mb-4 reveal">
+          Kami merangkai detail, vendor, dan waktu menjadi satu hari yang mengalir tanpa hambatan —
+          agar kalian hanya perlu hadir sepenuhnya dan menikmatinya.
+        </p>
+        <div class="d-flex flex-wrap gap-3 reveal">
+          <a href="#kontak" class="btn btn-gold">Jadwalkan Konsultasi</a>
+          <a href="#paket" class="btn btn-outline-sage">Lihat Paket</a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block">
+        <div class="d-flex align-items-center gap-3 reveal">
+          <div class="seal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M12 3l2 4 4 .6-3 3 .7 4.4L12 13l-3.7 2 .7-4.4-3-3 4-.6z"/></svg>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.15rem; color:var(--sage-dark);">
+            "Dirancang dengan hati,<br>dijalankan dengan presisi."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Tentang / Stats ===== -->
+<section class="bg-sage" id="tentang">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <div class="d-flex align-items-center gap-3 mb-3 reveal">
+          <div class="seal seal-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4"><path d="M12 3l2 4 4 .6-3 3 .7 4.4L12 13l-3.7 2 .7-4.4-3-3 4-.6z"/></svg>
+          </div>
+          <span class="eyebrow">Tentang Selaras</span>
+        </div>
+        <h2 class="section-title reveal">Mitra di Balik Layar,<br>Saksi di Hari Bahagia</h2>
+        <p class="mt-3 reveal" style="opacity:.85; max-width:440px;">
+          Sejak 2016, Selaras Wedding Planner mendampingi pasangan di seluruh Indonesia merancang
+          pernikahan yang terasa personal — bukan sekadar seragam dan dekorasi, tapi cerita yang utuh.
+        </p>
+      </div>
+      <div class="col-lg-7">
+        <div class="row text-center g-4">
+          <div class="col-6 col-md-3 reveal">
+            <div class="stat-num">300+</div>
+            <div class="stat-label">Pernikahan</div>
+          </div>
+          <div class="col-6 col-md-3 reveal">
+            <div class="stat-num">9</div>
+            <div class="stat-label">Tahun Pengalaman</div>
+          </div>
+          <div class="col-6 col-md-3 reveal">
+            <div class="stat-num">120+</div>
+            <div class="stat-label">Vendor Mitra</div>
+          </div>
+          <div class="col-6 col-md-3 reveal">
+            <div class="stat-num">4.9</div>
+            <div class="stat-label">Rating Klien</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Layanan ===== -->
+<section id="layanan">
+  <div class="container text-center mb-5">
+    <span class="eyebrow reveal">Layanan Kami</span>
+    <h2 class="section-title mt-2 reveal">Dari Konsep Hingga Hari-H</h2>
+    <div class="divider-ribbon mt-3 reveal"></div>
+  </div>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-flower2"></i></div>
+          <h3 class="h5 mb-2" style="font-family:'Cormorant Garamond',serif;">Full Wedding Planning</h3>
+          <p class="small mb-0" style="opacity:.75;">Perencanaan menyeluruh dari konsep, budget, hingga eksekusi hari pernikahan.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-calendar-check"></i></div>
+          <h3 class="h5 mb-2" style="font-family:'Cormorant Garamond',serif;">Day-of Coordination</h3>
+          <p class="small mb-0" style="opacity:.75;">Kalian sudah punya rencana; kami pastikan semuanya berjalan lancar di hari-H.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-house-heart"></i></div>
+          <h3 class="h5 mb-2" style="font-family:'Cormorant Garamond',serif;">Venue &amp; Dekorasi</h3>
+          <p class="small mb-0" style="opacity:.75;">Kurasi lokasi dan konsep dekorasi yang mencerminkan karakter kalian berdua.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-cup-hot"></i></div>
+          <h3 class="h5 mb-2" style="font-family:'Cormorant Garamond',serif;">Katering &amp; Vendor</h3>
+          <p class="small mb-0" style="opacity:.75;">Jaringan vendor terpercaya — katering, fotografi, MUA, hingga hiburan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Proses ===== -->
+<section id="proses" style="background:#F2ECE0;">
+  <div class="container text-center mb-5">
+    <span class="eyebrow reveal">Alur Kerja</span>
+    <h2 class="section-title mt-2 reveal">Empat Langkah Menuju Hari Bahagia</h2>
+    <div class="divider-ribbon mt-3 reveal"></div>
+  </div>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 process-item reveal">
+        <div class="process-num mb-2">01 — Konsultasi</div>
+        <p class="small" style="opacity:.75;">Diskusi awal untuk memahami visi, budget, dan preferensi kalian berdua.</p>
+      </div>
+      <div class="col-md-3 process-item reveal">
+        <div class="process-num mb-2">02 — Konsep &amp; Moodboard</div>
+        <p class="small" style="opacity:.75;">Menyusun tema, palet warna, dan moodboard yang mencerminkan cerita kalian.</p>
+      </div>
+      <div class="col-md-3 process-item reveal">
+        <div class="process-num mb-2">03 — Persiapan Vendor</div>
+        <p class="small" style="opacity:.75;">Koordinasi vendor, jadwal, dan simulasi rundown acara secara detail.</p>
+      </div>
+      <div class="col-md-3 process-item reveal">
+        <div class="process-num mb-2">04 — Hari Bahagia</div>
+        <p class="small" style="opacity:.75;">Tim kami memastikan setiap detail berjalan lancar, kalian tinggal menikmati.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Paket ===== -->
+<section id="paket">
+  <div class="container text-center mb-5">
+    <span class="eyebrow reveal">Paket Layanan</span>
+    <h2 class="section-title mt-2 reveal">Pilih Sesuai Kebutuhan</h2>
+    <div class="divider-ribbon mt-3 reveal"></div>
+  </div>
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4 reveal">
+        <div class="package-card">
+          <span class="eyebrow" style="color:var(--sage)">Intimate</span>
+          <div class="package-price">Rp 15 jt</div>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2"></i>Day-of coordination</li>
+            <li><i class="bi bi-check2"></i>Tim 3 koordinator</li>
+            <li><i class="bi bi-check2"></i>Rundown &amp; simulasi</li>
+            <li><i class="bi bi-check2"></i>Hingga 100 tamu</li>
+          </ul>
+          <a href="#kontak" class="btn btn-outline-sage mt-auto">Pilih Paket</a>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="package-card featured">
+          <span class="eyebrow" style="color:var(--blush)">Signature</span>
+          <div class="package-price">Rp 35 jt</div>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2"></i>Full wedding planning</li>
+            <li><i class="bi bi-check2"></i>Tim 6 koordinator</li>
+            <li><i class="bi bi-check2"></i>Kurasi vendor &amp; dekorasi</li>
+            <li><i class="bi bi-check2"></i>Hingga 300 tamu</li>
+          </ul>
+          <a href="#kontak" class="btn btn-gold mt-auto">Pilih Paket</a>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="package-card">
+          <span class="eyebrow" style="color:var(--sage)">Grand</span>
+          <div class="package-price">Rp 65 jt</div>
+          <ul class="feature-list">
+            <li><i class="bi bi-check2"></i>Full planning + desain custom</li>
+            <li><i class="bi bi-check2"></i>Tim 10+ koordinator</li>
+            <li><i class="bi bi-check2"></i>Multi-venue &amp; multi-hari</li>
+            <li><i class="bi bi-check2"></i>Tamu tanpa batas</li>
+          </ul>
+          <a href="#kontak" class="btn btn-outline-sage mt-auto">Pilih Paket</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Galeri ===== -->
+<section id="galeri" style="background:#F2ECE0;">
+  <div class="container text-center mb-5">
+    <span class="eyebrow reveal">Galeri</span>
+    <h2 class="section-title mt-2 reveal">Momen yang Telah Kami Rayakan</h2>
+    <div class="divider-ribbon mt-3 reveal"></div>
+  </div>
+  <div class="container-fluid px-3">
+    <div class="row g-2">
+      <div class="col-6 col-md-3 reveal">
+        <div class="gallery-item" style="height:280px;">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Dekorasi pernikahan">
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="gallery-item" style="height:280px;">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80" alt="Pasangan pengantin">
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="gallery-item" style="height:280px;">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80" alt="Meja resepsi">
+        </div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="gallery-item" style="height:280px;">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&q=80" alt="Buket bunga pengantin">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Testimoni ===== -->
+<section id="testimoni">
+  <div class="container text-center mb-5">
+    <span class="eyebrow reveal">Testimoni</span>
+    <h2 class="section-title mt-2 reveal">Kata Mereka yang Telah Merayakan</h2>
+    <div class="divider-ribbon mt-3 reveal"></div>
+  </div>
+  <div class="container">
+    <div id="testiCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="testi-card">
+            <p class="testi-quote">"Selaras membuat kami tenang di hari-H. Semua detail, dari rundown hingga vendor, berjalan seolah tanpa usaha."</p>
+            <div class="mt-3 fw-medium">— Dinda &amp; Bagas</div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testi-card">
+            <p class="testi-quote">"Konsep yang mereka susun benar-benar mencerminkan kami berdua, bukan template pernikahan pada umumnya."</p>
+            <div class="mt-3 fw-medium">— Alya &amp; Fajar</div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testi-card">
+            <p class="testi-quote">"Komunikasi jelas, timeline rapi, dan tim di lapangan sigap. Rekomendasi penuh untuk calon pengantin."</p>
+            <div class="mt-3 fw-medium">— Karin &amp; Reza</div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-indicators position-relative mt-4">
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#testiCarousel" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Kontak ===== -->
+<section class="bg-sage" id="kontak">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <span class="eyebrow reveal">Konsultasi Gratis</span>
+        <h2 class="section-title mt-2 reveal">Mari Rancang<br>Hari Bahagia Kalian</h2>
+        <p class="mt-3 reveal" style="opacity:.85;">Isi formulir di samping, tim kami akan menghubungi dalam 1x24 jam untuk menjadwalkan sesi konsultasi.</p>
+        <div class="mt-4 reveal">
+          <p class="mb-2"><i class="bi bi-telephone me-2"></i>+62 812-3456-7890</p>
+          <p class="mb-2"><i class="bi bi-envelope me-2"></i>halo@selarasweddings.id</p>
+          <p class="mb-0"><i class="bi bi-geo-alt me-2"></i>Jakarta Selatan, Indonesia</p>
+        </div>
+      </div>
+      <div class="col-lg-7 reveal">
+        <form class="row g-3" onsubmit="return false;">
+          <div class="col-md-6">
+            <label for="nama">Nama Kalian Berdua</label>
+            <input type="text" class="form-control" id="nama" placeholder="Nama Pasangan">
+          </div>
+          <div class="col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="nama@email.com">
+          </div>
+          <div class="col-md-6">
+            <label for="tanggal">Perkiraan Tanggal Acara</label>
+            <input type="date" class="form-control" id="tanggal">
+          </div>
+          <div class="col-md-6">
+            <label for="paket">Paket yang Diminati</label>
+            <select class="form-control" id="paket">
+              <option>Intimate</option>
+              <option selected>Signature</option>
+              <option>Grand</option>
+              <option>Belum yakin</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label for="pesan">Ceritakan Sedikit Rencana Kalian</label>
+            <textarea class="form-control" id="pesan" rows="4" placeholder="Contoh: kami ingin resepsi outdoor bernuansa taman untuk 200 tamu..."></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-gold">Kirim &amp; Jadwalkan Konsultasi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <div class="col-md-4">
+        <div class="footer-brand">
+          <svg class="brand-logo-lg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="42" fill="none" stroke="#E3C9BE" stroke-width="1.4"/>
+            <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+            <g fill="none" stroke="#E3C9BE" stroke-width="1.6" stroke-linecap="round">
+              <path d="M26,72 C19,64 19,50 26,40"/>
+              <path d="M94,72 C101,64 101,50 94,40"/>
+            </g>
+            <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#FAF6EF">S</text>
+          </svg>
+          <span>Selaras Wedding</span>
+        </div>
+        <p class="small mt-2 mb-0">Merayakan kisah, satu pernikahan pada satu waktu.</p>
+      </div>
+      <div class="col-md-4 text-md-center">
+        <a href="#tentang" class="small d-block mb-1">Tentang</a>
+        <a href="#layanan" class="small d-block mb-1">Layanan</a>
+        <a href="#paket" class="small d-block">Paket</a>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <a href="#" class="me-3"><i class="bi bi-instagram fs-5"></i></a>
+        <a href="#" class="me-3"><i class="bi bi-whatsapp fs-5"></i></a>
+        <a href="#"><i class="bi bi-envelope fs-5"></i></a>
+      </div>
+    </div>
+    <hr class="mt-4 mb-3" style="border-color:rgba(255,255,255,.1);">
+    <p class="small text-center mb-0">&copy; 2026 Selaras Wedding Planner. Seluruh hak cipta dilindungi.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Navbar shrink on scroll
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('show');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
