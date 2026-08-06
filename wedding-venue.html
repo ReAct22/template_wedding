@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guest List — Selaras Wedding Planner</title>
+<title>Venue — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,6 +217,28 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
+  /* Venue page */
+  .venue-cover{
+    height:260px; border-radius:12px; overflow:hidden; position:relative;
+  }
+  .venue-cover img{ width:100%; height:100%; object-fit:cover; }
+  .venue-cover-badge{
+    position:absolute; top:1rem; right:1rem;
+    background:rgba(255,255,255,.95); color:#4C6B3E;
+    font-size:.78rem; font-weight:500; padding:.4rem 1rem; border-radius:20px;
+  }
+  .venue-gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; }
+  .venue-gallery img{ width:100%; height:90px; object-fit:cover; border-radius:8px; }
+
+  .facility-item{ display:flex; align-items:center; gap:.6rem; padding:.5rem 0; font-size:.87rem; }
+  .facility-item i{ color:var(--sage); font-size:1rem; }
+
+  .venue-candidate{
+    display:flex; align-items:center; gap:1rem; padding:.9rem 0; border-bottom:1px solid rgba(0,0,0,.05);
+  }
+  .venue-candidate:last-child{ border-bottom:none; }
+  .venue-candidate img{ width:64px; height:64px; border-radius:8px; object-fit:cover; flex-shrink:0; }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
@@ -258,14 +280,14 @@
       <i class="bi bi-house menu-icon"></i> Overview
     </a>
     <div class="nav-group-title">Perencanaan</div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-wedding" aria-expanded="false">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-wedding" aria-expanded="true">
       <i class="bi bi-gem menu-icon"></i> Wedding <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse submenu" id="menu-wedding">
+    <div class="collapse show submenu" id="menu-wedding">
       <a class="nav-link" href="wedding-informasi.html">Informasi Wedding</a>
       <a class="nav-link" href="wedding-timeline.html">Timeline</a>
       <a class="nav-link" href="wedding-rundown.html">Rundown Acara</a>
-      <a class="nav-link" href="wedding-venue.html">Venue</a>
+      <a class="nav-link active" href="wedding-venue.html">Venue</a>
       <a class="nav-link" href="wedding-theme.html">Theme &amp; Decoration</a>
     </div>
     <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-budget" aria-expanded="false">
@@ -278,11 +300,11 @@
       <a class="nav-link" href="budget-payments.html">Payments</a>
       <a class="nav-link" href="budget-report.html">Financial Report</a>
     </div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="true">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="false">
       <i class="bi bi-people menu-icon"></i> Guests <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse show submenu" id="menu-guests">
-      <a class="nav-link active" href="guests-list.html">Guest List</a>
+    <div class="collapse submenu" id="menu-guests">
+      <a class="nav-link" href="guests-list.html">Guest List</a>
       <a class="nav-link" href="guests-groups.html">Guest Groups</a>
       <a class="nav-link" href="guests-rsvp.html">RSVP</a>
       <a class="nav-link" href="guests-seating.html">Seating Plan</a>
@@ -384,16 +406,152 @@
 
   <div class="content" id="content">
 
-    <span class="breadcrumb-eyebrow">Guests</span>
-    <h1 class="page-title mb-4">Guest List</h1>
-    <div class="empty-state">
-      <i class="bi bi-people"></i>
-      <h3 class="mb-2" style="font-size:1.3rem;">Halaman ini sedang disiapkan</h3>
-      <p class="text-muted mb-0" style="max-width:420px; margin:0 auto;">
-        Konten untuk <strong>Guest List</strong> akan segera hadir. Bagian ini akan menampilkan data dan pengaturan terkait menu yang kamu pilih.
-      </p>
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Wedding</span>
+        <h1 class="page-title">Venue</h1>
+      </div>
+      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#editVenueModal">
+        <i class="bi bi-pencil me-1"></i>Edit Venue
+      </button>
     </div>
 
+    <div class="row g-3 mb-3">
+      <div class="col-lg-8">
+        <div class="venue-cover mb-3">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=80" alt="The Garden Estate">
+          <span class="venue-cover-badge"><i class="bi bi-check-circle-fill me-1"></i>Sudah Dibooking</span>
+        </div>
+        <div class="venue-gallery mb-4">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=300&q=80" alt="Interior venue">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=300&q=80" alt="Taman venue">
+          <img src="https://images.unsplash.com/photo-1517157837133-38e5c2977a4a?auto=format&fit=crop&w=300&q=80" alt="Area resepsi">
+          <img src="https://images.unsplash.com/photo-1505934257850-2f6d5d3feaa8?auto=format&fit=crop&w=300&q=80" alt="Meja tamu">
+        </div>
+
+        <div class="card-plain">
+          <div class="card-section-title"><i class="bi bi-house-heart"></i>Fasilitas Venue</div>
+          <div class="row">
+            <div class="col-6 col-md-4">
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Air Conditioner</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Area Parkir Luas</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Sound System</div>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Ruang Rias Pengantin</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Generator Cadangan</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Akses Katering Luar</div>
+            </div>
+            <div class="col-6 col-md-4">
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Dekorasi Diperbolehkan</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Area Outdoor &amp; Indoor</div>
+              <div class="facility-item"><i class="bi bi-check-circle"></i>Wifi Tersedia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card-plain mb-3">
+          <div class="card-section-title"><i class="bi bi-geo-alt"></i>Detail Venue</div>
+          <div class="info-row"><span class="info-label">Nama Venue</span><span class="info-value">The Garden Estate</span></div>
+          <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Jl. Kemang Raya No. 21, Jaksel</span></div>
+          <div class="info-row"><span class="info-label">Kapasitas</span><span class="info-value">300 tamu</span></div>
+          <div class="info-row"><span class="info-label">Tipe</span><span class="info-value">Indoor &amp; Outdoor</span></div>
+          <div class="info-row"><span class="info-label">Harga Sewa</span><span class="info-value">Rp 45.000.000</span></div>
+        </div>
+
+        <div class="card-plain mb-3">
+          <div class="card-section-title"><i class="bi bi-wallet2"></i>Status Pembayaran</div>
+          <div class="d-flex justify-content-between mb-2">
+            <span style="font-size:.87rem;">Terbayar</span>
+            <span style="font-size:.87rem; font-weight:500;">Rp 45.000.000</span>
+          </div>
+          <div class="progress mb-2"><div class="progress-bar progress-bar-gold" style="width:100%"></div></div>
+          <span class="badge-soft badge-green">Lunas</span>
+        </div>
+
+        <div class="card-plain">
+          <div class="card-section-title"><i class="bi bi-person-lines-fill"></i>Kontak Venue</div>
+          <div class="info-row"><span class="info-label">PIC Venue</span><span class="info-value">Ibu Ratna</span></div>
+          <div class="info-row"><span class="info-label">No. HP</span><span class="info-value">0811-2233-4455</span></div>
+          <div class="info-row"><span class="info-label">Email</span><span class="info-value">info@gardenestate.id</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-plain">
+      <div class="card-section-title"><i class="bi bi-clock-history"></i>Venue Lain yang Dipertimbangkan</div>
+
+      <div class="venue-candidate">
+        <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=200&q=80" alt="Riverside Hall">
+        <div class="flex-grow-1">
+          <div class="fw-medium" style="font-size:.9rem;">Riverside Hall</div>
+          <div class="text-muted" style="font-size:.8rem;">Kapasitas 250 tamu · Rp 38.000.000</div>
+        </div>
+        <span class="badge-soft badge-red">Tidak Dipilih</span>
+      </div>
+
+      <div class="venue-candidate">
+        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=200&q=80" alt="Kebun Raya Ballroom">
+        <div class="flex-grow-1">
+          <div class="fw-medium" style="font-size:.9rem;">Kebun Raya Ballroom</div>
+          <div class="text-muted" style="font-size:.8rem;">Kapasitas 400 tamu · Rp 62.000.000</div>
+        </div>
+        <span class="badge-soft badge-red">Tidak Dipilih</span>
+      </div>
+
+      <div class="venue-candidate">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=200&q=80" alt="Villa Kemuning">
+        <div class="flex-grow-1">
+          <div class="fw-medium" style="font-size:.9rem;">Villa Kemuning</div>
+          <div class="text-muted" style="font-size:.8rem;">Kapasitas 200 tamu · Rp 33.000.000</div>
+        </div>
+        <span class="badge-soft badge-red">Tidak Dipilih</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="editVenueModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content" style="border-radius:12px; border:none;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Edit Venue</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="return false;">
+          <div class="row g-3 mb-2">
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Venue</label>
+              <input type="text" class="form-control" value="The Garden Estate">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Kapasitas</label>
+              <input type="number" class="form-control" value="300">
+            </div>
+            <div class="col-12">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Alamat</label>
+              <input type="text" class="form-control" value="Jl. Kemang Raya No. 21, Jakarta Selatan">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Harga Sewa</label>
+              <input type="text" class="form-control" value="Rp 45.000.000">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">PIC Venue</label>
+              <input type="text" class="form-control" value="Ibu Ratna">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
+        <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Perubahan</button>
+      </div>
+    </div>
   </div>
 </div>
 

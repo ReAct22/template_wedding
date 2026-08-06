@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Budget Planner — Selaras Wedding Planner</title>
+<title>Expenses — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,40 +217,48 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
-  /* Budget Planner page */
-  .budget-donut{
-    width:180px; height:180px; border-radius:50%; margin:0 auto;
-    background:conic-gradient(
-      #5C6B54 0deg 81deg,
-      #B08D4F 81deg 153deg,
-      #E3C9BE 153deg 211deg,
-      #8C9A5C 211deg 256deg,
-      #96712E 256deg 292deg,
-      #7C8A74 292deg 319deg,
-      #C9A98C 319deg 333deg,
-      #D8D2C4 333deg 360deg
-    );
-    position:relative;
+  /* Expenses page */
+  .filter-bar{ display:flex; gap:.7rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+  .filter-bar select, .filter-bar input{
+    border:1px solid rgba(0,0,0,.12); border-radius:8px; padding:.55rem .9rem; font-size:.84rem;
+    background:#fff; font-family:'Jost', sans-serif; color:var(--charcoal);
   }
-  .budget-donut::after{
-    content:""; position:absolute; inset:22px; border-radius:50%; background:#fff;
-  }
-  .budget-donut-label{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    z-index:1;
-  }
-  .budget-donut-label .amt{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--sage-dark); font-weight:600; }
-  .budget-donut-label .lbl{ font-size:.68rem; color:#8a8477; text-transform:uppercase; letter-spacing:.05em; }
+  .filter-bar input{ flex:1; min-width:200px; }
 
-  .legend-item{ display:flex; align-items:center; gap:.55rem; font-size:.82rem; padding:.35rem 0; }
-  .legend-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .expense-total-bar{
+    display:flex; justify-content:space-between; align-items:center;
+    background:var(--sage-dark); color:#fff; border-radius:10px;
+    padding:1rem 1.4rem; margin-top:1rem;
+  }
+  .expense-total-bar .amt{ font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:600; }
 
-  .cat-row{ padding:.9rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
-  .cat-row:last-child{ border-bottom:none; }
-  .cat-row-head{ display:flex; justify-content:between; align-items:center; margin-bottom:.5rem; }
-  .cat-name{ font-size:.88rem; font-weight:500; display:flex; align-items:center; gap:.5rem; }
-  .cat-icon-dot{ width:9px; height:9px; border-radius:50%; }
-  .cat-amounts{ font-size:.78rem; color:#8a8477; }
+  .expense-item{
+    display:flex; align-items:center; gap:1rem; padding:1.05rem 0;
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  .expense-item:last-child{ border-bottom:none; }
+  .expense-icon{
+    width:46px; height:46px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; font-size:1.15rem;
+  }
+  .expense-body{ flex:1; min-width:0; }
+  .expense-title{ font-size:.92rem; font-weight:500; color:var(--charcoal); margin-bottom:.3rem; }
+  .expense-meta{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-size:.78rem; color:#8a8477; }
+  .expense-meta .sep{ opacity:.5; }
+  .cat-chip{
+    display:inline-flex; align-items:center; gap:.35rem;
+    font-size:.72rem; font-weight:500; padding:.2rem .65rem; border-radius:20px;
+  }
+  .cat-chip .dot{ width:7px; height:7px; border-radius:50%; }
+  .method-chip{
+    display:inline-flex; align-items:center; gap:.3rem;
+    font-size:.72rem; color:#8a8477; background:#F5F1E9; padding:.2rem .6rem; border-radius:20px;
+  }
+  .expense-amount{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.15rem;
+    color:var(--charcoal); text-align:right; flex-shrink:0; min-width:130px;
+  }
+  .expense-actions{ display:flex; gap:.4rem; flex-shrink:0; }
 
   /* Generic placeholder page */
   .empty-state{
@@ -307,9 +315,9 @@
       <i class="bi bi-wallet2 menu-icon"></i> Budget <i class="bi bi-chevron-down chevron"></i>
     </a>
     <div class="collapse show submenu" id="menu-budget">
-      <a class="nav-link active" href="budget-planner.html">Budget Planner</a>
+      <a class="nav-link" href="budget-planner.html">Budget Planner</a>
       <a class="nav-link" href="budget-categories.html">Categories</a>
-      <a class="nav-link" href="budget-expenses.html">Expenses</a>
+      <a class="nav-link active" href="budget-expenses.html">Expenses</a>
       <a class="nav-link" href="budget-payments.html">Payments</a>
       <a class="nav-link" href="budget-report.html">Financial Report</a>
     </div>
@@ -422,170 +430,341 @@
     <div class="page-header-row">
       <div>
         <span class="breadcrumb-eyebrow">Budget</span>
-        <h1 class="page-title">Budget Planner</h1>
+        <h1 class="page-title">Expenses</h1>
       </div>
-      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#setBudgetModal">
-        <i class="bi bi-sliders me-1"></i>Atur Total Budget
+      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+        <i class="bi bi-plus-lg me-1"></i>Tambah Pengeluaran
       </button>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-piggy-bank"></i></div>
-          <div class="stat-num">Rp 200jt</div>
-          <div class="stat-label">Total budget</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3">
-        <div class="stat-card">
           <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-wallet2"></i></div>
           <div class="stat-num">Rp 128jt</div>
-          <div class="stat-label">Total terpakai</div>
+          <div class="stat-label">Total pengeluaran</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-cash-coin"></i></div>
-          <div class="stat-num">Rp 72jt</div>
-          <div class="stat-label">Sisa budget</div>
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-calendar3"></i></div>
+          <div class="stat-num">Rp 10jt</div>
+          <div class="stat-label">Pengeluaran bulan ini</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-receipt"></i></div>
+          <div class="stat-num">11</div>
+          <div class="stat-label">Jumlah transaksi</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
           <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-graph-up"></i></div>
-          <div class="stat-num">64%</div>
-          <div class="stat-label">Persentase terpakai</div>
+          <div class="stat-num">Rp 11.6jt</div>
+          <div class="stat-label">Rata-rata per transaksi</div>
         </div>
       </div>
     </div>
 
-    <div class="row g-3">
-      <div class="col-lg-4">
-        <div class="card-plain h-100">
-          <div class="card-section-title"><i class="bi bi-pie-chart"></i>Alokasi Budget</div>
-          <div class="budget-donut mb-4">
-            <div class="budget-donut-label">
-              <div class="amt">64%</div>
-              <div class="lbl">Terpakai</div>
+    <div class="filter-bar">
+      <input type="text" placeholder="Cari deskripsi pengeluaran..." id="searchExpense" onkeyup="filterExpenses()">
+      <select id="filterCategory" onchange="filterExpenses()">
+        <option value="">Semua Kategori</option>
+        <option>Venue</option>
+        <option>Catering</option>
+        <option>Decoration</option>
+        <option>Photography &amp; Video</option>
+        <option>Attire &amp; MUA</option>
+        <option>Entertainment</option>
+        <option>Invitation &amp; Stationery</option>
+      </select>
+    </div>
+
+    <div class="card-plain">
+      <div id="expenseList">
+
+        <div class="expense-item" data-category="Venue" data-desc="dp sewa the garden estate">
+          <div class="expense-icon" style="background:#E9EDE7; color:#5C6B54;"><i class="bi bi-building"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Sewa The Garden Estate</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#E9EDE7; color:#4C5A46;"><span class="dot" style="background:#5C6B54;"></span>Venue</span>
+              <span class="sep">·</span>05 Jun 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
             </div>
           </div>
-          <div class="legend-item"><span class="legend-dot" style="background:#5C6B54;"></span>Venue <span class="ms-auto text-muted">22.5%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#B08D4F;"></span>Catering <span class="ms-auto text-muted">20%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#E3C9BE;"></span>Decoration <span class="ms-auto text-muted">16%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#8C9A5C;"></span>Photography &amp; Video <span class="ms-auto text-muted">12.5%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#96712E;"></span>Attire &amp; MUA <span class="ms-auto text-muted">10%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#7C8A74;"></span>Entertainment <span class="ms-auto text-muted">7.5%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#C9A98C;"></span>Invitation <span class="ms-auto text-muted">4%</span></div>
-          <div class="legend-item"><span class="legend-dot" style="background:#D8D2C4;"></span>Lain-lain <span class="ms-auto text-muted">7.5%</span></div>
+          <div class="expense-amount">Rp 22.500.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
         </div>
+
+        <div class="expense-item" data-category="Catering" data-desc="dp katering rasa nusantara">
+          <div class="expense-icon" style="background:#FBF3E7; color:#96712E;"><i class="bi bi-cup-hot"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Katering Rasa Nusantara</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#FBF3E7; color:#96712E;"><span class="dot" style="background:#B08D4F;"></span>Catering</span>
+              <span class="sep">·</span>05 Jun 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 15.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Decoration" data-desc="dp dekorasi bloom studio">
+          <div class="expense-icon" style="background:#FBF0EC; color:#A9776A;"><i class="bi bi-flower2"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Dekorasi Bloom Studio</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#FBF0EC; color:#A9776A;"><span class="dot" style="background:#E3C9BE;"></span>Decoration</span>
+              <span class="sep">·</span>10 Jun 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 16.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Attire &amp; MUA" data-desc="dp gaun pengantin">
+          <div class="expense-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-brush"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Gaun Pengantin</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#F6ECD9; color:#96712E;"><span class="dot" style="background:#96712E;"></span>Attire &amp; MUA</span>
+              <span class="sep">·</span>15 Sep 2025
+              <span class="method-chip"><i class="bi bi-cash"></i>Cash</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 5.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" style="opacity:.35; cursor:not-allowed;" title="Tidak ada bukti"><i class="bi bi-file-earmark-x"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Photography &amp; Video" data-desc="dp fotografer">
+          <div class="expense-icon" style="background:#EEF0E5; color:#6B7A4B;"><i class="bi bi-camera"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Fotografer</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#EEF0E5; color:#6B7A4B;"><span class="dot" style="background:#8C9A5C;"></span>Photography &amp; Video</span>
+              <span class="sep">·</span>01 Nov 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 8.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Invitation &amp; Stationery" data-desc="cetak undangan fisik & digital">
+          <div class="expense-icon" style="background:#F3EBE2; color:#9C7B54;"><i class="bi bi-envelope-paper"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">Cetak Undangan Fisik &amp; Digital</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#F3EBE2; color:#9C7B54;"><span class="dot" style="background:#C9A98C;"></span>Invitation &amp; Stationery</span>
+              <span class="sep">·</span>01 Des 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 7.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Photography &amp; Video" data-desc="pelunasan sesi prewedding">
+          <div class="expense-icon" style="background:#EEF0E5; color:#6B7A4B;"><i class="bi bi-camera"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">Pelunasan Sesi Prewedding</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#EEF0E5; color:#6B7A4B;"><span class="dot" style="background:#8C9A5C;"></span>Photography &amp; Video</span>
+              <span class="sep">·</span>10 Des 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 7.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Venue" data-desc="pelunasan sewa venue">
+          <div class="expense-icon" style="background:#E9EDE7; color:#5C6B54;"><i class="bi bi-building"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">Pelunasan Sewa Venue</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#E9EDE7; color:#4C5A46;"><span class="dot" style="background:#5C6B54;"></span>Venue</span>
+              <span class="sep">·</span>15 Des 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 22.500.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Catering" data-desc="pelunasan dp tahap 2">
+          <div class="expense-icon" style="background:#FBF3E7; color:#96712E;"><i class="bi bi-cup-hot"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">Pelunasan DP Tahap 2</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#FBF3E7; color:#96712E;"><span class="dot" style="background:#B08D4F;"></span>Catering</span>
+              <span class="sep">·</span>20 Des 2025
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 15.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Attire &amp; MUA" data-desc="fitting & aksesoris tambahan">
+          <div class="expense-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-brush"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">Fitting &amp; Aksesoris Tambahan</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#F6ECD9; color:#96712E;"><span class="dot" style="background:#96712E;"></span>Attire &amp; MUA</span>
+              <span class="sep">·</span>05 Jan 2026
+              <span class="method-chip"><i class="bi bi-cash"></i>Cash</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 5.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" style="opacity:.35; cursor:not-allowed;" title="Tidak ada bukti"><i class="bi bi-file-earmark-x"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
+        <div class="expense-item" data-category="Entertainment" data-desc="dp band live music">
+          <div class="expense-icon" style="background:#EFF1EC; color:#5F6C57;"><i class="bi bi-music-note-beamed"></i></div>
+          <div class="expense-body">
+            <div class="expense-title">DP Band Live Music</div>
+            <div class="expense-meta">
+              <span class="cat-chip" style="background:#EFF1EC; color:#5F6C57;"><span class="dot" style="background:#7C8A74;"></span>Entertainment</span>
+              <span class="sep">·</span>10 Jan 2026
+              <span class="method-chip"><i class="bi bi-bank"></i>Transfer Bank</span>
+            </div>
+          </div>
+          <div class="expense-amount">Rp 5.000.000</div>
+          <div class="expense-actions">
+            <span class="row-action" title="Lihat Bukti"><i class="bi bi-file-earmark-check"></i></span>
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+        </div>
+
       </div>
 
-      <div class="col-lg-8">
-        <div class="card-plain">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="card-section-title mb-0"><i class="bi bi-list-ul"></i>Rincian per Kategori</div>
-            <a href="budget-categories.html" class="link-gold" style="font-size:.8rem; text-decoration:none; color:var(--gold);">Kelola Kategori &rarr;</a>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#5C6B54;"></span>Venue</span>
-              <span class="cat-amounts">Rp 45.000.000 / Rp 45.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:100%; background:#5C6B54;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#B08D4F;"></span>Catering</span>
-              <span class="cat-amounts">Rp 30.000.000 / Rp 40.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:75%; background:#B08D4F;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#E3C9BE;"></span>Decoration</span>
-              <span class="cat-amounts">Rp 16.000.000 / Rp 32.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:50%; background:#E3C9BE;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#8C9A5C;"></span>Photography &amp; Video</span>
-              <span class="cat-amounts">Rp 15.000.000 / Rp 25.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:60%; background:#8C9A5C;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#96712E;"></span>Attire &amp; MUA</span>
-              <span class="cat-amounts">Rp 10.000.000 / Rp 20.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:50%; background:#96712E;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#7C8A74;"></span>Entertainment</span>
-              <span class="cat-amounts">Rp 5.000.000 / Rp 15.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:33%; background:#7C8A74;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#C9A98C;"></span>Invitation &amp; Stationery</span>
-              <span class="cat-amounts">Rp 7.000.000 / Rp 8.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:88%; background:#C9A98C;"></div></div>
-          </div>
-
-          <div class="cat-row">
-            <div class="cat-row-head d-flex justify-content-between">
-              <span class="cat-name"><span class="cat-icon-dot" style="background:#D8D2C4;"></span>Lain-lain</span>
-              <span class="cat-amounts">Rp 0 / Rp 15.000.000</span>
-            </div>
-            <div class="progress"><div class="progress-bar" style="width:0%; background:#D8D2C4;"></div></div>
-          </div>
-
-        </div>
+      <div class="expense-total-bar">
+        <span style="font-size:.85rem; letter-spacing:.04em; text-transform:uppercase; opacity:.85;">Total Pengeluaran</span>
+        <span class="amt">Rp 128.000.000</span>
       </div>
     </div>
 
   </div>
 </div>
 
-<div class="modal fade" id="setBudgetModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addExpenseModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius:12px; border:none;">
       <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
-        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Atur Total Budget</h5>
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Pengeluaran</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form onsubmit="return false;">
-          <div class="mb-3">
-            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Total Budget Pernikahan</label>
-            <input type="text" class="form-control" value="Rp 200.000.000">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Tanggal</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Kategori</label>
+              <select class="form-control">
+                <option>Venue</option>
+                <option>Catering</option>
+                <option>Decoration</option>
+                <option>Photography &amp; Video</option>
+                <option>Attire &amp; MUA</option>
+                <option>Entertainment</option>
+                <option>Invitation &amp; Stationery</option>
+                <option>Lain-lain</option>
+              </select>
+            </div>
           </div>
-          <p class="text-muted mb-0" style="font-size:.82rem;">
-            Mengubah total budget akan otomatis menyesuaikan persentase alokasi pada setiap kategori. Rincian per kategori dapat diatur lebih lanjut di halaman Categories.
-          </p>
+          <div class="mb-3">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Deskripsi</label>
+            <input type="text" class="form-control" placeholder="Contoh: Pelunasan DP Fotografer">
+          </div>
+          <div class="row g-3 mb-2">
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jumlah</label>
+              <input type="text" class="form-control" placeholder="Rp 0">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Metode Pembayaran</label>
+              <select class="form-control">
+                <option>Transfer Bank</option>
+                <option>Cash</option>
+                <option>Kartu Kredit</option>
+                <option>E-Wallet</option>
+              </select>
+            </div>
+          </div>
         </form>
       </div>
       <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
         <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
-        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Pengeluaran</button>
       </div>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function filterExpenses(){
+    const q = document.getElementById('searchExpense').value.toLowerCase();
+    const cat = document.getElementById('filterCategory').value;
+    document.querySelectorAll('#expenseList .expense-item').forEach(item => {
+      const desc = item.dataset.desc;
+      const rowCat = item.dataset.category.replace('&amp;','&');
+      const matchQ = desc.includes(q);
+      const matchCat = !cat || rowCat === cat;
+      item.style.display = (matchQ && matchCat) ? '' : 'none';
+    });
+  }
+</script>
 <script>
   function toggleSidebar(forceClose){
     const sb = document.getElementById('sidebar');

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline — Selaras Wedding Planner</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ivory:#FAF6EF;
+    --sage:#5C6B54;
+    --sage-dark:#3E4A38;
+    --gold:#B08D4F;
+    --blush:#E3C9BE;
+    --charcoal:#2B2723;
+    --sidebar-w:272px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    color:var(--charcoal);
+    background:#F2EFE8;
+    letter-spacing:.01em;
+  }
+  h1,h2,h3,.display-font{ font-family:'Cormorant Garamond', serif; font-weight:600; }
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0;
+    width:var(--sidebar-w);
+    background:#fff;
+    border-right:1px solid rgba(0,0,0,.06);
+    overflow-y:auto;
+    z-index:1000;
+    transition:transform .3s ease;
+  }
+  .sidebar-brand{
+    padding:1.4rem 1.4rem 1.1rem;
+    display:flex; align-items:center; gap:.6rem;
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  .sidebar-brand svg{ width:34px; height:34px; }
+  .sidebar-brand span{ font-family:'Cormorant Garamond', serif; font-size:1.25rem; color:var(--sage-dark); }
+
+  .sidebar-nav{ padding:.8rem .8rem 2rem; }
+  .nav-group-title{
+    font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:#9a9488; padding:.9rem .7rem .3rem;
+  }
+  .sidebar .nav-link{
+    color:var(--charcoal);
+    font-size:.88rem;
+    padding:.55rem .7rem;
+    border-radius:6px;
+    display:flex; align-items:center; gap:.65rem;
+    cursor:pointer;
+    text-decoration:none;
+  }
+  .sidebar .nav-link i.menu-icon{ font-size:1.05rem; color:var(--sage); width:20px; text-align:center; }
+  .sidebar .nav-link:hover{ background:#F5F1E9; }
+  .sidebar .nav-link.parent{ font-weight:500; }
+  .sidebar .nav-link .chevron{ margin-left:auto; font-size:.75rem; transition:transform .25s ease; color:#b3ab9c; }
+  .sidebar .nav-link[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
+
+  .submenu{ padding-left:2.15rem; }
+  .submenu .nav-link{ font-size:.84rem; padding:.4rem .6rem; color:#5c574d; }
+  .submenu .nav-link.active{ color:var(--gold); font-weight:500; background:#FBF3E7; }
+  .submenu .nav-link:hover{ color:var(--sage-dark); }
+
+  .nav-link.single.active{ background:var(--sage-dark); color:#fff; }
+  .nav-link.single.active i.menu-icon{ color:var(--blush); }
+
+  .logout-link{ color:#a8493d !important; }
+  .logout-link i{ color:#a8493d !important; }
+
+  /* ===== Topbar ===== */
+  .topbar{
+    position:sticky; top:0; z-index:900;
+    background:#fff;
+    border-bottom:1px solid rgba(0,0,0,.06);
+    padding:.85rem 1.5rem;
+    display:flex; align-items:center; gap:1rem;
+  }
+  .search-box{
+    background:#F5F1E9; border-radius:8px;
+    padding:.5rem .9rem;
+    display:flex; align-items:center; gap:.5rem;
+    flex:1; max-width:360px;
+  }
+  .search-box input{
+    border:none; background:transparent; outline:none; font-size:.85rem; width:100%;
+    font-family:'Jost', sans-serif;
+  }
+  .topbar .icon-btn{
+    width:38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:#F5F1E9; color:var(--sage-dark); position:relative;
+    cursor:pointer;
+  }
+  .icon-btn .dot{
+    position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%;
+    background:var(--gold); border:1.5px solid #fff;
+  }
+  .avatar{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--sage-dark); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-size:1.1rem;
+  }
+
+  /* ===== Main ===== */
+  .main-wrap{ margin-left:var(--sidebar-w); min-height:100vh; }
+  .content{ padding:1.8rem 1.8rem 3rem; }
+
+  .breadcrumb-eyebrow{
+    font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold);
+  }
+  .page-title{ font-size:1.9rem; color:var(--sage-dark); }
+
+  .card-plain{
+    background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem;
+  }
+
+  /* Stat cards */
+  .stat-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.3rem 1.4rem; height:100%; }
+  .stat-card .stat-icon{
+    width:44px; height:44px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+    margin-bottom:.9rem;
+  }
+  .stat-num{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--charcoal); font-weight:600; }
+  .stat-label{ font-size:.8rem; color:#8a8477; }
+  .stat-trend{ font-size:.76rem; }
+
+  /* Countdown */
+  .countdown-card{
+    background:var(--sage-dark); color:var(--ivory);
+    border-radius:12px; padding:1.8rem 2rem;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1.2rem;
+  }
+  .countdown-num{ font-family:'Cormorant Garamond', serif; font-size:3rem; color:#fff; line-height:1; }
+
+  .progress{ height:8px; border-radius:6px; background:#F0ECE2; }
+  .progress-bar-gold{ background:var(--gold); }
+  .progress-bar-sage{ background:var(--sage); }
+
+  .task-item{ display:flex; align-items:flex-start; gap:.75rem; padding:.7rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .task-item:last-child{ border-bottom:none; }
+  .task-check{ width:20px; height:20px; border-radius:6px; border:1.5px solid #ddd; flex-shrink:0; margin-top:2px; }
+  .task-check.done{ background:var(--sage); border-color:var(--sage); position:relative; }
+  .task-check.done::after{ content:"\2713"; color:#fff; font-size:.7rem; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+
+  .activity-item{ display:flex; gap:.8rem; padding:.65rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .activity-item:last-child{ border-bottom:none; }
+  .activity-dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:.4rem; flex-shrink:0; }
+
+  .badge-soft{ border-radius:20px; padding:.3rem .7rem; font-size:.72rem; font-weight:500; }
+  .badge-green{ background:#E7EDE3; color:#4C6B3E; }
+  .badge-amber{ background:#F6ECD9; color:#96712E; }
+  .badge-red{ background:#F5E3E0; color:#A8493D; }
+
+  /* Informasi Wedding page */
+  .page-header-row{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
+  .card-section-title{ font-size:.95rem; font-weight:500; color:var(--sage-dark); display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+  .card-section-title i{ color:var(--gold); font-size:1.1rem; }
+
+  .info-avatar{
+    width:64px; height:64px; border-radius:50%;
+    background:var(--blush); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:600;
+    flex-shrink:0;
+  }
+  .info-avatar.groom{ background:var(--sage-dark); color:#fff; }
+
+  .info-row{ display:flex; justify-content:space-between; gap:1rem; padding:.55rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .info-row:last-child{ border-bottom:none; }
+  .info-label{ font-size:.8rem; color:#8a8477; }
+  .info-value{ font-size:.87rem; font-weight:500; text-align:right; }
+
+  .btn-gold-outline{
+    border:1px solid var(--gold); color:var(--gold); background:transparent;
+    padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase;
+    border-radius:6px; transition:all .25s ease;
+  }
+  .btn-gold-outline:hover{ background:var(--gold); color:#fff; }
+  .btn-gold-solid{
+    border:1px solid var(--gold); background:var(--gold); color:#fff;
+    padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase;
+    border-radius:6px; transition:all .25s ease;
+  }
+  .btn-gold-solid:hover{ background:transparent; color:var(--gold); }
+
+  .map-placeholder{
+    height:180px; border-radius:10px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(92,107,84,.12), transparent 55%),
+      radial-gradient(circle at 75% 65%, rgba(176,141,79,.14), transparent 55%),
+      #F1EDE3;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sage-dark); font-size:1.8rem;
+    border:1px solid rgba(0,0,0,.06);
+  }
+
+  .color-swatch-row{ display:flex; gap:.7rem; flex-wrap:wrap; }
+  .color-swatch{ text-align:center; font-size:.72rem; color:#8a8477; }
+  .color-swatch .dot{ width:44px; height:44px; border-radius:10px; margin-bottom:.4rem; border:1px solid rgba(0,0,0,.08); }
+
+  .theme-tag{
+    display:inline-block; background:#FBF3E7; color:#96712E;
+    padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
+  }
+
+  /* Timeline page */
+  .timeline-filter{ display:flex; gap:.5rem; margin-bottom:1.6rem; flex-wrap:wrap; }
+  .timeline-filter button{
+    border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--charcoal);
+    font-size:.8rem; padding:.4rem 1rem; border-radius:20px; transition:all .2s ease;
+  }
+  .timeline-filter button:hover{ border-color:var(--gold); }
+  .timeline-filter button.active{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
+
+  .timeline-wrap{ position:relative; padding-left:2.6rem; }
+  .timeline-wrap::before{
+    content:""; position:absolute; left:11px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--sage), rgba(0,0,0,.08));
+  }
+  .timeline-item{ position:relative; margin-bottom:1.4rem; }
+  .timeline-item:last-child{ margin-bottom:0; }
+  .timeline-dot{
+    position:absolute; left:-2.6rem; top:.25rem; width:24px; height:24px; border-radius:50%;
+    background:#fff; border:2px solid #ddd; display:flex; align-items:center; justify-content:center; font-size:.7rem; color:#fff;
+    z-index:1;
+  }
+  .timeline-dot.done{ background:var(--sage); border-color:var(--sage); }
+  .timeline-dot.active{ background:var(--gold); border-color:var(--gold); box-shadow:0 0 0 4px rgba(176,141,79,.18); }
+  .timeline-dot.upcoming{ background:#fff; border-color:#ccc; }
+  .timeline-dot.milestone{ background:var(--sage-dark); border-color:var(--sage-dark); width:28px; height:28px; left:-2.75rem; }
+
+  .timeline-card{
+    background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:10px; padding:1rem 1.2rem;
+  }
+  .timeline-card.milestone-card{ background:var(--sage-dark); color:#fff; border:none; }
+  .timeline-card.milestone-card .timeline-date{ color:var(--blush); }
+  .timeline-card.milestone-card .text-muted{ color:rgba(255,255,255,.75) !important; }
+
+  .timeline-date{ font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); font-weight:500; }
+  .timeline-title{ font-size:.95rem; font-weight:500; margin:.15rem 0 .25rem; }
+
+  /* Generic placeholder page */
+  .empty-state{
+    background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
+    padding:4rem 2rem; text-align:center;
+  }
+  .empty-state i{ font-size:2.4rem; color:var(--gold); margin-bottom:1rem; display:block; }
+
+  /* Mobile */
+  .sidebar-toggle{ display:none; }
+  @media (max-width: 991.98px){
+    .sidebar{ transform:translateX(-100%); box-shadow:0 0 30px rgba(0,0,0,.15); }
+    .sidebar.open{ transform:translateX(0); }
+    .main-wrap{ margin-left:0; }
+    .sidebar-toggle{ display:flex; }
+    .search-box{ display:none; }
+  }
+  .overlay{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999;
+  }
+  .overlay.show{ display:block; }
+</style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="42" fill="none" stroke="#5C6B54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+      <g fill="none" stroke="#5C6B54" stroke-width="1.6" stroke-linecap="round">
+        <path d="M26,72 C19,64 19,50 26,40"/>
+        <path d="M94,72 C101,64 101,50 94,40"/>
+      </g>
+      <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#3E4A38">S</text>
+    </svg>
+    <span>Selaras Wedding</span>
+  </div>
+  <div class="sidebar-nav">
+    <a class="nav-link single" href="dashboard.html">
+      <i class="bi bi-house menu-icon"></i> Overview
+    </a>
+    <div class="nav-group-title">Perencanaan</div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-wedding" aria-expanded="true">
+      <i class="bi bi-gem menu-icon"></i> Wedding <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse show submenu" id="menu-wedding">
+      <a class="nav-link" href="wedding-informasi.html">Informasi Wedding</a>
+      <a class="nav-link active" href="wedding-timeline.html">Timeline</a>
+      <a class="nav-link" href="wedding-rundown.html">Rundown Acara</a>
+      <a class="nav-link" href="wedding-venue.html">Venue</a>
+      <a class="nav-link" href="wedding-theme.html">Theme &amp; Decoration</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-budget" aria-expanded="false">
+      <i class="bi bi-wallet2 menu-icon"></i> Budget <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-budget">
+      <a class="nav-link" href="budget-planner.html">Budget Planner</a>
+      <a class="nav-link" href="budget-categories.html">Categories</a>
+      <a class="nav-link" href="budget-expenses.html">Expenses</a>
+      <a class="nav-link" href="budget-payments.html">Payments</a>
+      <a class="nav-link" href="budget-report.html">Financial Report</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="false">
+      <i class="bi bi-people menu-icon"></i> Guests <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-guests">
+      <a class="nav-link" href="guests-list.html">Guest List</a>
+      <a class="nav-link" href="guests-groups.html">Guest Groups</a>
+      <a class="nav-link" href="guests-rsvp.html">RSVP</a>
+      <a class="nav-link" href="guests-seating.html">Seating Plan</a>
+      <a class="nav-link" href="guests-checkin.html">QR Check-in</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-vendors" aria-expanded="false">
+      <i class="bi bi-building menu-icon"></i> Vendors <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-vendors">
+      <a class="nav-link" href="vendors-list.html">Vendor List</a>
+      <a class="nav-link" href="vendors-booking.html">Vendor Booking</a>
+      <a class="nav-link" href="vendors-payments.html">Payments</a>
+      <a class="nav-link" href="vendors-contracts.html">Contracts</a>
+      <a class="nav-link" href="vendors-reviews.html">Reviews</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-planning" aria-expanded="false">
+      <i class="bi bi-check2-square menu-icon"></i> Planning <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-planning">
+      <a class="nav-link" href="planning-checklist.html">Checklist</a>
+      <a class="nav-link" href="planning-tasks.html">Tasks</a>
+      <a class="nav-link" href="planning-calendar.html">Calendar</a>
+      <a class="nav-link" href="planning-notes.html">Notes</a>
+    </div>
+    <div class="nav-group-title">Arsip &amp; Media</div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-documents" aria-expanded="false">
+      <i class="bi bi-folder2-open menu-icon"></i> Documents <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-documents">
+      <a class="nav-link" href="documents-contracts.html">Contracts</a>
+      <a class="nav-link" href="documents-invoices.html">Invoices</a>
+      <a class="nav-link" href="documents-proof.html">Payment Proof</a>
+      <a class="nav-link" href="documents-other.html">Other Files</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-gallery" aria-expanded="false">
+      <i class="bi bi-image menu-icon"></i> Gallery <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-gallery">
+      <a class="nav-link" href="gallery-photos.html">Photos</a>
+      <a class="nav-link" href="gallery-videos.html">Videos</a>
+      <a class="nav-link" href="gallery-albums.html">Albums</a>
+    </div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-reports" aria-expanded="false">
+      <i class="bi bi-bar-chart menu-icon"></i> Reports <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-reports">
+      <a class="nav-link" href="reports-budget.html">Budget Report</a>
+      <a class="nav-link" href="reports-guest.html">Guest Report</a>
+      <a class="nav-link" href="reports-vendor.html">Vendor Report</a>
+      <a class="nav-link" href="reports-summary.html">Wedding Summary</a>
+    </div>
+    <div class="nav-group-title">Sistem</div>
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-settings" aria-expanded="false">
+      <i class="bi bi-gear menu-icon"></i> Settings <i class="bi bi-chevron-down chevron"></i>
+    </a>
+    <div class="collapse submenu" id="menu-settings">
+      <a class="nav-link" href="settings-wedding.html">Wedding Information</a>
+      <a class="nav-link" href="settings-profile.html">Couple Profile</a>
+      <a class="nav-link" href="settings-notification.html">Notification</a>
+      <a class="nav-link" href="settings-members.html">Members</a>
+      <a class="nav-link" href="settings-account.html">Account</a>
+    </div>
+    <a class="nav-link single logout-link mt-2" href="login.html">
+      <i class="bi bi-box-arrow-right menu-icon"></i> Logout
+    </a>
+  </div>
+</aside>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="main-wrap">
+
+  <div class="topbar">
+    <div class="sidebar-toggle icon-btn" onclick="toggleSidebar()"><i class="bi bi-list fs-5"></i></div>
+    <div class="search-box">
+      <i class="bi bi-search" style="color:#a8a192;"></i>
+      <input type="text" placeholder="Cari sesuatu...">
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <div class="icon-btn"><i class="bi bi-bell"></i><span class="dot"></span></div>
+      <div class="icon-btn"><i class="bi bi-envelope"></i></div>
+      <div class="dropdown">
+        <div class="d-flex align-items-center gap-2" style="cursor:pointer;" data-bs-toggle="dropdown">
+          <div class="avatar">DB</div>
+          <div class="d-none d-md-block">
+            <div style="font-size:.85rem; font-weight:500;">Dinda &amp; Bagas</div>
+            <div style="font-size:.72rem; opacity:.6;">Paket Signature</div>
+          </div>
+          <i class="bi bi-chevron-down" style="font-size:.7rem; opacity:.6;"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end mt-2">
+          <li><a class="dropdown-item" href="settings-profile.html">Profil Pasangan</a></li>
+          <li><a class="dropdown-item" href="settings-account.html">Pengaturan Akun</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="login.html">Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="content">
+
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Wedding</span>
+        <h1 class="page-title">Timeline</h1>
+      </div>
+      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addMilestoneModal">
+        <i class="bi bi-plus-lg me-1"></i>Tambah Milestone
+      </button>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-check2-circle"></i></div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Milestone selesai</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-hourglass-split"></i></div>
+          <div class="stat-num">1</div>
+          <div class="stat-label">Sedang berjalan</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-calendar3"></i></div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Mendatang</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-flag"></i></div>
+          <div class="stat-num">87</div>
+          <div class="stat-label">Hari ke hari-H</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-filter">
+      <button class="active" onclick="filterTimeline(this,'all')">Semua</button>
+      <button onclick="filterTimeline(this,'done')">Selesai</button>
+      <button onclick="filterTimeline(this,'active')">Berlangsung</button>
+      <button onclick="filterTimeline(this,'upcoming')">Mendatang</button>
+    </div>
+
+    <div class="card-plain">
+      <div class="timeline-wrap" id="timelineList">
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">10 Januari 2025</div>
+            <div class="timeline-title">Lamaran</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Acara lamaran keluarga Dinda &amp; Bagas berlangsung di kediaman keluarga mempelai wanita.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">15 Februari 2025</div>
+            <div class="timeline-title">Survey &amp; Pemilihan Venue</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Mengunjungi 4 kandidat venue sebelum akhirnya memilih The Garden Estate.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">1 Juni 2025</div>
+            <div class="timeline-title">Booking Venue &amp; Vendor Utama</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">DP venue, katering, dan dekorasi telah dibayarkan dan kontrak ditandatangani.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">1 September 2025</div>
+            <div class="timeline-title">Fitting Baju Pengantin — Sesi 1</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Pengukuran awal dan pemilihan desain gaun serta jas pengantin.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">1 Desember 2025</div>
+            <div class="timeline-title">Cetak &amp; Desain Undangan</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Undangan fisik dan digital selesai dicetak, siap didistribusikan.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="done">
+          <div class="timeline-dot done"><i class="bi bi-check-lg"></i></div>
+          <div class="timeline-card">
+            <div class="timeline-date">5 Januari 2026</div>
+            <div class="timeline-title">Fitting Baju Pengantin — Sesi 2</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Penyesuaian akhir ukuran gaun dan jas sebelum hari pernikahan.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="active">
+          <div class="timeline-dot active"><i class="bi bi-hourglass-split"></i></div>
+          <div class="timeline-card" style="border-color:var(--gold);">
+            <div class="timeline-date">Berlangsung — Januari 2026</div>
+            <div class="timeline-title">Distribusi Undangan Gelombang 2</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">126 dari 184 tamu sudah menerima undangan dan mengonfirmasi RSVP.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="upcoming">
+          <div class="timeline-dot upcoming"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">10 Februari 2026</div>
+            <div class="timeline-title">Pelunasan Seluruh Vendor</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Pembayaran tahap akhir untuk venue, katering, dekorasi, dan fotografer.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="upcoming">
+          <div class="timeline-dot upcoming"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">1 Maret 2026</div>
+            <div class="timeline-title">Gladi Resik</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Simulasi rundown acara bersama keluarga, MC, dan tim vendor di venue.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="upcoming">
+          <div class="timeline-dot milestone"><i class="bi bi-gem"></i></div>
+          <div class="timeline-card milestone-card">
+            <div class="timeline-date">14 Maret 2026</div>
+            <div class="timeline-title">Hari Pernikahan 🎉</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Akad nikah pukul 08.00 WIB, resepsi pukul 11.00–15.00 WIB di The Garden Estate.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item" data-status="upcoming">
+          <div class="timeline-dot upcoming"></div>
+          <div class="timeline-card">
+            <div class="timeline-date">20 Maret 2026</div>
+            <div class="timeline-title">Bulan Madu</div>
+            <p class="text-muted mb-0" style="font-size:.85rem;">Keberangkatan bulan madu ke Bali selama 5 hari.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="addMilestoneModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:12px; border:none;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Milestone</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="return false;">
+          <div class="mb-3">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Milestone</label>
+            <input type="text" class="form-control" placeholder="Contoh: Fitting Baju Sesi 3">
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Tanggal</label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Status</label>
+              <select class="form-control">
+                <option>Mendatang</option>
+                <option>Berlangsung</option>
+                <option>Selesai</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Catatan</label>
+            <textarea class="form-control" rows="3" placeholder="Deskripsi singkat milestone ini..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
+        <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Milestone</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function filterTimeline(btn, status){
+    document.querySelectorAll('.timeline-filter button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#timelineList .timeline-item').forEach(item => {
+      item.style.display = (status === 'all' || item.dataset.status === status) ? '' : 'none';
+    });
+  }
+</script>
+<script>
+  function toggleSidebar(forceClose){
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    if(forceClose){ sb.classList.remove('open'); ov.classList.remove('show'); return; }
+    sb.classList.toggle('open');
+    ov.classList.toggle('show');
+  }
+</script>
+</body>
+</html>
