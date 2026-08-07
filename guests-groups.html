@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guest List — Selaras Wedding Planner</title>
+<title>Guest Groups — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,6 +217,24 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
+  /* Guest Groups page */
+  .group-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; height:100%; position:relative; transition:all .25s ease; }
+  .group-card:hover{ box-shadow:0 12px 28px rgba(60,55,45,.08); transform:translateY(-3px); }
+  .group-card-icon{
+    width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; margin-bottom:1rem;
+  }
+  .group-card-actions{ position:absolute; top:1.2rem; right:1.2rem; display:flex; gap:.4rem; }
+  .group-card-num{ font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:600; color:var(--charcoal); }
+  .group-card-sub{ font-size:.8rem; color:#8a8477; margin-bottom:1rem; }
+  .stack-bar{ height:8px; border-radius:6px; overflow:hidden; display:flex; margin-bottom:.7rem; background:#F0ECE2; }
+  .stack-seg{ height:100%; }
+  .stack-legend{ display:flex; gap:1rem; font-size:.72rem; color:#8a8477; flex-wrap:wrap; }
+  .stack-legend span{ display:flex; align-items:center; gap:.3rem; }
+  .stack-legend .dot{ width:7px; height:7px; border-radius:50%; }
+  .group-card-link{ font-size:.8rem; color:var(--gold); text-decoration:none; display:inline-block; margin-top:1rem; }
+  .group-card-link:hover{ color:var(--sage-dark); }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
@@ -282,8 +300,8 @@
       <i class="bi bi-people menu-icon"></i> Guests <i class="bi bi-chevron-down chevron"></i>
     </a>
     <div class="collapse show submenu" id="menu-guests">
-      <a class="nav-link active" href="guests-list.html">Guest List</a>
-      <a class="nav-link" href="guests-groups.html">Guest Groups</a>
+      <a class="nav-link" href="guests-list.html">Guest List</a>
+      <a class="nav-link active" href="guests-groups.html">Guest Groups</a>
       <a class="nav-link" href="guests-rsvp.html">RSVP</a>
       <a class="nav-link" href="guests-seating.html">Seating Plan</a>
       <a class="nav-link" href="guests-checkin.html">QR Check-in</a>
@@ -384,16 +402,229 @@
 
   <div class="content" id="content">
 
-    <span class="breadcrumb-eyebrow">Guests</span>
-    <h1 class="page-title mb-4">Guest List</h1>
-    <div class="empty-state">
-      <i class="bi bi-people"></i>
-      <h3 class="mb-2" style="font-size:1.3rem;">Halaman ini sedang disiapkan</h3>
-      <p class="text-muted mb-0" style="max-width:420px; margin:0 auto;">
-        Konten untuk <strong>Guest List</strong> akan segera hadir. Bagian ini akan menampilkan data dan pengaturan terkait menu yang kamu pilih.
-      </p>
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Guests</span>
+        <h1 class="page-title">Guest Groups</h1>
+      </div>
+      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addGroupModal">
+        <i class="bi bi-plus-lg me-1"></i>Tambah Grup
+      </button>
     </div>
 
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-diagram-3"></i></div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Total grup tamu</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-people"></i></div>
+          <div class="stat-num">184</div>
+          <div class="stat-label">Total tamu diundang</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-emoji-smile"></i></div>
+          <div class="stat-num">Kel. Wanita</div>
+          <div class="stat-label">Grup terbanyak</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-hourglass-split"></i></div>
+          <div class="stat-num">Tmn Kerja</div>
+          <div class="stat-label">Menunggu paling banyak</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#FBF0EC; color:#A9776A;"><i class="bi bi-heart"></i></div>
+          <div class="group-card-num">40</div>
+          <div class="group-card-sub">tamu · 62 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Keluarga Mempelai Wanita</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:87.5%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:7.5%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:5%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>35 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>3 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>2 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#E9EDE7; color:#4C5A46;"><i class="bi bi-heart-fill"></i></div>
+          <div class="group-card-num">38</div>
+          <div class="group-card-sub">tamu · 58 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Keluarga Mempelai Pria</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:89.5%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:7.9%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:2.6%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>34 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>3 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>1 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#F3EBE2; color:#9C7B54;"><i class="bi bi-people-fill"></i></div>
+          <div class="group-card-num">18</div>
+          <div class="group-card-sub">tamu · 20 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Sahabat</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:83.3%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:11.1%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:5.6%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>15 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>2 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>1 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#EEF0E5; color:#6B7A4B;"><i class="bi bi-mortarboard"></i></div>
+          <div class="group-card-num">28</div>
+          <div class="group-card-sub">tamu · 30 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Teman Kuliah</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:67.9%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:25%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:7.1%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>19 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>7 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>2 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-briefcase"></i></div>
+          <div class="group-card-num">40</div>
+          <div class="group-card-sub">tamu · 26 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Teman Kerja</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:37.5%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:45%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:17.5%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>15 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>18 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>7 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="group-card">
+          <div class="group-card-actions">
+            <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+            <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+          </div>
+          <div class="group-card-icon" style="background:#F0EAE0; color:#7A6A55;"><i class="bi bi-house-heart"></i></div>
+          <div class="group-card-num">20</div>
+          <div class="group-card-sub">tamu · 16 pax dengan pendamping</div>
+          <div class="fw-medium mb-2" style="font-size:.9rem;">Kerabat</div>
+          <div class="stack-bar">
+            <div class="stack-seg" style="width:40%; background:#4C6B3E;"></div>
+            <div class="stack-seg" style="width:50%; background:#96712E;"></div>
+            <div class="stack-seg" style="width:10%; background:#A8493D;"></div>
+          </div>
+          <div class="stack-legend">
+            <span><span class="dot" style="background:#4C6B3E;"></span>8 Confirmed</span>
+            <span><span class="dot" style="background:#96712E;"></span>10 Pending</span>
+            <span><span class="dot" style="background:#A8493D;"></span>2 Declined</span>
+          </div>
+          <a href="guests-list.html" class="group-card-link">Lihat Detail Tamu &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="addGroupModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:12px; border:none;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Grup Tamu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="return false;">
+          <div class="mb-3">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Grup</label>
+            <input type="text" class="form-control" placeholder="Contoh: Tetangga">
+          </div>
+          <div class="mb-2">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Warna Label</label>
+            <div class="d-flex gap-2">
+              <span class="row-action" style="background:#A9776A; border-color:#A9776A;"></span>
+              <span class="row-action" style="background:#4C5A46; border-color:#4C5A46;"></span>
+              <span class="row-action" style="background:#9C7B54; border-color:#9C7B54;"></span>
+              <span class="row-action" style="background:#6B7A4B; border-color:#6B7A4B;"></span>
+              <span class="row-action" style="background:#96712E; border-color:#96712E;"></span>
+              <span class="row-action" style="background:#7A6A55; border-color:#7A6A55;"></span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
+        <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Grup</button>
+      </div>
+    </div>
   </div>
 </div>
 

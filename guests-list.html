@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payments — Selaras Wedding Planner</title>
+<title>Guest List — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,79 +217,43 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
-  /* Payments page */
-  .due-alert{
-    display:flex; align-items:center; gap:1rem;
-    background:#FBF3E7; border:1px solid #EBD9B8; border-radius:12px;
-    padding:1rem 1.4rem; margin-bottom:1.6rem;
+  /* Guest List page */
+  .filter-bar select{
+    border:1px solid rgba(0,0,0,.12); border-radius:8px; padding:.55rem .9rem; font-size:.84rem;
+    background:#fff; font-family:'Jost', sans-serif; color:var(--charcoal);
   }
-  .due-alert i{ font-size:1.5rem; color:#96712E; }
-  .due-alert .title{ font-size:.9rem; font-weight:500; color:#7a5a24; }
-  .due-alert .sub{ font-size:.8rem; color:#96712E; opacity:.85; }
 
-  .payment-item{
-    display:flex; gap:1.1rem; padding:1.2rem 0; border-bottom:1px solid rgba(0,0,0,.06);
+  .guest-table{ width:100%; border-collapse:collapse; }
+  .guest-table th{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:#9a9488;
+    text-align:left; padding:.8rem .7rem; border-bottom:1px solid rgba(0,0,0,.07); font-weight:500;
+    background:#FAF8F3;
   }
-  .payment-item:last-child{ border-bottom:none; }
-  .payment-icon{
-    width:50px; height:50px; border-radius:12px; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:1.3rem;
+  .guest-table td{
+    padding:.8rem .7rem; border-bottom:1px solid rgba(0,0,0,.05); font-size:.87rem;
+    vertical-align:middle; color:var(--charcoal);
   }
-  .payment-body{ flex:1; min-width:0; }
-  .payment-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:.5rem; }
-  .payment-name{ font-size:.95rem; font-weight:500; color:var(--charcoal); }
-  .payment-progress-line{ display:flex; align-items:center; gap:.8rem; margin-top:.5rem; }
-  .payment-progress-line .progress{ flex:1; }
-  .payment-progress-line .pct{ font-size:.76rem; color:#8a8477; width:34px; text-align:right; flex-shrink:0; }
+  .guest-table tbody tr:hover{ background:#FBF9F5; }
+  .guest-table tr:last-child td{ border-bottom:none; }
 
-  .due-badge{
-    font-size:.72rem; font-weight:500; padding:.25rem .7rem; border-radius:20px; white-space:nowrap;
+  .guest-name-cell{ display:flex; align-items:center; gap:.7rem; }
+  .guest-avatar{
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    background:var(--blush); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:.95rem;
   }
-  .due-soon{ background:#F6ECD9; color:#96712E; }
-  .due-none{ background:#F0EDE6; color:#8a8477; }
-  .due-done{ background:#E7EDE3; color:#4C6B3E; }
+  .guest-name{ font-weight:500; color:var(--charcoal); font-size:.87rem; }
+  .guest-sub{ font-size:.76rem; color:#9a9488; }
 
-  .btn-pay{
-    border:1px solid var(--gold); color:var(--gold); background:transparent;
-    font-size:.78rem; padding:.4rem 1rem; border-radius:6px; white-space:nowrap; transition:all .2s ease;
+  .group-chip{
+    display:inline-block; font-size:.72rem; font-weight:500; padding:.25rem .65rem; border-radius:20px;
   }
-  .btn-pay:hover{ background:var(--gold); color:#fff; }
-  .btn-pay:disabled{ opacity:.4; cursor:not-allowed; }
 
-  .amount-pair{ font-size:.8rem; color:#8a8477; }
-  .amount-pair strong{ color:var(--charcoal); font-weight:500; }
-
-  /* Payments page */
-  .payment-filter{ display:flex; gap:.5rem; margin-bottom:1.4rem; flex-wrap:wrap; }
-  .payment-filter button{
-    border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--charcoal);
-    font-size:.8rem; padding:.4rem 1rem; border-radius:20px; transition:all .2s ease;
+  .table-footer-note{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:1rem; font-size:.8rem; color:#9a9488;
   }
-  .payment-filter button:hover{ border-color:var(--gold); }
-  .payment-filter button.active{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
-
-  .payment-item{
-    display:flex; align-items:center; gap:1rem; padding:1.05rem 0;
-    border-bottom:1px solid rgba(0,0,0,.06);
-  }
-  .payment-item:last-child{ border-bottom:none; }
-  .payment-icon{
-    width:46px; height:46px; border-radius:10px; flex-shrink:0; background:#F5F1E9; color:var(--sage-dark);
-    display:flex; align-items:center; justify-content:center; font-size:1.15rem;
-  }
-  .payment-body{ flex:1; min-width:0; }
-  .payment-title{ font-size:.92rem; font-weight:500; color:var(--charcoal); margin-bottom:.3rem; }
-  .payment-meta{ font-size:.78rem; color:#8a8477; }
-  .payment-amount{
-    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem;
-    color:var(--charcoal); text-align:right; flex-shrink:0; min-width:120px;
-  }
-  .payment-side{ flex-shrink:0; text-align:right; min-width:130px; }
-  .btn-pay-now{
-    background:var(--gold); color:#fff; border:none; font-size:.72rem; font-weight:500;
-    padding:.35rem .8rem; border-radius:6px; margin-top:.4rem; letter-spacing:.03em; text-transform:uppercase;
-  }
-  .btn-pay-now:hover{ background:var(--sage-dark); }
 
   /* Generic placeholder page */
   .empty-state{
@@ -342,21 +306,21 @@
       <a class="nav-link" href="wedding-venue.html">Venue</a>
       <a class="nav-link" href="wedding-theme.html">Theme &amp; Decoration</a>
     </div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-budget" aria-expanded="true">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-budget" aria-expanded="false">
       <i class="bi bi-wallet2 menu-icon"></i> Budget <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse show submenu" id="menu-budget">
+    <div class="collapse submenu" id="menu-budget">
       <a class="nav-link" href="budget-planner.html">Budget Planner</a>
       <a class="nav-link" href="budget-categories.html">Categories</a>
       <a class="nav-link" href="budget-expenses.html">Expenses</a>
-      <a class="nav-link active" href="budget-payments.html">Payments</a>
+      <a class="nav-link" href="budget-payments.html">Payments</a>
       <a class="nav-link" href="budget-report.html">Financial Report</a>
     </div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="false">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="true">
       <i class="bi bi-people menu-icon"></i> Guests <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse submenu" id="menu-guests">
-      <a class="nav-link" href="guests-list.html">Guest List</a>
+    <div class="collapse show submenu" id="menu-guests">
+      <a class="nav-link active" href="guests-list.html">Guest List</a>
       <a class="nav-link" href="guests-groups.html">Guest Groups</a>
       <a class="nav-link" href="guests-rsvp.html">RSVP</a>
       <a class="nav-link" href="guests-seating.html">Seating Plan</a>
@@ -460,248 +424,345 @@
 
     <div class="page-header-row">
       <div>
-        <span class="breadcrumb-eyebrow">Budget</span>
-        <h1 class="page-title">Payments</h1>
+        <span class="breadcrumb-eyebrow">Guests</span>
+        <h1 class="page-title">Guest List</h1>
       </div>
-      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
-        <i class="bi bi-plus-lg me-1"></i>Tambah Jadwal
-      </button>
+      <div class="d-flex gap-2">
+        <button class="btn-gold-outline" type="button"><i class="bi bi-upload me-1"></i>Import Excel</button>
+        <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addGuestModal">
+          <i class="bi bi-person-plus me-1"></i>Tambah Tamu
+        </button>
+      </div>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-journal-text"></i></div>
-          <div class="stat-num">Rp 167jt</div>
-          <div class="stat-label">Total kewajiban</div>
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-people"></i></div>
+          <div class="stat-num">184</div>
+          <div class="stat-label">Total tamu diundang</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-check2-circle"></i></div>
-          <div class="stat-num">Rp 116jt</div>
-          <div class="stat-label">Sudah dibayar</div>
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-person-badge"></i></div>
+          <div class="stat-num">212</div>
+          <div class="stat-label">Total pax (dgn pendamping)</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-hourglass-split"></i></div>
-          <div class="stat-num">Rp 51jt</div>
-          <div class="stat-label">Belum dibayar</div>
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-envelope-check"></i></div>
+          <div class="stat-num">126</div>
+          <div class="stat-label">RSVP terkonfirmasi</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-alarm"></i></div>
-          <div class="stat-num">20 Jan</div>
-          <div class="stat-label">Jatuh tempo terdekat</div>
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-send"></i></div>
+          <div class="stat-num">160</div>
+          <div class="stat-label">Undangan terkirim</div>
         </div>
       </div>
     </div>
 
-    <div class="payment-filter">
-      <button class="active" onclick="filterPayments(this,'all')">Semua</button>
-      <button onclick="filterPayments(this,'lunas')">Lunas</button>
-      <button onclick="filterPayments(this,'menunggu')">Menunggu</button>
-      <button onclick="filterPayments(this,'jatuh-tempo')">Jatuh Tempo</button>
+    <div class="filter-bar">
+      <input type="text" placeholder="Cari nama tamu..." id="searchGuest" onkeyup="filterGuests()">
+      <select id="filterGroup" onchange="filterGuests()">
+        <option value="">Semua Grup</option>
+        <option>Keluarga Mempelai Wanita</option>
+        <option>Keluarga Mempelai Pria</option>
+        <option>Sahabat</option>
+        <option>Teman Kuliah</option>
+        <option>Teman Kerja</option>
+        <option>Kerabat</option>
+      </select>
+      <select id="filterRsvp" onchange="filterGuests()">
+        <option value="">Semua Status RSVP</option>
+        <option>Confirmed</option>
+        <option>Pending</option>
+        <option>Declined</option>
+      </select>
     </div>
 
     <div class="card-plain">
-      <div id="paymentList">
+      <div class="table-responsive">
+        <table class="guest-table" id="guestTable">
+          <thead>
+            <tr>
+              <th>Nama Tamu</th>
+              <th>Grup</th>
+              <th>No. HP</th>
+              <th>Pax</th>
+              <th>Undangan</th>
+              <th>RSVP</th>
+              <th class="text-end">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-building"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">The Garden Estate — DP Venue</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 05 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 22.500.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Keluarga Mempelai Wanita" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">H</div>
+                  <div>
+                    <div class="guest-name">Bpk. Hendra Wijaya</div>
+                    <div class="guest-sub">Ayah mempelai wanita</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#FBF0EC; color:#A9776A;">Keluarga Wanita</span></td>
+              <td>0812-1111-2222</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-building"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">The Garden Estate — Pelunasan Venue</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Dibayar 15 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 22.500.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Keluarga Mempelai Wanita" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">S</div>
+                  <div>
+                    <div class="guest-name">Ibu Sri Wahyuni</div>
+                    <div class="guest-sub">Ibu mempelai wanita</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#FBF0EC; color:#A9776A;">Keluarga Wanita</span></td>
+              <td>0812-1111-3333</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — DP Katering</div>
-            <div class="payment-meta">Tahap 1 dari 3 · Dibayar 05 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 15.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Keluarga Mempelai Pria" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">Y</div>
+                  <div>
+                    <div class="guest-name">Bpk. Yusuf Ramadhan</div>
+                    <div class="guest-sub">Ayah mempelai pria</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#E9EDE7; color:#4C5A46;">Keluarga Pria</span></td>
+              <td>0813-4444-5555</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — Pelunasan Tahap 2</div>
-            <div class="payment-meta">Tahap 2 dari 3 · Dibayar 20 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 15.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Keluarga Mempelai Pria" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">R</div>
+                  <div>
+                    <div class="guest-name">Ibu Rita Kusuma</div>
+                    <div class="guest-sub">Ibu mempelai pria</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#E9EDE7; color:#4C5A46;">Keluarga Pria</span></td>
+              <td>0813-4444-6666</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — Pelunasan Akhir</div>
-            <div class="payment-meta">Tahap 3 dari 3 · Jatuh tempo 10 Feb 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
+            <tr data-group="Sahabat" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">N</div>
+                  <div>
+                    <div class="guest-name">Nadia Salsabila</div>
+                    <div class="guest-sub">Sahabat Dinda</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#F3EBE2; color:#9C7B54;">Sahabat</span></td>
+              <td>0819-7777-8888</td>
+              <td>1</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-flower2"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Bloom Studio — DP Dekorasi</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 10 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 16.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Teman Kuliah" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">M</div>
+                  <div>
+                    <div class="guest-name">Maya Putri</div>
+                    <div class="guest-sub">Teman kuliah Dinda</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#EEF0E5; color:#6B7A4B;">Teman Kuliah</span></td>
+              <td>0821-2222-9999</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-flower2"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Bloom Studio — Pelunasan Dekorasi</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Jatuh tempo 10 Feb 2026</div>
-          </div>
-          <div class="payment-amount">Rp 16.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
+            <tr data-group="Teman Kuliah" data-rsvp="Pending">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">A</div>
+                  <div>
+                    <div class="guest-name">Andi Saputra</div>
+                    <div class="guest-sub">Teman kuliah Bagas</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#EEF0E5; color:#6B7A4B;">Teman Kuliah</span></td>
+              <td>0821-3333-1111</td>
+              <td>1</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-amber">Pending</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — DP</div>
-            <div class="payment-meta">Tahap 1 dari 3 · Dibayar 01 Nov 2025</div>
-          </div>
-          <div class="payment-amount">Rp 8.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Teman Kerja" data-rsvp="Pending">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">R</div>
+                  <div>
+                    <div class="guest-name">Rangga Pratama</div>
+                    <div class="guest-sub">Teman kerja Bagas</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#F6ECD9; color:#96712E;">Teman Kerja</span></td>
+              <td>0852-4444-2222</td>
+              <td>1</td>
+              <td><i class="bi bi-dash-circle" style="color:#c7c1b3;"></i></td>
+              <td><span class="badge-soft badge-amber">Pending</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — Pelunasan Prewedding</div>
-            <div class="payment-meta">Tahap 2 dari 3 · Dibayar 10 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 7.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+            <tr data-group="Teman Kerja" data-rsvp="Declined">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">S</div>
+                  <div>
+                    <div class="guest-name">Sinta Dewi</div>
+                    <div class="guest-sub">Teman kerja Dinda</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#F6ECD9; color:#96712E;">Teman Kerja</span></td>
+              <td>0852-5555-3333</td>
+              <td>1</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-red">Declined</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — Pelunasan Hari-H</div>
-            <div class="payment-meta">Tahap 3 dari 3 · Jatuh tempo 01 Mar 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
+            <tr data-group="Kerabat" data-rsvp="Confirmed">
+              <td>
+                <div class="guest-name-cell">
+                  <div class="guest-avatar">A</div>
+                  <div>
+                    <div class="guest-name">Bpk. Agus Setiawan</div>
+                    <div class="guest-sub">Kerabat keluarga</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="group-chip" style="background:#F0EAE0; color:#7A6A55;">Kerabat</span></td>
+              <td>0878-6666-4444</td>
+              <td>2</td>
+              <td><i class="bi bi-check-circle-fill" style="color:#4C6B3E;"></i></td>
+              <td><span class="badge-soft badge-green">Confirmed</span></td>
+              <td class="text-end">
+                <span class="row-action" title="Edit"><i class="bi bi-pencil"></i></span>
+                <span class="row-action danger" title="Hapus"><i class="bi bi-trash"></i></span>
+              </td>
+            </tr>
 
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-brush"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Kirana Makeup — DP</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 15 Sep 2025</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
+          </tbody>
+        </table>
+      </div>
 
-        <div class="payment-item" data-status="jatuh-tempo">
-          <div class="payment-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-brush"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Kirana Makeup — Sisa Pembayaran</div>
-            <div class="payment-meta" style="color:#A8493D;">Tahap 2 dari 2 · Jatuh tempo 20 Jan 2026 — segera bayar</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-red">Jatuh Tempo</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-music-note-beamed"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Band Live Music — DP</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 10 Jan 2026</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
-
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-music-note-beamed"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Band Live Music — Pelunasan</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Jatuh tempo 01 Mar 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
-
+      <div class="table-footer-note">
+        <span>Menampilkan 10 dari 184 tamu</span>
+        <a href="guests-groups.html" style="color:var(--gold); text-decoration:none;">Kelola Grup Tamu &rarr;</a>
       </div>
     </div>
 
   </div>
 </div>
 
-<div class="modal fade" id="addPaymentModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addGuestModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content" style="border-radius:12px; border:none;">
       <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
-        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Jadwal Pembayaran</h5>
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Tamu</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form onsubmit="return false;">
           <div class="mb-3">
-            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Vendor</label>
-            <input type="text" class="form-control" placeholder="Contoh: Kirana Makeup">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Tamu</label>
+            <input type="text" class="form-control" placeholder="Contoh: Bpk. Rudi Hartono">
           </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Deskripsi Tahap</label>
-            <input type="text" class="form-control" placeholder="Contoh: Pelunasan Tahap 2 dari 2">
-          </div>
-          <div class="row g-3 mb-2">
+          <div class="row g-3 mb-3">
             <div class="col-md-6">
-              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jumlah</label>
-              <input type="text" class="form-control" placeholder="Rp 0">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Grup</label>
+              <select class="form-control">
+                <option>Keluarga Mempelai Wanita</option>
+                <option>Keluarga Mempelai Pria</option>
+                <option>Sahabat</option>
+                <option>Teman Kuliah</option>
+                <option>Teman Kerja</option>
+                <option>Kerabat</option>
+              </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jatuh Tempo</label>
-              <input type="date" class="form-control">
+              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jumlah Pax</label>
+              <input type="number" class="form-control" value="1" min="1">
             </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">No. HP</label>
+            <input type="text" class="form-control" placeholder="08xx-xxxx-xxxx">
           </div>
         </form>
       </div>
       <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
         <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
-        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Jadwal</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Tamu</button>
       </div>
     </div>
   </div>
@@ -709,11 +770,16 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function filterPayments(btn, status){
-    document.querySelectorAll('.payment-filter button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#paymentList .payment-item').forEach(item => {
-      item.style.display = (status === 'all' || item.dataset.status === status) ? '' : 'none';
+  function filterGuests(){
+    const q = document.getElementById('searchGuest').value.toLowerCase();
+    const grp = document.getElementById('filterGroup').value;
+    const rsvp = document.getElementById('filterRsvp').value;
+    document.querySelectorAll('#guestTable tbody tr').forEach(row => {
+      const name = row.querySelector('.guest-name').textContent.toLowerCase();
+      const matchQ = name.includes(q);
+      const matchGrp = !grp || row.dataset.group === grp;
+      const matchRsvp = !rsvp || row.dataset.rsvp === rsvp;
+      row.style.display = (matchQ && matchGrp && matchRsvp) ? '' : 'none';
     });
   }
 </script>

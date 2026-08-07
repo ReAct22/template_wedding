@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payments — Selaras Wedding Planner</title>
+<title>Financial Report — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,79 +217,20 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
-  /* Payments page */
-  .due-alert{
-    display:flex; align-items:center; gap:1rem;
-    background:#FBF3E7; border:1px solid #EBD9B8; border-radius:12px;
-    padding:1rem 1.4rem; margin-bottom:1.6rem;
-  }
-  .due-alert i{ font-size:1.5rem; color:#96712E; }
-  .due-alert .title{ font-size:.9rem; font-weight:500; color:#7a5a24; }
-  .due-alert .sub{ font-size:.8rem; color:#96712E; opacity:.85; }
+  /* Financial Report page */
+  .month-chart{ display:flex; align-items:flex-end; gap:.9rem; height:190px; padding-top:1rem; }
+  .month-bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; }
+  .month-bar{ width:100%; max-width:34px; border-radius:5px 5px 0 0; background:var(--sage); position:relative; transition:height .4s ease; }
+  .month-bar.peak{ background:var(--gold); }
+  .month-bar-val{ font-size:.66rem; color:#8a8477; margin-bottom:.35rem; white-space:nowrap; }
+  .month-bar-label{ font-size:.72rem; color:#8a8477; margin-top:.6rem; }
 
-  .payment-item{
-    display:flex; gap:1.1rem; padding:1.2rem 0; border-bottom:1px solid rgba(0,0,0,.06);
+  .report-summary-pill{
+    display:flex; align-items:center; gap:.7rem; padding:.9rem 1.1rem; border-radius:10px; flex:1;
   }
-  .payment-item:last-child{ border-bottom:none; }
-  .payment-icon{
-    width:50px; height:50px; border-radius:12px; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:1.3rem;
-  }
-  .payment-body{ flex:1; min-width:0; }
-  .payment-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:.5rem; }
-  .payment-name{ font-size:.95rem; font-weight:500; color:var(--charcoal); }
-  .payment-progress-line{ display:flex; align-items:center; gap:.8rem; margin-top:.5rem; }
-  .payment-progress-line .progress{ flex:1; }
-  .payment-progress-line .pct{ font-size:.76rem; color:#8a8477; width:34px; text-align:right; flex-shrink:0; }
+  .report-summary-pill .num{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:600; }
 
-  .due-badge{
-    font-size:.72rem; font-weight:500; padding:.25rem .7rem; border-radius:20px; white-space:nowrap;
-  }
-  .due-soon{ background:#F6ECD9; color:#96712E; }
-  .due-none{ background:#F0EDE6; color:#8a8477; }
-  .due-done{ background:#E7EDE3; color:#4C6B3E; }
-
-  .btn-pay{
-    border:1px solid var(--gold); color:var(--gold); background:transparent;
-    font-size:.78rem; padding:.4rem 1rem; border-radius:6px; white-space:nowrap; transition:all .2s ease;
-  }
-  .btn-pay:hover{ background:var(--gold); color:#fff; }
-  .btn-pay:disabled{ opacity:.4; cursor:not-allowed; }
-
-  .amount-pair{ font-size:.8rem; color:#8a8477; }
-  .amount-pair strong{ color:var(--charcoal); font-weight:500; }
-
-  /* Payments page */
-  .payment-filter{ display:flex; gap:.5rem; margin-bottom:1.4rem; flex-wrap:wrap; }
-  .payment-filter button{
-    border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--charcoal);
-    font-size:.8rem; padding:.4rem 1rem; border-radius:20px; transition:all .2s ease;
-  }
-  .payment-filter button:hover{ border-color:var(--gold); }
-  .payment-filter button.active{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
-
-  .payment-item{
-    display:flex; align-items:center; gap:1rem; padding:1.05rem 0;
-    border-bottom:1px solid rgba(0,0,0,.06);
-  }
-  .payment-item:last-child{ border-bottom:none; }
-  .payment-icon{
-    width:46px; height:46px; border-radius:10px; flex-shrink:0; background:#F5F1E9; color:var(--sage-dark);
-    display:flex; align-items:center; justify-content:center; font-size:1.15rem;
-  }
-  .payment-body{ flex:1; min-width:0; }
-  .payment-title{ font-size:.92rem; font-weight:500; color:var(--charcoal); margin-bottom:.3rem; }
-  .payment-meta{ font-size:.78rem; color:#8a8477; }
-  .payment-amount{
-    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem;
-    color:var(--charcoal); text-align:right; flex-shrink:0; min-width:120px;
-  }
-  .payment-side{ flex-shrink:0; text-align:right; min-width:130px; }
-  .btn-pay-now{
-    background:var(--gold); color:#fff; border:none; font-size:.72rem; font-weight:500;
-    padding:.35rem .8rem; border-radius:6px; margin-top:.4rem; letter-spacing:.03em; text-transform:uppercase;
-  }
-  .btn-pay-now:hover{ background:var(--sage-dark); }
+  .report-meta-footer{ font-size:.78rem; color:#a39c8d; text-align:center; margin-top:1.5rem; }
 
   /* Generic placeholder page */
   .empty-state{
@@ -349,8 +290,8 @@
       <a class="nav-link" href="budget-planner.html">Budget Planner</a>
       <a class="nav-link" href="budget-categories.html">Categories</a>
       <a class="nav-link" href="budget-expenses.html">Expenses</a>
-      <a class="nav-link active" href="budget-payments.html">Payments</a>
-      <a class="nav-link" href="budget-report.html">Financial Report</a>
+      <a class="nav-link" href="budget-payments.html">Payments</a>
+      <a class="nav-link active" href="budget-report.html">Financial Report</a>
     </div>
     <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-guests" aria-expanded="false">
       <i class="bi bi-people menu-icon"></i> Guests <i class="bi bi-chevron-down chevron"></i>
@@ -461,262 +402,194 @@
     <div class="page-header-row">
       <div>
         <span class="breadcrumb-eyebrow">Budget</span>
-        <h1 class="page-title">Payments</h1>
+        <h1 class="page-title">Financial Report</h1>
       </div>
-      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#addPaymentModal">
-        <i class="bi bi-plus-lg me-1"></i>Tambah Jadwal
-      </button>
+      <div class="d-flex gap-2">
+        <button class="btn-gold-outline" type="button"><i class="bi bi-printer me-1"></i>Cetak</button>
+        <button class="btn-gold-solid" type="button"><i class="bi bi-download me-1"></i>Export PDF</button>
+      </div>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-journal-text"></i></div>
-          <div class="stat-num">Rp 167jt</div>
-          <div class="stat-label">Total kewajiban</div>
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-piggy-bank"></i></div>
+          <div class="stat-num">Rp 200jt</div>
+          <div class="stat-label">Total budget</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-check2-circle"></i></div>
-          <div class="stat-num">Rp 116jt</div>
-          <div class="stat-label">Sudah dibayar</div>
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-wallet2"></i></div>
+          <div class="stat-num">Rp 128jt</div>
+          <div class="stat-label">Total realisasi</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-hourglass-split"></i></div>
-          <div class="stat-num">Rp 51jt</div>
-          <div class="stat-label">Belum dibayar</div>
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-cash-coin"></i></div>
+          <div class="stat-num">Rp 72jt</div>
+          <div class="stat-label">Sisa budget</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-alarm"></i></div>
-          <div class="stat-num">20 Jan</div>
-          <div class="stat-label">Jatuh tempo terdekat</div>
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-speedometer2"></i></div>
+          <div class="stat-num">64%</div>
+          <div class="stat-label">Tingkat realisasi</div>
         </div>
       </div>
     </div>
 
-    <div class="payment-filter">
-      <button class="active" onclick="filterPayments(this,'all')">Semua</button>
-      <button onclick="filterPayments(this,'lunas')">Lunas</button>
-      <button onclick="filterPayments(this,'menunggu')">Menunggu</button>
-      <button onclick="filterPayments(this,'jatuh-tempo')">Jatuh Tempo</button>
-    </div>
-
-    <div class="card-plain">
-      <div id="paymentList">
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-building"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">The Garden Estate — DP Venue</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 05 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 22.500.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+    <div class="card-plain mb-3">
+      <div class="card-section-title"><i class="bi bi-bar-chart-line"></i>Tren Pengeluaran Bulanan</div>
+      <div class="month-chart">
+        <div class="month-bar-col">
+          <div class="month-bar-val">53.5jt</div>
+          <div class="month-bar peak" style="height:100%;"></div>
+          <div class="month-bar-label">Jun</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-building"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">The Garden Estate — Pelunasan Venue</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Dibayar 15 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 22.500.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">0</div>
+          <div class="month-bar" style="height:2%; background:#e9e5da;"></div>
+          <div class="month-bar-label">Jul</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — DP Katering</div>
-            <div class="payment-meta">Tahap 1 dari 3 · Dibayar 05 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 15.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">0</div>
+          <div class="month-bar" style="height:2%; background:#e9e5da;"></div>
+          <div class="month-bar-label">Ags</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — Pelunasan Tahap 2</div>
-            <div class="payment-meta">Tahap 2 dari 3 · Dibayar 20 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 15.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">5jt</div>
+          <div class="month-bar" style="height:9%;"></div>
+          <div class="month-bar-label">Sep</div>
         </div>
-
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-cup-hot"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Rasa Nusantara — Pelunasan Akhir</div>
-            <div class="payment-meta">Tahap 3 dari 3 · Jatuh tempo 10 Feb 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">0</div>
+          <div class="month-bar" style="height:2%; background:#e9e5da;"></div>
+          <div class="month-bar-label">Okt</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-flower2"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Bloom Studio — DP Dekorasi</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 10 Jun 2025</div>
-          </div>
-          <div class="payment-amount">Rp 16.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">8jt</div>
+          <div class="month-bar" style="height:15%;"></div>
+          <div class="month-bar-label">Nov</div>
         </div>
-
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-flower2"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Bloom Studio — Pelunasan Dekorasi</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Jatuh tempo 10 Feb 2026</div>
-          </div>
-          <div class="payment-amount">Rp 16.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">51.5jt</div>
+          <div class="month-bar peak" style="height:96%;"></div>
+          <div class="month-bar-label">Des</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — DP</div>
-            <div class="payment-meta">Tahap 1 dari 3 · Dibayar 01 Nov 2025</div>
-          </div>
-          <div class="payment-amount">Rp 8.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
+        <div class="month-bar-col">
+          <div class="month-bar-val">10jt</div>
+          <div class="month-bar" style="height:19%;"></div>
+          <div class="month-bar-label">Jan</div>
         </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — Pelunasan Prewedding</div>
-            <div class="payment-meta">Tahap 2 dari 3 · Dibayar 10 Des 2025</div>
-          </div>
-          <div class="payment-amount">Rp 7.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
-
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-camera"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Fotografer — Pelunasan Hari-H</div>
-            <div class="payment-meta">Tahap 3 dari 3 · Jatuh tempo 01 Mar 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-brush"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Kirana Makeup — DP</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 15 Sep 2025</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
-
-        <div class="payment-item" data-status="jatuh-tempo">
-          <div class="payment-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-brush"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Kirana Makeup — Sisa Pembayaran</div>
-            <div class="payment-meta" style="color:#A8493D;">Tahap 2 dari 2 · Jatuh tempo 20 Jan 2026 — segera bayar</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-red">Jatuh Tempo</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
-
-        <div class="payment-item" data-status="lunas">
-          <div class="payment-icon"><i class="bi bi-music-note-beamed"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Band Live Music — DP</div>
-            <div class="payment-meta">Tahap 1 dari 2 · Dibayar 10 Jan 2026</div>
-          </div>
-          <div class="payment-amount">Rp 5.000.000</div>
-          <div class="payment-side"><span class="badge-soft badge-green">Lunas</span></div>
-        </div>
-
-        <div class="payment-item" data-status="menunggu">
-          <div class="payment-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-music-note-beamed"></i></div>
-          <div class="payment-body">
-            <div class="payment-title">Band Live Music — Pelunasan</div>
-            <div class="payment-meta">Tahap 2 dari 2 · Jatuh tempo 01 Mar 2026</div>
-          </div>
-          <div class="payment-amount">Rp 10.000.000</div>
-          <div class="payment-side">
-            <span class="badge-soft badge-amber">Menunggu</span>
-            <button class="btn-pay-now d-block">Bayar Sekarang</button>
-          </div>
-        </div>
-
       </div>
     </div>
 
-  </div>
-</div>
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-list-ul"></i>Realisasi Anggaran per Kategori</div>
 
-<div class="modal fade" id="addPaymentModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius:12px; border:none;">
-      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
-        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Tambah Jadwal Pembayaran</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form onsubmit="return false;">
-          <div class="mb-3">
-            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Nama Vendor</label>
-            <input type="text" class="form-control" placeholder="Contoh: Kirana Makeup">
-          </div>
-          <div class="mb-3">
-            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Deskripsi Tahap</label>
-            <input type="text" class="form-control" placeholder="Contoh: Pelunasan Tahap 2 dari 2">
-          </div>
-          <div class="row g-3 mb-2">
-            <div class="col-md-6">
-              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jumlah</label>
-              <input type="text" class="form-control" placeholder="Rp 0">
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#5C6B54;"></span>Venue</span>
+              <span class="cat-amounts">Rp 45.000.000 / Rp 45.000.000</span>
             </div>
-            <div class="col-md-6">
-              <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Jatuh Tempo</label>
-              <input type="date" class="form-control">
+            <div class="progress"><div class="progress-bar" style="width:100%; background:#5C6B54;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#B08D4F;"></span>Catering</span>
+              <span class="cat-amounts">Rp 30.000.000 / Rp 40.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:75%; background:#B08D4F;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#E3C9BE;"></span>Decoration</span>
+              <span class="cat-amounts">Rp 16.000.000 / Rp 32.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:50%; background:#E3C9BE;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#8C9A5C;"></span>Photography &amp; Video</span>
+              <span class="cat-amounts">Rp 15.000.000 / Rp 25.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:60%; background:#8C9A5C;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#96712E;"></span>Attire &amp; MUA</span>
+              <span class="cat-amounts">Rp 10.000.000 / Rp 20.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:50%; background:#96712E;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#7C8A74;"></span>Entertainment</span>
+              <span class="cat-amounts">Rp 5.000.000 / Rp 15.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:33%; background:#7C8A74;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#C9A98C;"></span>Invitation &amp; Stationery</span>
+              <span class="cat-amounts">Rp 7.000.000 / Rp 8.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:88%; background:#C9A98C;"></div></div>
+          </div>
+          <div class="cat-row">
+            <div class="cat-row-head d-flex justify-content-between">
+              <span class="cat-name"><span class="cat-icon-dot" style="background:#D8D2C4;"></span>Lain-lain</span>
+              <span class="cat-amounts">Rp 0 / Rp 15.000.000</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:0%; background:#D8D2C4;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card-plain mb-3">
+          <div class="card-section-title"><i class="bi bi-receipt-cutoff"></i>Status Pembayaran Vendor</div>
+          <div class="d-flex flex-column gap-2">
+            <div class="report-summary-pill" style="background:#E7EDE3;">
+              <div class="num" style="color:#4C6B3E;">9</div>
+              <div style="font-size:.82rem; color:#4C6B3E;">Tahap pembayaran lunas</div>
+            </div>
+            <div class="report-summary-pill" style="background:#F6ECD9;">
+              <div class="num" style="color:#96712E;">4</div>
+              <div style="font-size:.82rem; color:#96712E;">Tahap menunggu pembayaran</div>
+            </div>
+            <div class="report-summary-pill" style="background:#F5E3E0;">
+              <div class="num" style="color:#A8493D;">1</div>
+              <div style="font-size:.82rem; color:#A8493D;">Tahap jatuh tempo</div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
-        <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
-        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Simpan Jadwal</button>
+          <a href="budget-payments.html" class="d-block text-end mt-3" style="font-size:.8rem; color:var(--gold); text-decoration:none;">Lihat detail pembayaran &rarr;</a>
+        </div>
+
+        <div class="card-plain">
+          <div class="card-section-title"><i class="bi bi-lightbulb"></i>Catatan Analis</div>
+          <p style="font-size:.85rem; opacity:.85;">
+            Realisasi anggaran berjalan sesuai rencana dengan tingkat penyerapan 64% dari total budget.
+            Kategori <strong>Venue</strong> dan <strong>Invitation</strong> sudah hampir tuntas, sementara
+            <strong>Lain-lain</strong> masih belum tersentuh dan bisa dialokasikan ulang bila diperlukan.
+          </p>
+        </div>
       </div>
     </div>
+
+    <div class="report-meta-footer">
+      Laporan ini dibuat otomatis oleh sistem Selaras Wedding Planner pada 16 Desember 2025.
+    </div>
+
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-  function filterPayments(btn, status){
-    document.querySelectorAll('.payment-filter button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#paymentList .payment-item').forEach(item => {
-      item.style.display = (status === 'all' || item.dataset.status === status) ? '' : 'none';
-    });
-  }
-</script>
 <script>
   function toggleSidebar(forceClose){
     const sb = document.getElementById('sidebar');
