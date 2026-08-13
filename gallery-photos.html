@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overview — Selaras Wedding Planner</title>
+<title>Photos — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,6 +217,35 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
+  /* Gallery Photos page */
+  .gallery-filter{ display:flex; gap:.5rem; margin-bottom:1.4rem; flex-wrap:wrap; }
+  .gallery-filter button{
+    border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--charcoal);
+    font-size:.8rem; padding:.4rem 1rem; border-radius:20px; transition:all .2s ease;
+  }
+  .gallery-filter button:hover{ border-color:var(--gold); }
+  .gallery-filter button.active{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
+
+  .photo-tile{ position:relative; border-radius:10px; overflow:hidden; height:200px; cursor:pointer; }
+  .photo-tile img{ width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+  .photo-tile:hover img{ transform:scale(1.06); }
+  .photo-overlay{
+    position:absolute; inset:0; background:linear-gradient(to top, rgba(43,39,35,.65), transparent 55%);
+    display:flex; flex-direction:column; justify-content:flex-end; padding:.7rem; opacity:0; transition:opacity .3s ease;
+  }
+  .photo-tile:hover .photo-overlay{ opacity:1; }
+  .photo-tag{ color:#fff; font-size:.7rem; font-weight:500; margin-bottom:.4rem; }
+  .photo-actions{ display:flex; gap:.4rem; }
+  .photo-actions span{
+    width:28px; height:28px; border-radius:6px; background:rgba(255,255,255,.9); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center; font-size:.8rem; cursor:pointer;
+  }
+
+  .table-footer-note{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:1rem; font-size:.8rem; color:#9a9488;
+  }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
@@ -253,11 +282,8 @@
     </svg>
     <span>Selaras Wedding</span>
   </div>
-  <a href="wo-clients.html" class="d-flex align-items-center gap-2 px-3 py-2" style="font-size:.78rem; color:#8a8477; text-decoration:none; border-bottom:1px solid rgba(0,0,0,.06); background:#FAF8F3;">
-    <i class="bi bi-arrow-left"></i> Kembali ke Daftar Klien
-  </a>
   <div class="sidebar-nav">
-    <a class="nav-link single active" href="dashboard.html">
+    <a class="nav-link single" href="dashboard.html">
       <i class="bi bi-house menu-icon"></i> Overview
     </a>
     <div class="nav-group-title">Perencanaan</div>
@@ -320,11 +346,11 @@
       <a class="nav-link" href="documents-proof.html">Payment Proof</a>
       <a class="nav-link" href="documents-other.html">Other Files</a>
     </div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-gallery" aria-expanded="false">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-gallery" aria-expanded="true">
       <i class="bi bi-image menu-icon"></i> Gallery <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse submenu" id="menu-gallery">
-      <a class="nav-link" href="gallery-photos.html">Photos</a>
+    <div class="collapse show submenu" id="menu-gallery">
+      <a class="nav-link active" href="gallery-photos.html">Photos</a>
       <a class="nav-link" href="gallery-videos.html">Videos</a>
       <a class="nav-link" href="gallery-albums.html">Albums</a>
     </div>
@@ -387,134 +413,189 @@
 
   <div class="content" id="content">
 
-    <span class="breadcrumb-eyebrow">Dashboard</span>
-    <h1 class="page-title mb-4">Selamat Datang, Dinda &amp; Bagas</h1>
-
-    <div class="countdown-card mb-4">
+    <div class="page-header-row">
       <div>
-        <div style="font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; opacity:.75;">Hari pernikahan kalian</div>
-        <div class="display-font mt-1" style="font-size:1.3rem;">Sabtu, 14 Maret 2026 — The Garden Estate, Jakarta</div>
+        <span class="breadcrumb-eyebrow">Gallery</span>
+        <h1 class="page-title">Photos</h1>
       </div>
-      <div class="text-center">
-        <div class="countdown-num">87</div>
-        <div style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; opacity:.75;">hari lagi</div>
-      </div>
+      <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#uploadPhotoModal">
+        <i class="bi bi-upload me-1"></i>Upload Foto
+      </button>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-wallet2"></i></div>
-          <div class="stat-num">Rp 128jt</div>
-          <div class="stat-label">Budget terpakai / Rp 200jt</div>
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-images"></i></div>
+          <div class="stat-num">24</div>
+          <div class="stat-label">Total foto</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-people"></i></div>
-          <div class="stat-num">184</div>
-          <div class="stat-label">Tamu diundang</div>
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-collection"></i></div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Album</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-envelope-check"></i></div>
-          <div class="stat-num">126</div>
-          <div class="stat-label">RSVP terkonfirmasi</div>
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-hdd"></i></div>
+          <div class="stat-num">145 MB</div>
+          <div class="stat-label">Penyimpanan terpakai</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-building"></i></div>
-          <div class="stat-num">9 / 12</div>
-          <div class="stat-label">Vendor terkonfirmasi</div>
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-clock-history"></i></div>
+          <div class="stat-num">20 Des</div>
+          <div class="stat-label">Terbaru diupload</div>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-4">
-      <div class="col-lg-6">
-        <div class="card-plain h-100">
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-medium" style="font-size:.9rem;">Progres Budget</span>
-            <span class="text-muted" style="font-size:.85rem;">64%</span>
-          </div>
-          <div class="progress mb-3"><div class="progress-bar progress-bar-gold" style="width:64%"></div></div>
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-medium" style="font-size:.9rem;">Progres Checklist Persiapan</span>
-            <span class="text-muted" style="font-size:.85rem;">42%</span>
-          </div>
-          <div class="progress"><div class="progress-bar progress-bar-sage" style="width:42%"></div></div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-2 d-block" style="font-size:.9rem;">Tugas Mendatang</span>
-          <div class="task-item">
-            <div class="task-check done"></div>
-            <div style="font-size:.87rem;">Konfirmasi final headcount ke katering</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Fitting kedua gaun pengantin</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Pelunasan DP venue tahap 2</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Kirim undangan digital gelombang 2</div>
-          </div>
-        </div>
-      </div>
+    <div class="gallery-filter">
+      <button class="active" onclick="filterPhotos(this,'all')">Semua</button>
+      <button onclick="filterPhotos(this,'Prewedding')">Prewedding</button>
+      <button onclick="filterPhotos(this,'Lamaran')">Lamaran</button>
+      <button onclick="filterPhotos(this,'Venue')">Survey Venue</button>
+      <button onclick="filterPhotos(this,'Trial')">Trial Makeup</button>
     </div>
 
-    <div class="row g-3">
-      <div class="col-lg-7">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-2 d-block" style="font-size:.9rem;">Aktivitas Terbaru</span>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">Pembayaran DP fotografer sebesar Rp 8.000.000 telah dikonfirmasi <span class="text-muted">— 2 jam lalu</span></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">12 tamu baru mengonfirmasi kehadiran melalui RSVP <span class="text-muted">— kemarin</span></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">Kontrak vendor dekorasi telah diunggah ke Documents <span class="text-muted">— 3 hari lalu</span></div>
+    <div class="row g-3" id="photoGrid">
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Prewedding">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=500&q=80" alt="Prewedding">
+          <div class="photo-overlay">
+            <span class="photo-tag">Prewedding</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
           </div>
         </div>
       </div>
-      <div class="col-lg-5">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-3 d-block" style="font-size:.9rem;">Status Vendor</span>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Venue — The Garden Estate</span>
-            <span class="badge-soft badge-green">Lunas</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Katering — Rasa Nusantara</span>
-            <span class="badge-soft badge-amber">DP Terbayar</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Dekorasi — Bloom Studio</span>
-            <span class="badge-soft badge-amber">DP Terbayar</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span style="font-size:.87rem;">MUA — Kirana Makeup</span>
-            <span class="badge-soft badge-red">Belum Booking</span>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Prewedding">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=500&q=80" alt="Prewedding taman">
+          <div class="photo-overlay">
+            <span class="photo-tag">Prewedding</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
           </div>
         </div>
       </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Lamaran">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="Lamaran">
+          <div class="photo-overlay">
+            <span class="photo-tag">Lamaran</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Venue">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=500&q=80" alt="Survey venue">
+          <div class="photo-overlay">
+            <span class="photo-tag">Survey Venue</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Venue">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=500&q=80" alt="Interior venue">
+          <div class="photo-overlay">
+            <span class="photo-tag">Survey Venue</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Trial">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=500&q=80" alt="Trial makeup">
+          <div class="photo-overlay">
+            <span class="photo-tag">Trial Makeup</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Prewedding">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1521543387599-56c46c3f4ba1?auto=format&fit=crop&w=500&q=80" alt="Prewedding candid">
+          <div class="photo-overlay">
+            <span class="photo-tag">Prewedding</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4 col-lg-3" data-cat="Lamaran">
+        <div class="photo-tile">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=500&q=80" alt="Lamaran keluarga">
+          <div class="photo-overlay">
+            <span class="photo-tag">Lamaran</span>
+            <div class="photo-actions"><span title="Lihat"><i class="bi bi-eye"></i></span><span title="Unduh"><i class="bi bi-download"></i></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="table-footer-note">
+      <span>Menampilkan 8 dari 24 foto</span>
+      <a href="gallery-albums.html" style="color:var(--gold); text-decoration:none;">Lihat Semua Album &rarr;</a>
     </div>
 
   </div>
 </div>
 
+<div class="modal fade" id="uploadPhotoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:12px; border:none;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Upload Foto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="return false;">
+          <div class="mb-3">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Album</label>
+            <select class="form-control">
+              <option>Prewedding</option>
+              <option>Lamaran</option>
+              <option>Survey Venue</option>
+              <option>Trial Makeup</option>
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label" style="font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark);">Pilih Foto</label>
+            <input type="file" class="form-control" accept="image/*" multiple>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
+        <button type="button" class="btn-gold-outline" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function filterPhotos(btn, cat){
+    document.querySelectorAll('.gallery-filter button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#photoGrid > div').forEach(tile => {
+      tile.style.display = (cat === 'all' || tile.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+</script>
 <script>
   function toggleSidebar(forceClose){
     const sb = document.getElementById('sidebar');

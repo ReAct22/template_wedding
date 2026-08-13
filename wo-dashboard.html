@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Selaras WO Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ivory:#FAF6EF;
+    --sage:#5C6B54;
+    --sage-dark:#3E4A38;
+    --gold:#B08D4F;
+    --blush:#E3C9BE;
+    --charcoal:#2B2723;
+    --sidebar-w:272px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Jost', sans-serif; font-weight:300; color:var(--charcoal);
+    background:#F2EFE8; letter-spacing:.01em;
+  }
+  h1,h2,h3,.display-font{ font-family:'Cormorant Garamond', serif; font-weight:600; }
+
+  /* Sidebar */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+    background:#fff; border-right:1px solid rgba(0,0,0,.06); overflow-y:auto; z-index:1000;
+    transition:transform .3s ease;
+  }
+  .sidebar-brand{ padding:1.4rem 1.4rem 1.1rem; display:flex; align-items:center; gap:.6rem; border-bottom:1px solid rgba(0,0,0,.06); }
+  .sidebar-brand svg{ width:34px; height:34px; }
+  .sidebar-brand .brand-text{ line-height:1.2; }
+  .sidebar-brand .brand-text .name{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--sage-dark); }
+  .sidebar-brand .brand-text .tag{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+
+  .sidebar-nav{ padding:1rem .8rem 2rem; }
+  .sidebar .nav-link{
+    color:var(--charcoal); font-size:.88rem; padding:.62rem .7rem; border-radius:6px;
+    display:flex; align-items:center; gap:.65rem; cursor:pointer; text-decoration:none; margin-bottom:.15rem;
+  }
+  .sidebar .nav-link i.menu-icon{ font-size:1.05rem; color:var(--sage); width:20px; text-align:center; }
+  .sidebar .nav-link:hover{ background:#F5F1E9; }
+  .sidebar .nav-link.active{ background:var(--sage-dark); color:#fff; }
+  .sidebar .nav-link.active i.menu-icon{ color:var(--blush); }
+  .logout-link{ color:#a8493d !important; }
+  .logout-link i{ color:#a8493d !important; }
+  .nav-group-title{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:#9a9488; padding:.9rem .7rem .3rem; }
+
+  /* Topbar */
+  .topbar{
+    position:sticky; top:0; z-index:900; background:#fff; border-bottom:1px solid rgba(0,0,0,.06);
+    padding:.85rem 1.5rem; display:flex; align-items:center; gap:1rem;
+  }
+  .search-box{ background:#F5F1E9; border-radius:8px; padding:.5rem .9rem; display:flex; align-items:center; gap:.5rem; flex:1; max-width:360px; }
+  .search-box input{ border:none; background:transparent; outline:none; font-size:.85rem; width:100%; font-family:'Jost', sans-serif; }
+  .topbar .icon-btn{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#F5F1E9; color:var(--sage-dark); position:relative; cursor:pointer; }
+  .icon-btn .dot{ position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--gold); border:1.5px solid #fff; }
+  .avatar{ width:38px; height:38px; border-radius:50%; background:var(--sage-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-size:1.1rem; }
+
+  .main-wrap{ margin-left:var(--sidebar-w); min-height:100vh; }
+  .content{ padding:1.8rem 1.8rem 3rem; }
+  .breadcrumb-eyebrow{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  .page-title{ font-size:1.9rem; color:var(--sage-dark); }
+  .page-header-row{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
+
+  .card-plain{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; }
+  .stat-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.3rem 1.4rem; height:100%; }
+  .stat-card .stat-icon{ width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:.9rem; }
+  .stat-num{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--charcoal); font-weight:600; }
+  .stat-label{ font-size:.8rem; color:#8a8477; }
+
+  .badge-soft{ border-radius:20px; padding:.3rem .7rem; font-size:.72rem; font-weight:500; }
+  .badge-green{ background:#E7EDE3; color:#4C6B3E; }
+  .badge-amber{ background:#F6ECD9; color:#96712E; }
+  .badge-red{ background:#F5E3E0; color:#A8493D; }
+  .badge-gray{ background:#EDEAE3; color:#7A7568; }
+
+  .btn-gold-outline{ border:1px solid var(--gold); color:var(--gold); background:transparent; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-outline:hover{ background:var(--gold); color:#fff; }
+  .btn-gold-solid{ border:1px solid var(--gold); background:var(--gold); color:#fff; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-solid:hover{ background:transparent; color:var(--gold); }
+
+  .row-action{ width:32px; height:32px; border-radius:6px; border:1px solid rgba(0,0,0,.08); display:inline-flex; align-items:center; justify-content:center; color:#8a8477; background:#fff; transition:all .2s ease; cursor:pointer; }
+  .row-action:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* Toolbar */
+  .toolbar{ display:flex; gap:.8rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .search-pill{ flex:1; min-width:220px; display:flex; align-items:center; gap:.6rem; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px; padding:.65rem 1rem; box-shadow:0 2px 8px rgba(60,55,45,.04); transition:border-color .2s ease, box-shadow .2s ease; }
+  .search-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .search-pill i{ color:var(--gold); font-size:1rem; }
+  .search-pill input{ border:none; outline:none; background:transparent; font-size:.87rem; width:100%; font-family:'Jost', sans-serif; color:var(--charcoal); }
+  .search-pill input::placeholder{ color:#a39c8d; }
+  .select-pill{ position:relative; min-width:170px; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px; box-shadow:0 2px 8px rgba(60,55,45,.04); display:flex; align-items:center; gap:.6rem; padding:.65rem 1rem; transition:border-color .2s ease, box-shadow .2s ease; }
+  .select-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .select-pill i.select-icon{ color:var(--gold); font-size:1rem; flex-shrink:0; }
+  .select-pill select{ border:none; outline:none; background:transparent; font-size:.87rem; width:100%; font-family:'Jost', sans-serif; color:var(--charcoal); appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:1.2rem; }
+  .select-pill .chevron-icon{ position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-size:.7rem; color:#a39c8d; pointer-events:none; }
+
+  /* Client item */
+  .client-item{ display:flex; align-items:center; gap:1.1rem; padding:1.1rem 0; border-bottom:1px solid rgba(0,0,0,.06); flex-wrap:wrap; }
+  .client-item:last-child{ border-bottom:none; }
+  .client-avatar{ width:50px; height:50px; border-radius:50%; flex-shrink:0; background:var(--blush); color:var(--sage-dark); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem; }
+  .client-body{ flex:1; min-width:200px; }
+  .client-name{ font-size:.95rem; font-weight:500; color:var(--charcoal); }
+  .client-meta{ font-size:.78rem; color:#8a8477; margin-top:.2rem; }
+  .client-pkg-chip{ display:inline-block; font-size:.7rem; font-weight:500; padding:.2rem .6rem; border-radius:20px; margin-top:.4rem; }
+  .client-progress-wrap{ min-width:150px; flex-shrink:0; }
+  .client-progress-label{ font-size:.72rem; color:#8a8477; margin-bottom:.3rem; display:flex; justify-content:space-between; }
+  .progress{ height:7px; border-radius:6px; background:#F0ECE2; }
+  .progress-bar-gold{ background:var(--gold); }
+  .progress-bar-sage{ background:var(--sage); }
+  .client-staff{ font-size:.78rem; color:#6b6558; min-width:110px; flex-shrink:0; }
+  .client-side{ display:flex; flex-direction:column; align-items:flex-end; gap:.5rem; flex-shrink:0; min-width:150px; }
+
+  .sidebar-toggle{ display:none; }
+  @media (max-width: 991.98px){
+    .sidebar{ transform:translateX(-100%); box-shadow:0 0 30px rgba(0,0,0,.15); }
+    .sidebar.open{ transform:translateX(0); }
+    .main-wrap{ margin-left:0; }
+    .sidebar-toggle{ display:flex; }
+    .search-box{ display:none; }
+  }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999; }
+  .overlay.show{ display:block; }
+
+  /* Dashboard specific */
+  .card-section-title{ font-size:.95rem; font-weight:500; color:var(--sage-dark); display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+  .card-section-title i{ color:var(--gold); font-size:1.1rem; }
+
+  .month-chart{ display:flex; align-items:flex-end; gap:.7rem; height:170px; padding-top:1rem; }
+  .month-bar-col{ flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end; }
+  .month-bar{ width:100%; max-width:30px; border-radius:5px 5px 0 0; background:var(--sage); }
+  .month-bar.peak{ background:var(--gold); }
+  .month-bar-val{ font-size:.64rem; color:#8a8477; margin-bottom:.3rem; white-space:nowrap; }
+  .month-bar-label{ font-size:.7rem; color:#8a8477; margin-top:.55rem; }
+
+  .upcoming-item{ display:flex; align-items:center; gap:.85rem; padding:.8rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .upcoming-item:last-child{ border-bottom:none; }
+  .upcoming-date-box{
+    width:46px; height:46px; border-radius:8px; background:#F5F1E9; flex-shrink:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--sage-dark);
+  }
+  .upcoming-date-box .d{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.05rem; line-height:1; }
+  .upcoming-date-box .m{ font-size:.6rem; text-transform:uppercase; }
+
+  .staff-item{ display:flex; align-items:center; gap:.75rem; padding:.75rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .staff-item:last-child{ border-bottom:none; }
+  .staff-avatar{
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    background:var(--blush); color:var(--sage-dark); display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:.9rem;
+  }
+
+  .activity-item{ display:flex; gap:.8rem; padding:.65rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .activity-item:last-child{ border-bottom:none; }
+  .activity-dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:.4rem; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="42" fill="none" stroke="#5C6B54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+      <g fill="none" stroke="#5C6B54" stroke-width="1.6" stroke-linecap="round">
+        <path d="M26,72 C19,64 19,50 26,40"/>
+        <path d="M94,72 C101,64 101,50 94,40"/>
+      </g>
+      <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#3E4A38">S</text>
+    </svg>
+    <div class="brand-text">
+      <div class="name">Selaras WO</div>
+      <div class="tag">Admin Panel</div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <a class="nav-link active" href="wo-dashboard.html"><i class="bi bi-speedometer2 menu-icon"></i>Dashboard</a>
+    <a class="nav-link" href="wo-clients.html"><i class="bi bi-people menu-icon"></i>Clients</a>
+    <a class="nav-link" href="wo-team.html"><i class="bi bi-person-badge menu-icon"></i>Team</a>
+    <a class="nav-link" href="wo-calendar.html"><i class="bi bi-calendar3 menu-icon"></i>Calendar</a>
+
+    <div class="nav-group-title">Bisnis</div>
+    <a class="nav-link" href="wo-website.html"><i class="bi bi-globe2 menu-icon"></i>Website Saya</a>
+    <a class="nav-link" href="wo-billing.html"><i class="bi bi-credit-card menu-icon"></i>Billing</a>
+    <a class="nav-link" href="wo-settings.html"><i class="bi bi-gear menu-icon"></i>Settings</a>
+
+    <a class="nav-link logout-link mt-3" href="login.html"><i class="bi bi-box-arrow-right menu-icon"></i>Logout</a>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="main-wrap">
+  <div class="topbar">
+    <div class="sidebar-toggle icon-btn" onclick="toggleSidebar()"><i class="bi bi-list fs-5"></i></div>
+    <div class="search-box"><i class="bi bi-search" style="color:#a8a192;"></i><input type="text" placeholder="Cari sesuatu..."></div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <div class="icon-btn"><i class="bi bi-bell"></i><span class="dot"></span></div>
+      <div class="dropdown">
+        <div class="d-flex align-items-center gap-2" style="cursor:pointer;" data-bs-toggle="dropdown">
+          <div class="avatar">S</div>
+          <div class="d-none d-md-block">
+            <div style="font-size:.85rem; font-weight:500;">Sari Wijayanti</div>
+            <div style="font-size:.72rem; opacity:.6;">Owner — Selaras WO</div>
+          </div>
+          <i class="bi bi-chevron-down" style="font-size:.7rem; opacity:.6;"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end mt-2">
+          <li><a class="dropdown-item" href="wo-settings.html">Pengaturan Akun</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="login.html">Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Selaras WO</span>
+        <h1 class="page-title">Selamat Datang, Sari</h1>
+      </div>
+      <a href="wo-clients.html" class="btn-gold-solid" style="text-decoration:none;">
+        <i class="bi bi-people me-1"></i>Lihat Semua Klien
+      </a>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-cash-stack"></i></div>
+          <div class="stat-num">Rp 250jt</div>
+          <div class="stat-label">Total nilai kontrak aktif</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-people"></i></div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Klien aktif</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-calendar-event"></i></div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">Acara 6 bulan ke depan</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-person-badge"></i></div>
+          <div class="stat-num">2</div>
+          <div class="stat-label">Staff aktif</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-lg-7">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-bar-chart-line"></i>Omzet 6 Bulan Terakhir</div>
+          <div class="month-chart">
+            <div class="month-bar-col">
+              <div class="month-bar-val">35jt</div>
+              <div class="month-bar" style="height:54%;"></div>
+              <div class="month-bar-label">Jul</div>
+            </div>
+            <div class="month-bar-col">
+              <div class="month-bar-val">15jt</div>
+              <div class="month-bar" style="height:23%;"></div>
+              <div class="month-bar-label">Ags</div>
+            </div>
+            <div class="month-bar-col">
+              <div class="month-bar-val">20jt</div>
+              <div class="month-bar" style="height:31%;"></div>
+              <div class="month-bar-label">Sep</div>
+            </div>
+            <div class="month-bar-col">
+              <div class="month-bar-val">65jt</div>
+              <div class="month-bar peak" style="height:100%;"></div>
+              <div class="month-bar-label">Okt</div>
+            </div>
+            <div class="month-bar-col">
+              <div class="month-bar-val">35jt</div>
+              <div class="month-bar" style="height:54%;"></div>
+              <div class="month-bar-label">Nov</div>
+            </div>
+            <div class="month-bar-col">
+              <div class="month-bar-val">45jt</div>
+              <div class="month-bar peak" style="height:69%;"></div>
+              <div class="month-bar-label">Des</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-calendar-heart"></i>Acara Mendatang</div>
+
+          <div class="upcoming-item">
+            <div class="upcoming-date-box" style="background:#F5E3E0; color:#A8493D;"><span class="d">10</span><span class="m">Jan</span></div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.86rem;">Vina &amp; Reza</div>
+              <div class="text-muted" style="font-size:.76rem;">Aryaduta Hotel · Staff: Dewi</div>
+            </div>
+          </div>
+
+          <div class="upcoming-item">
+            <div class="upcoming-date-box"><span class="d">05</span><span class="m">Feb</span></div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.86rem;">Lala &amp; Iqbal</div>
+              <div class="text-muted" style="font-size:.76rem;">Villa Kemuning · Staff: Dewi</div>
+            </div>
+          </div>
+
+          <div class="upcoming-item">
+            <div class="upcoming-date-box"><span class="d">14</span><span class="m">Mar</span></div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.86rem;">Dinda &amp; Bagas</div>
+              <div class="text-muted" style="font-size:.76rem;">The Garden Estate · Staff: Sari</div>
+            </div>
+          </div>
+
+          <div class="upcoming-item">
+            <div class="upcoming-date-box"><span class="d">20</span><span class="m">Apr</span></div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.86rem;">Rina &amp; Fajar</div>
+              <div class="text-muted" style="font-size:.76rem;">Ballroom Hotel Mulia · Staff: Sari</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-5">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-person-badge"></i>Beban Kerja Staff</div>
+
+          <div class="staff-item">
+            <div class="staff-avatar">S</div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.87rem;">Sari Wijayanti</div>
+              <div class="text-muted" style="font-size:.76rem;">2 klien aktif</div>
+            </div>
+            <span class="badge-soft badge-green">Owner</span>
+          </div>
+
+          <div class="staff-item">
+            <div class="staff-avatar" style="background:var(--sage-dark); color:#fff;">D</div>
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.87rem;">Dewi Lestari</div>
+              <div class="text-muted" style="font-size:.76rem;">2 klien aktif</div>
+            </div>
+            <span class="badge-soft badge-amber">Koordinator</span>
+          </div>
+
+          <div class="staff-item">
+            <div class="flex-grow-1">
+              <div class="fw-medium" style="font-size:.87rem; color:#A8493D;">Putri &amp; Aldo</div>
+              <div class="text-muted" style="font-size:.76rem;">Belum ditugaskan ke staff</div>
+            </div>
+            <a href="wo-clients.html" class="row-action" title="Tugaskan"><i class="bi bi-person-plus"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-activity"></i>Aktivitas Terbaru</div>
+
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div style="font-size:.87rem;">Klien baru <strong>Putri &amp; Aldo</strong> ditambahkan dengan paket Grand <span class="text-muted">— 2 hari lalu</span></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div style="font-size:.87rem;"><strong>Vina &amp; Reza</strong> menyelesaikan pembayaran DP fotografer <span class="text-muted">— 3 hari lalu</span></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div style="font-size:.87rem;">Dewi ditugaskan sebagai koordinator untuk <strong>Lala &amp; Iqbal</strong> <span class="text-muted">— 5 hari lalu</span></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div style="font-size:.87rem;">Website landing page berhasil dipublikasikan <span class="text-muted">— 6 hari lalu</span></div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot"></div>
+            <div style="font-size:.87rem;"><strong>Citra &amp; Doni</strong> acara selesai, status diarsipkan <span class="text-muted">— 1 bulan lalu</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleSidebar(forceClose){
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    if(forceClose){ sb.classList.remove('open'); ov.classList.remove('show'); return; }
+    sb.classList.toggle('open');
+    ov.classList.toggle('show');
+  }
+</script>
+</body>
+</html>

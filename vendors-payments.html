@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overview — Selaras Wedding Planner</title>
+<title>Payments — Selaras Wedding Planner</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -217,6 +217,18 @@
     padding:.35rem .9rem; border-radius:20px; font-size:.78rem; font-weight:500;
   }
 
+  /* Vendor Payments page */
+  .vpay-item{ display:flex; align-items:center; gap:1rem; padding:1.1rem 0; border-bottom:1px solid rgba(0,0,0,.06); }
+  .vpay-item:last-child{ border-bottom:none; }
+  .vpay-icon{ width:46px; height:46px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.15rem; }
+  .vpay-body{ flex:1; min-width:0; }
+  .vpay-title{ font-size:.92rem; font-weight:500; color:var(--charcoal); margin-bottom:.35rem; }
+  .vpay-amounts{ font-size:.78rem; color:#8a8477; margin-bottom:.4rem; }
+  .vpay-progress{ height:6px; border-radius:4px; background:#F0ECE2; max-width:280px; }
+  .vpay-progress-bar{ height:100%; border-radius:4px; }
+  .vpay-side{ flex-shrink:0; text-align:right; min-width:150px; }
+  .vpay-due{ font-size:.76rem; color:#a39c8d; margin-top:.3rem; }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
@@ -253,11 +265,8 @@
     </svg>
     <span>Selaras Wedding</span>
   </div>
-  <a href="wo-clients.html" class="d-flex align-items-center gap-2 px-3 py-2" style="font-size:.78rem; color:#8a8477; text-decoration:none; border-bottom:1px solid rgba(0,0,0,.06); background:#FAF8F3;">
-    <i class="bi bi-arrow-left"></i> Kembali ke Daftar Klien
-  </a>
   <div class="sidebar-nav">
-    <a class="nav-link single active" href="dashboard.html">
+    <a class="nav-link single" href="dashboard.html">
       <i class="bi bi-house menu-icon"></i> Overview
     </a>
     <div class="nav-group-title">Perencanaan</div>
@@ -291,13 +300,13 @@
       <a class="nav-link" href="guests-seating.html">Seating Plan</a>
       <a class="nav-link" href="guests-checkin.html">QR Check-in</a>
     </div>
-    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-vendors" aria-expanded="false">
+    <a class="nav-link parent" data-bs-toggle="collapse" href="#menu-vendors" aria-expanded="true">
       <i class="bi bi-building menu-icon"></i> Vendors <i class="bi bi-chevron-down chevron"></i>
     </a>
-    <div class="collapse submenu" id="menu-vendors">
+    <div class="collapse show submenu" id="menu-vendors">
       <a class="nav-link" href="vendors-list.html">Vendor List</a>
       <a class="nav-link" href="vendors-booking.html">Vendor Booking</a>
-      <a class="nav-link" href="vendors-payments.html">Payments</a>
+      <a class="nav-link active" href="vendors-payments.html">Payments</a>
       <a class="nav-link" href="vendors-contracts.html">Contracts</a>
       <a class="nav-link" href="vendors-reviews.html">Reviews</a>
     </div>
@@ -387,128 +396,134 @@
 
   <div class="content" id="content">
 
-    <span class="breadcrumb-eyebrow">Dashboard</span>
-    <h1 class="page-title mb-4">Selamat Datang, Dinda &amp; Bagas</h1>
-
-    <div class="countdown-card mb-4">
+    <div class="page-header-row">
       <div>
-        <div style="font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; opacity:.75;">Hari pernikahan kalian</div>
-        <div class="display-font mt-1" style="font-size:1.3rem;">Sabtu, 14 Maret 2026 — The Garden Estate, Jakarta</div>
+        <span class="breadcrumb-eyebrow">Vendors</span>
+        <h1 class="page-title">Payments</h1>
       </div>
-      <div class="text-center">
-        <div class="countdown-num">87</div>
-        <div style="font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; opacity:.75;">hari lagi</div>
-      </div>
+      <a href="budget-payments.html" class="btn-gold-outline" style="text-decoration:none;">
+        <i class="bi bi-arrow-right me-1"></i>Lihat Jadwal Detail
+      </a>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-wallet2"></i></div>
+          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-journal-text"></i></div>
+          <div class="stat-num">Rp 185jt</div>
+          <div class="stat-label">Total nilai kontrak</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-check2-circle"></i></div>
           <div class="stat-num">Rp 128jt</div>
-          <div class="stat-label">Budget terpakai / Rp 200jt</div>
+          <div class="stat-label">Total terbayar</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#E7EDE3; color:#4C6B3E;"><i class="bi bi-people"></i></div>
-          <div class="stat-num">184</div>
-          <div class="stat-label">Tamu diundang</div>
+          <div class="stat-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-hourglass-split"></i></div>
+          <div class="stat-num">Rp 57jt</div>
+          <div class="stat-label">Sisa tagihan</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-envelope-check"></i></div>
-          <div class="stat-num">126</div>
-          <div class="stat-label">RSVP terkonfirmasi</div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-3">
-        <div class="stat-card">
-          <div class="stat-icon" style="background:#EAE6F2; color:#5E4E8C;"><i class="bi bi-building"></i></div>
-          <div class="stat-num">9 / 12</div>
-          <div class="stat-label">Vendor terkonfirmasi</div>
+          <div class="stat-icon" style="background:#F5E3E0; color:#A8493D;"><i class="bi bi-award"></i></div>
+          <div class="stat-num">2 / 7</div>
+          <div class="stat-label">Vendor sudah lunas</div>
         </div>
       </div>
     </div>
 
-    <div class="row g-3 mb-4">
-      <div class="col-lg-6">
-        <div class="card-plain h-100">
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-medium" style="font-size:.9rem;">Progres Budget</span>
-            <span class="text-muted" style="font-size:.85rem;">64%</span>
-          </div>
-          <div class="progress mb-3"><div class="progress-bar progress-bar-gold" style="width:64%"></div></div>
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-medium" style="font-size:.9rem;">Progres Checklist Persiapan</span>
-            <span class="text-muted" style="font-size:.85rem;">42%</span>
-          </div>
-          <div class="progress"><div class="progress-bar progress-bar-sage" style="width:42%"></div></div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-2 d-block" style="font-size:.9rem;">Tugas Mendatang</span>
-          <div class="task-item">
-            <div class="task-check done"></div>
-            <div style="font-size:.87rem;">Konfirmasi final headcount ke katering</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Fitting kedua gaun pengantin</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Pelunasan DP venue tahap 2</div>
-          </div>
-          <div class="task-item">
-            <div class="task-check"></div>
-            <div style="font-size:.87rem;">Kirim undangan digital gelombang 2</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="card-plain">
 
-    <div class="row g-3">
-      <div class="col-lg-7">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-2 d-block" style="font-size:.9rem;">Aktivitas Terbaru</span>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">Pembayaran DP fotografer sebesar Rp 8.000.000 telah dikonfirmasi <span class="text-muted">— 2 jam lalu</span></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">12 tamu baru mengonfirmasi kehadiran melalui RSVP <span class="text-muted">— kemarin</span></div>
-          </div>
-          <div class="activity-item">
-            <div class="activity-dot"></div>
-            <div style="font-size:.87rem;">Kontrak vendor dekorasi telah diunggah ke Documents <span class="text-muted">— 3 hari lalu</span></div>
-          </div>
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#E9EDE7; color:#5C6B54;"><i class="bi bi-building"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">The Garden Estate — Venue</div>
+          <div class="vpay-amounts">Rp 45.000.000 / Rp 45.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:100%; background:#4C6B3E;"></div></div>
+        </div>
+        <div class="vpay-side"><span class="badge-soft badge-green">Lunas</span></div>
+      </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#FBF3E7; color:#96712E;"><i class="bi bi-cup-hot"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Rasa Nusantara Catering</div>
+          <div class="vpay-amounts">Rp 30.000.000 / Rp 40.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:75%; background:#96712E;"></div></div>
+        </div>
+        <div class="vpay-side">
+          <span class="badge-soft badge-amber">Berjalan</span>
+          <div class="vpay-due">Jatuh tempo 10 Feb 2026</div>
         </div>
       </div>
-      <div class="col-lg-5">
-        <div class="card-plain h-100">
-          <span class="fw-medium mb-3 d-block" style="font-size:.9rem;">Status Vendor</span>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Venue — The Garden Estate</span>
-            <span class="badge-soft badge-green">Lunas</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Katering — Rasa Nusantara</span>
-            <span class="badge-soft badge-amber">DP Terbayar</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span style="font-size:.87rem;">Dekorasi — Bloom Studio</span>
-            <span class="badge-soft badge-amber">DP Terbayar</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span style="font-size:.87rem;">MUA — Kirana Makeup</span>
-            <span class="badge-soft badge-red">Belum Booking</span>
-          </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#FBF0EC; color:#A9776A;"><i class="bi bi-flower2"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Bloom Studio — Dekorasi</div>
+          <div class="vpay-amounts">Rp 16.000.000 / Rp 32.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:50%; background:#96712E;"></div></div>
+        </div>
+        <div class="vpay-side">
+          <span class="badge-soft badge-amber">Berjalan</span>
+          <div class="vpay-due">Jatuh tempo 10 Feb 2026</div>
         </div>
       </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#EEF0E5; color:#6B7A4B;"><i class="bi bi-camera"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Cahaya Frame Photography</div>
+          <div class="vpay-amounts">Rp 15.000.000 / Rp 25.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:60%; background:#96712E;"></div></div>
+        </div>
+        <div class="vpay-side">
+          <span class="badge-soft badge-amber">Berjalan</span>
+          <div class="vpay-due">Jatuh tempo 01 Mar 2026</div>
+        </div>
+      </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-brush"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Kirana Makeup</div>
+          <div class="vpay-amounts">Rp 9.000.000 / Rp 20.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:45%; background:#A8493D;"></div></div>
+        </div>
+        <div class="vpay-side">
+          <span class="badge-soft badge-red">Jatuh Tempo</span>
+          <div class="vpay-due" style="color:#A8493D;">Jatuh tempo 20 Jan 2026</div>
+        </div>
+      </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#EFF1EC; color:#5F6C57;"><i class="bi bi-music-note-beamed"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Nada Selaras Band</div>
+          <div class="vpay-amounts">Rp 5.000.000 / Rp 15.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:33%; background:#96712E;"></div></div>
+        </div>
+        <div class="vpay-side">
+          <span class="badge-soft badge-amber">Berjalan</span>
+          <div class="vpay-due">Jatuh tempo 01 Mar 2026</div>
+        </div>
+      </div>
+
+      <div class="vpay-item">
+        <div class="vpay-icon" style="background:#F3EBE2; color:#9C7B54;"><i class="bi bi-envelope-paper"></i></div>
+        <div class="vpay-body">
+          <div class="vpay-title">Kertas &amp; Tinta Studio</div>
+          <div class="vpay-amounts">Rp 8.000.000 / Rp 8.000.000</div>
+          <div class="vpay-progress"><div class="vpay-progress-bar" style="width:100%; background:#4C6B3E;"></div></div>
+        </div>
+        <div class="vpay-side"><span class="badge-soft badge-green">Lunas</span></div>
+      </div>
+
     </div>
 
   </div>

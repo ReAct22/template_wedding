@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing — Selaras WO Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ivory:#FAF6EF;
+    --sage:#5C6B54;
+    --sage-dark:#3E4A38;
+    --gold:#B08D4F;
+    --blush:#E3C9BE;
+    --charcoal:#2B2723;
+    --sidebar-w:272px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Jost', sans-serif; font-weight:300; color:var(--charcoal);
+    background:#F2EFE8; letter-spacing:.01em;
+  }
+  h1,h2,h3,.display-font{ font-family:'Cormorant Garamond', serif; font-weight:600; }
+
+  /* Sidebar */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+    background:#fff; border-right:1px solid rgba(0,0,0,.06); overflow-y:auto; z-index:1000;
+    transition:transform .3s ease;
+  }
+  .sidebar-brand{ padding:1.4rem 1.4rem 1.1rem; display:flex; align-items:center; gap:.6rem; border-bottom:1px solid rgba(0,0,0,.06); }
+  .sidebar-brand svg{ width:34px; height:34px; }
+  .sidebar-brand .brand-text{ line-height:1.2; }
+  .sidebar-brand .brand-text .name{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--sage-dark); }
+  .sidebar-brand .brand-text .tag{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+
+  .sidebar-nav{ padding:1rem .8rem 2rem; }
+  .sidebar .nav-link{
+    color:var(--charcoal); font-size:.88rem; padding:.62rem .7rem; border-radius:6px;
+    display:flex; align-items:center; gap:.65rem; cursor:pointer; text-decoration:none; margin-bottom:.15rem;
+  }
+  .sidebar .nav-link i.menu-icon{ font-size:1.05rem; color:var(--sage); width:20px; text-align:center; }
+  .sidebar .nav-link:hover{ background:#F5F1E9; }
+  .sidebar .nav-link.active{ background:var(--sage-dark); color:#fff; }
+  .sidebar .nav-link.active i.menu-icon{ color:var(--blush); }
+  .logout-link{ color:#a8493d !important; }
+  .logout-link i{ color:#a8493d !important; }
+  .nav-group-title{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:#9a9488; padding:.9rem .7rem .3rem; }
+
+  /* Topbar */
+  .topbar{
+    position:sticky; top:0; z-index:900; background:#fff; border-bottom:1px solid rgba(0,0,0,.06);
+    padding:.85rem 1.5rem; display:flex; align-items:center; gap:1rem;
+  }
+  .search-box{ background:#F5F1E9; border-radius:8px; padding:.5rem .9rem; display:flex; align-items:center; gap:.5rem; flex:1; max-width:360px; }
+  .search-box input{ border:none; background:transparent; outline:none; font-size:.85rem; width:100%; font-family:'Jost', sans-serif; }
+  .topbar .icon-btn{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#F5F1E9; color:var(--sage-dark); position:relative; cursor:pointer; }
+  .icon-btn .dot{ position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--gold); border:1.5px solid #fff; }
+  .avatar{ width:38px; height:38px; border-radius:50%; background:var(--sage-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-size:1.1rem; }
+
+  .main-wrap{ margin-left:var(--sidebar-w); min-height:100vh; }
+  .content{ padding:1.8rem 1.8rem 3rem; }
+  .breadcrumb-eyebrow{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  .page-title{ font-size:1.9rem; color:var(--sage-dark); }
+  .page-header-row{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
+
+  .card-plain{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; }
+  .stat-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.3rem 1.4rem; height:100%; }
+  .stat-card .stat-icon{ width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:.9rem; }
+  .stat-num{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--charcoal); font-weight:600; }
+  .stat-label{ font-size:.8rem; color:#8a8477; }
+
+  .badge-soft{ border-radius:20px; padding:.3rem .7rem; font-size:.72rem; font-weight:500; }
+  .badge-green{ background:#E7EDE3; color:#4C6B3E; }
+  .badge-amber{ background:#F6ECD9; color:#96712E; }
+  .badge-red{ background:#F5E3E0; color:#A8493D; }
+  .badge-gray{ background:#EDEAE3; color:#7A7568; }
+
+  .btn-gold-outline{ border:1px solid var(--gold); color:var(--gold); background:transparent; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-outline:hover{ background:var(--gold); color:#fff; }
+  .btn-gold-solid{ border:1px solid var(--gold); background:var(--gold); color:#fff; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-solid:hover{ background:transparent; color:var(--gold); }
+
+  .row-action{ width:32px; height:32px; border-radius:6px; border:1px solid rgba(0,0,0,.08); display:inline-flex; align-items:center; justify-content:center; color:#8a8477; background:#fff; transition:all .2s ease; cursor:pointer; }
+  .row-action:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* Toolbar */
+  .toolbar{ display:flex; gap:.8rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .search-pill{ flex:1; min-width:220px; display:flex; align-items:center; gap:.6rem; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px; padding:.65rem 1rem; box-shadow:0 2px 8px rgba(60,55,45,.04); transition:border-color .2s ease, box-shadow .2s ease; }
+  .search-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .search-pill i{ color:var(--gold); font-size:1rem; }
+  .search-pill input{ border:none; outline:none; background:transparent; font-size:.87rem; width:100%; font-family:'Jost', sans-serif; color:var(--charcoal); }
+  .search-pill input::placeholder{ color:#a39c8d; }
+  .select-pill{ position:relative; min-width:170px; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px; box-shadow:0 2px 8px rgba(60,55,45,.04); display:flex; align-items:center; gap:.6rem; padding:.65rem 1rem; transition:border-color .2s ease, box-shadow .2s ease; }
+  .select-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .select-pill i.select-icon{ color:var(--gold); font-size:1rem; flex-shrink:0; }
+  .select-pill select{ border:none; outline:none; background:transparent; font-size:.87rem; width:100%; font-family:'Jost', sans-serif; color:var(--charcoal); appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:1.2rem; }
+  .select-pill .chevron-icon{ position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-size:.7rem; color:#a39c8d; pointer-events:none; }
+
+  /* Client item */
+  .client-item{ display:flex; align-items:center; gap:1.1rem; padding:1.1rem 0; border-bottom:1px solid rgba(0,0,0,.06); flex-wrap:wrap; }
+  .client-item:last-child{ border-bottom:none; }
+  .client-avatar{ width:50px; height:50px; border-radius:50%; flex-shrink:0; background:var(--blush); color:var(--sage-dark); display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem; }
+  .client-body{ flex:1; min-width:200px; }
+  .client-name{ font-size:.95rem; font-weight:500; color:var(--charcoal); }
+  .client-meta{ font-size:.78rem; color:#8a8477; margin-top:.2rem; }
+  .client-pkg-chip{ display:inline-block; font-size:.7rem; font-weight:500; padding:.2rem .6rem; border-radius:20px; margin-top:.4rem; }
+  .client-progress-wrap{ min-width:150px; flex-shrink:0; }
+  .client-progress-label{ font-size:.72rem; color:#8a8477; margin-bottom:.3rem; display:flex; justify-content:space-between; }
+  .progress{ height:7px; border-radius:6px; background:#F0ECE2; }
+  .progress-bar-gold{ background:var(--gold); }
+  .progress-bar-sage{ background:var(--sage); }
+  .client-staff{ font-size:.78rem; color:#6b6558; min-width:110px; flex-shrink:0; }
+  .client-side{ display:flex; flex-direction:column; align-items:flex-end; gap:.5rem; flex-shrink:0; min-width:150px; }
+
+  .sidebar-toggle{ display:none; }
+  @media (max-width: 991.98px){
+    .sidebar{ transform:translateX(-100%); box-shadow:0 0 30px rgba(0,0,0,.15); }
+    .sidebar.open{ transform:translateX(0); }
+    .main-wrap{ margin-left:0; }
+    .sidebar-toggle{ display:flex; }
+    .search-box{ display:none; }
+  }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999; }
+  .overlay.show{ display:block; }
+
+  /* Billing page */
+  .plan-banner{
+    background:var(--sage-dark); color:#fff; border-radius:12px; padding:1.8rem 2rem;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.2rem;
+  }
+  .plan-banner .pkg-name{ font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:600; }
+  .plan-banner .pkg-price{ font-size:.85rem; opacity:.85; margin-top:.2rem; }
+
+  .usage-row{ margin-bottom:1.2rem; }
+  .usage-row:last-child{ margin-bottom:0; }
+  .usage-label{ display:flex; justify-content:space-between; font-size:.85rem; margin-bottom:.4rem; }
+  .usage-label .val{ color:#8a8477; }
+
+  .plan-card{ border:1px solid rgba(0,0,0,.08); border-radius:12px; padding:1.6rem; height:100%; text-align:center; position:relative; }
+  .plan-card.current{ border-color:var(--gold); box-shadow:0 4px 16px rgba(176,141,79,.12); }
+  .plan-card-badge{ position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--gold); color:#fff; font-size:.66rem; font-weight:600; padding:.25rem .8rem; border-radius:20px; letter-spacing:.04em; text-transform:uppercase; }
+  .plan-card-name{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; font-weight:600; color:var(--sage-dark); margin-top:.4rem; }
+  .plan-card-price{ font-family:'Cormorant Garamond', serif; font-size:1.9rem; font-weight:600; color:var(--charcoal); margin:.6rem 0; }
+  .plan-card-price span{ font-size:.75rem; font-weight:400; color:#8a8477; }
+  .plan-card-features{ list-style:none; padding:0; margin:0 0 1.4rem; font-size:.83rem; text-align:left; }
+  .plan-card-features li{ padding:.4rem 0; border-bottom:1px dashed rgba(0,0,0,.08); }
+  .plan-card-features li i{ color:var(--gold); margin-right:.5rem; }
+
+  .invoice-item{ display:flex; align-items:center; gap:1rem; padding:.95rem 0; border-bottom:1px solid rgba(0,0,0,.06); }
+  .invoice-item:last-child{ border-bottom:none; }
+  .invoice-icon{ width:42px; height:42px; border-radius:10px; flex-shrink:0; background:#E9EDE7; color:#4C6B3E; display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+  .invoice-title{ font-size:.88rem; font-weight:500; color:var(--charcoal); }
+  .invoice-meta{ font-size:.76rem; color:#8a8477; }
+  .invoice-amount{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1rem; color:var(--charcoal); text-align:right; flex-shrink:0; min-width:110px; }
+
+  .payment-method-row{ display:flex; align-items:center; gap:.9rem; padding:.9rem 1rem; border:1px solid rgba(0,0,0,.08); border-radius:10px; }
+  .payment-method-row i{ font-size:1.4rem; color:var(--sage-dark); }
+
+  .card-section-title{ font-size:.95rem; font-weight:500; color:var(--sage-dark); display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+  .card-section-title i{ color:var(--gold); font-size:1.1rem; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="42" fill="none" stroke="#5C6B54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+      <g fill="none" stroke="#5C6B54" stroke-width="1.6" stroke-linecap="round">
+        <path d="M26,72 C19,64 19,50 26,40"/>
+        <path d="M94,72 C101,64 101,50 94,40"/>
+      </g>
+      <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#3E4A38">S</text>
+    </svg>
+    <div class="brand-text">
+      <div class="name">Selaras WO</div>
+      <div class="tag">Admin Panel</div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <a class="nav-link" href="wo-dashboard.html"><i class="bi bi-speedometer2 menu-icon"></i>Dashboard</a>
+    <a class="nav-link" href="wo-clients.html"><i class="bi bi-people menu-icon"></i>Clients</a>
+    <a class="nav-link" href="wo-team.html"><i class="bi bi-person-badge menu-icon"></i>Team</a>
+    <a class="nav-link" href="wo-calendar.html"><i class="bi bi-calendar3 menu-icon"></i>Calendar</a>
+
+    <div class="nav-group-title">Bisnis</div>
+    <a class="nav-link" href="wo-website.html"><i class="bi bi-globe2 menu-icon"></i>Website Saya</a>
+    <a class="nav-link active" href="wo-billing.html"><i class="bi bi-credit-card menu-icon"></i>Billing</a>
+    <a class="nav-link" href="wo-settings.html"><i class="bi bi-gear menu-icon"></i>Settings</a>
+
+    <a class="nav-link logout-link mt-3" href="login.html"><i class="bi bi-box-arrow-right menu-icon"></i>Logout</a>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="main-wrap">
+  <div class="topbar">
+    <div class="sidebar-toggle icon-btn" onclick="toggleSidebar()"><i class="bi bi-list fs-5"></i></div>
+    <div class="search-box"><i class="bi bi-search" style="color:#a8a192;"></i><input type="text" placeholder="Cari sesuatu..."></div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <div class="icon-btn"><i class="bi bi-bell"></i><span class="dot"></span></div>
+      <div class="dropdown">
+        <div class="d-flex align-items-center gap-2" style="cursor:pointer;" data-bs-toggle="dropdown">
+          <div class="avatar">S</div>
+          <div class="d-none d-md-block">
+            <div style="font-size:.85rem; font-weight:500;">Sari Wijayanti</div>
+            <div style="font-size:.72rem; opacity:.6;">Owner — Selaras WO</div>
+          </div>
+          <i class="bi bi-chevron-down" style="font-size:.7rem; opacity:.6;"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end mt-2">
+          <li><a class="dropdown-item" href="wo-settings.html">Pengaturan Akun</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="login.html">Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Selaras WO</span>
+        <h1 class="page-title">Billing</h1>
+      </div>
+    </div>
+
+    <div class="card-plain mb-3">
+      <div class="plan-banner">
+        <div>
+          <div style="font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; opacity:.75;">Paket Platform Aktif</div>
+          <div class="pkg-name">Business</div>
+          <div class="pkg-price">Rp 499.000 / bulan · Perpanjangan otomatis 12 Feb 2026</div>
+        </div>
+        <button class="btn-gold-solid" type="button" data-bs-toggle="modal" data-bs-target="#changePlanModal">Ubah Paket</button>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-lg-5">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-speedometer2"></i>Penggunaan Bulan Ini</div>
+
+          <div class="usage-row">
+            <div class="usage-label"><span>Klien Aktif</span><span class="val">4 / 10</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-gold" style="width:40%"></div></div>
+          </div>
+          <div class="usage-row">
+            <div class="usage-label"><span>Anggota Tim</span><span class="val">2 / 5</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-sage" style="width:40%"></div></div>
+          </div>
+          <div class="usage-row">
+            <div class="usage-label"><span>Penyimpanan Dokumen</span><span class="val">2.1 GB / 20 GB</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-gold" style="width:11%"></div></div>
+          </div>
+          <div class="usage-row">
+            <div class="usage-label"><span>Landing Page Custom</span><span class="val">1 / 1</span></div>
+            <div class="progress"><div class="progress-bar progress-bar-sage" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card-plain h-100">
+          <div class="card-section-title"><i class="bi bi-credit-card"></i>Metode Pembayaran</div>
+          <div class="payment-method-row mb-3">
+            <i class="bi bi-credit-card-2-front"></i>
+            <div class="flex-grow-1">
+              <div style="font-size:.87rem; font-weight:500;">Visa •••• 4821</div>
+              <div style="font-size:.76rem; color:#8a8477;">Kedaluwarsa 08/2027</div>
+            </div>
+            <span class="badge-soft badge-green">Utama</span>
+          </div>
+          <button class="btn-gold-outline" type="button"><i class="bi bi-plus-lg me-1"></i>Tambah Metode Pembayaran</button>
+
+          <div class="card-section-title mt-4"><i class="bi bi-receipt"></i>Info Tagihan</div>
+          <div style="font-size:.85rem; color:#6b6558; line-height:1.7;">
+            PT Selaras Wedding Organizer<br>
+            Jl. Kemang Raya No. 21, Jakarta Selatan<br>
+            NPWP: 01.234.567.8-901.000
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-plain mb-3">
+      <div class="card-section-title"><i class="bi bi-box2"></i>Pilihan Paket Platform</div>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="plan-card">
+            <div class="plan-card-name">Starter</div>
+            <div class="plan-card-price">Rp 199rb<span>/bulan</span></div>
+            <ul class="plan-card-features">
+              <li><i class="bi bi-check2"></i>Hingga 3 klien aktif</li>
+              <li><i class="bi bi-check2"></i>1 anggota tim</li>
+              <li><i class="bi bi-check2"></i>5 GB penyimpanan</li>
+            </ul>
+            <button class="btn-gold-outline" type="button" style="width:100%;">Downgrade</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="plan-card current">
+            <span class="plan-card-badge">Paket Aktif</span>
+            <div class="plan-card-name">Business</div>
+            <div class="plan-card-price">Rp 499rb<span>/bulan</span></div>
+            <ul class="plan-card-features">
+              <li><i class="bi bi-check2"></i>Hingga 10 klien aktif</li>
+              <li><i class="bi bi-check2"></i>5 anggota tim</li>
+              <li><i class="bi bi-check2"></i>20 GB penyimpanan</li>
+              <li><i class="bi bi-check2"></i>1 landing page custom</li>
+            </ul>
+            <button class="btn-gold-outline" type="button" style="width:100%;" disabled>Paket Saat Ini</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="plan-card">
+            <div class="plan-card-name">Scale</div>
+            <div class="plan-card-price">Rp 999rb<span>/bulan</span></div>
+            <ul class="plan-card-features">
+              <li><i class="bi bi-check2"></i>Klien aktif tanpa batas</li>
+              <li><i class="bi bi-check2"></i>Anggota tim tanpa batas</li>
+              <li><i class="bi bi-check2"></i>100 GB penyimpanan</li>
+              <li><i class="bi bi-check2"></i>3 landing page custom</li>
+            </ul>
+            <button class="btn-gold-solid" type="button" style="width:100%;">Upgrade</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-plain">
+      <div class="card-section-title"><i class="bi bi-clock-history"></i>Riwayat Tagihan</div>
+
+      <div class="invoice-item">
+        <div class="invoice-icon"><i class="bi bi-receipt"></i></div>
+        <div class="flex-grow-1">
+          <div class="invoice-title">Langganan Business — Januari 2026</div>
+          <div class="invoice-meta">Dibayar 12 Jan 2026 · Visa •••• 4821</div>
+        </div>
+        <div class="invoice-amount">Rp 499.000</div>
+        <span class="row-action" title="Unduh"><i class="bi bi-download"></i></span>
+      </div>
+
+      <div class="invoice-item">
+        <div class="invoice-icon"><i class="bi bi-receipt"></i></div>
+        <div class="flex-grow-1">
+          <div class="invoice-title">Langganan Business — Desember 2025</div>
+          <div class="invoice-meta">Dibayar 12 Des 2025 · Visa •••• 4821</div>
+        </div>
+        <div class="invoice-amount">Rp 499.000</div>
+        <span class="row-action" title="Unduh"><i class="bi bi-download"></i></span>
+      </div>
+
+      <div class="invoice-item">
+        <div class="invoice-icon"><i class="bi bi-receipt"></i></div>
+        <div class="flex-grow-1">
+          <div class="invoice-title">Langganan Business — November 2025</div>
+          <div class="invoice-meta">Dibayar 12 Nov 2025 · Visa •••• 4821</div>
+        </div>
+        <div class="invoice-amount">Rp 499.000</div>
+        <span class="row-action" title="Unduh"><i class="bi bi-download"></i></span>
+      </div>
+
+      <div class="invoice-item">
+        <div class="invoice-icon" style="background:#F6ECD9; color:#96712E;"><i class="bi bi-receipt"></i></div>
+        <div class="flex-grow-1">
+          <div class="invoice-title">Upgrade Starter &rarr; Business</div>
+          <div class="invoice-meta">Dibayar 12 Okt 2025 · Prorata</div>
+        </div>
+        <div class="invoice-amount">Rp 210.000</div>
+        <span class="row-action" title="Unduh"><i class="bi bi-download"></i></span>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="changePlanModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:12px; border:none;">
+      <div class="modal-header" style="border-bottom:1px solid rgba(0,0,0,.06);">
+        <h5 class="modal-title" style="font-family:'Cormorant Garamond',serif; color:var(--sage-dark);">Ubah Paket Langganan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:.87rem;">Pilih paket baru di bawah ini pada bagian "Pilihan Paket Platform" pada halaman Billing. Perubahan paket akan dihitung secara prorata pada tagihan berikutnya.</p>
+      </div>
+      <div class="modal-footer" style="border-top:1px solid rgba(0,0,0,.06);">
+        <button type="button" class="btn-gold-solid" data-bs-dismiss="modal">Mengerti</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleSidebar(forceClose){
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    if(forceClose){ sb.classList.remove('open'); ov.classList.remove('show'); return; }
+    sb.classList.toggle('open');
+    ov.classList.toggle('show');
+  }
+</script>
+</body>
+</html>

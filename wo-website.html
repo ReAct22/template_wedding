@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Saya — Selaras WO Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ivory:#FAF6EF;
+    --sage:#5C6B54;
+    --sage-dark:#3E4A38;
+    --gold:#B08D4F;
+    --blush:#E3C9BE;
+    --charcoal:#2B2723;
+    --sidebar-w:272px;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:'Jost', sans-serif; font-weight:300; color:var(--charcoal);
+    background:#F2EFE8; letter-spacing:.01em;
+  }
+  h1,h2,h3,.display-font{ font-family:'Cormorant Garamond', serif; font-weight:600; }
+
+  /* Sidebar */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+    background:#fff; border-right:1px solid rgba(0,0,0,.06); overflow-y:auto; z-index:1000;
+    transition:transform .3s ease;
+  }
+  .sidebar-brand{ padding:1.4rem 1.4rem 1.1rem; display:flex; align-items:center; gap:.6rem; border-bottom:1px solid rgba(0,0,0,.06); }
+  .sidebar-brand svg{ width:34px; height:34px; }
+  .sidebar-brand .brand-text{ line-height:1.2; }
+  .sidebar-brand .brand-text .name{ font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--sage-dark); }
+  .sidebar-brand .brand-text .tag{ font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+
+  .sidebar-nav{ padding:1rem .8rem 2rem; }
+  .sidebar .nav-link{
+    color:var(--charcoal); font-size:.88rem; padding:.62rem .7rem; border-radius:6px;
+    display:flex; align-items:center; gap:.65rem; cursor:pointer; text-decoration:none; margin-bottom:.15rem;
+  }
+  .sidebar .nav-link i.menu-icon{ font-size:1.05rem; color:var(--sage); width:20px; text-align:center; }
+  .sidebar .nav-link:hover{ background:#F5F1E9; }
+  .sidebar .nav-link.active{ background:var(--sage-dark); color:#fff; }
+  .sidebar .nav-link.active i.menu-icon{ color:var(--blush); }
+  .logout-link{ color:#a8493d !important; }
+  .logout-link i{ color:#a8493d !important; }
+  .nav-group-title{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:#9a9488; padding:.9rem .7rem .3rem; }
+
+  /* Topbar */
+  .topbar{
+    position:sticky; top:0; z-index:900; background:#fff; border-bottom:1px solid rgba(0,0,0,.06);
+    padding:.85rem 1.5rem; display:flex; align-items:center; gap:1rem;
+  }
+  .search-box{ background:#F5F1E9; border-radius:8px; padding:.5rem .9rem; display:flex; align-items:center; gap:.5rem; flex:1; max-width:360px; }
+  .search-box input{ border:none; background:transparent; outline:none; font-size:.85rem; width:100%; font-family:'Jost', sans-serif; }
+  .topbar .icon-btn{ width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:#F5F1E9; color:var(--sage-dark); position:relative; cursor:pointer; }
+  .icon-btn .dot{ position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--gold); border:1.5px solid #fff; }
+  .avatar{ width:38px; height:38px; border-radius:50%; background:var(--sage-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-size:1.1rem; }
+
+  .main-wrap{ margin-left:var(--sidebar-w); min-height:100vh; }
+  .content{ padding:1.8rem 1.8rem 3rem; }
+  .breadcrumb-eyebrow{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  .page-title{ font-size:1.9rem; color:var(--sage-dark); }
+  .page-header-row{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.6rem; }
+
+  .card-plain{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; }
+  .badge-soft{ border-radius:20px; padding:.3rem .7rem; font-size:.72rem; font-weight:500; }
+  .badge-green{ background:#E7EDE3; color:#4C6B3E; }
+
+  .btn-gold-outline{ border:1px solid var(--gold); color:var(--gold); background:transparent; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-outline:hover{ background:var(--gold); color:#fff; }
+  .btn-gold-solid{ border:1px solid var(--gold); background:var(--gold); color:#fff; padding:.55rem 1.2rem; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; transition:all .25s ease; }
+  .btn-gold-solid:hover{ background:transparent; color:var(--gold); }
+
+  .row-action{ width:32px; height:32px; border-radius:6px; border:1px solid rgba(0,0,0,.08); display:inline-flex; align-items:center; justify-content:center; color:#8a8477; background:#fff; transition:all .2s ease; cursor:pointer; }
+  .row-action:hover{ border-color:var(--gold); color:var(--gold); }
+  .row-action.danger:hover{ border-color:#A8493D; color:#A8493D; }
+
+  .sidebar-toggle{ display:none; }
+  @media (max-width: 991.98px){
+    .sidebar{ transform:translateX(-100%); box-shadow:0 0 30px rgba(0,0,0,.15); }
+    .sidebar.open{ transform:translateX(0); }
+    .main-wrap{ margin-left:0; }
+    .sidebar-toggle{ display:flex; }
+    .search-box{ display:none; }
+  }
+  .overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:999; }
+  .overlay.show{ display:block; }
+
+  /* ============ Website Builder specific ============ */
+  .builder-layout{ display:flex; gap:1.4rem; align-items:flex-start; }
+  .builder-panel{ flex:0 0 420px; max-width:420px; }
+  .builder-preview-wrap{ flex:1; min-width:0; position:sticky; top:90px; }
+
+  .url-bar{
+    display:flex; align-items:center; gap:.7rem; background:#fff; border:1px solid rgba(0,0,0,.08);
+    border-radius:10px; padding:.7rem 1rem; margin-bottom:1.2rem; box-shadow:0 2px 8px rgba(60,55,45,.04);
+  }
+  .url-bar i{ color:var(--gold); }
+  .url-bar .url-text{ flex:1; font-size:.85rem; color:var(--sage-dark); font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .accordion-item{ border:1px solid rgba(0,0,0,.06); border-radius:10px !important; margin-bottom:.8rem; overflow:hidden; }
+  .accordion-button{ font-size:.87rem; font-weight:500; color:var(--sage-dark); background:#fff; padding:.9rem 1.1rem; }
+  .accordion-button:not(.collapsed){ background:#FBF8F2; color:var(--sage-dark); box-shadow:none; }
+  .accordion-button:focus{ box-shadow:none; border-color:rgba(0,0,0,.06); }
+  .accordion-button i{ color:var(--gold); margin-right:.6rem; }
+  .accordion-body{ padding:1.1rem; }
+
+  .builder-label{ font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark); margin-bottom:.35rem; display:block; }
+  .builder-body .form-control, .builder-body .form-select{
+    border-radius:6px; border:1px solid rgba(0,0,0,.12); padding:.55rem .8rem; font-size:.85rem;
+  }
+  .builder-body .form-control:focus, .builder-body .form-select:focus{ border-color:var(--gold); box-shadow:0 0 0 .15rem rgba(176,141,79,.15); }
+
+  .color-input-row{ display:flex; align-items:center; gap:.6rem; }
+  .color-input-row input[type="color"]{ width:38px; height:38px; border:1px solid rgba(0,0,0,.12); border-radius:8px; padding:2px; flex-shrink:0; cursor:pointer; }
+
+  .pkg-editor-card{ border:1px solid rgba(0,0,0,.08); border-radius:8px; padding:.9rem; margin-bottom:.8rem; background:#FAF8F3; }
+  .pkg-editor-card:last-child{ margin-bottom:0; }
+  .pkg-editor-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:.6rem; }
+  .pkg-editor-head span{ font-size:.8rem; font-weight:500; color:var(--sage-dark); }
+
+  /* --- Browser mockup preview --- */
+  .browser-frame{ background:#fff; border-radius:14px; border:1px solid rgba(0,0,0,.08); box-shadow:0 20px 50px rgba(60,55,45,.12); overflow:hidden; }
+  .browser-topbar{ background:#EDEAE2; padding:.6rem .9rem; display:flex; align-items:center; gap:.5rem; border-bottom:1px solid rgba(0,0,0,.06); }
+  .browser-dot{ width:9px; height:9px; border-radius:50%; }
+  .browser-url-pill{ flex:1; background:#fff; border-radius:14px; padding:.25rem .8rem; font-size:.72rem; color:#8a8477; text-align:center; }
+
+  .preview-scroll{ max-height:640px; overflow-y:auto; }
+
+  .prev-hero{ padding:3rem 2rem; text-align:center; transition:background .3s ease; }
+  .prev-eyebrow{ font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; margin-bottom:.8rem; opacity:.85; }
+  .prev-headline{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:2.2rem; line-height:1.15; margin-bottom:.8rem; transition:color .3s ease; }
+  .prev-sub{ font-size:.9rem; max-width:420px; margin:0 auto 1.4rem; opacity:.85; }
+  .prev-cta{ display:inline-block; padding:.7rem 1.8rem; border-radius:4px; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:#fff; transition:background .3s ease; }
+
+  .prev-section{ padding:2.4rem 2rem; }
+  .prev-section-title{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.5rem; text-align:center; margin-bottom:1.6rem; transition:color .3s ease; }
+  .prev-about-text{ font-size:.85rem; text-align:center; max-width:480px; margin:0 auto; color:#5c574d; line-height:1.7; }
+
+  .prev-pkg-row{ display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .prev-pkg-card{ background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px; padding:1.4rem; flex:1; min-width:150px; max-width:220px; text-align:center; }
+  .prev-pkg-name{ font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:.5rem; transition:color .3s ease; }
+  .prev-pkg-price{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.5rem; margin-bottom:.8rem; color:var(--charcoal); }
+  .prev-pkg-features{ font-size:.72rem; color:#8a8477; line-height:1.8; list-style:none; padding:0; }
+
+  .prev-footer{ background:var(--charcoal); color:rgba(255,255,255,.7); text-align:center; padding:1.4rem; font-size:.72rem; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="42" fill="none" stroke="#5C6B54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="37.5" fill="none" stroke="#B08D4F" stroke-width="1"/>
+      <g fill="none" stroke="#5C6B54" stroke-width="1.6" stroke-linecap="round">
+        <path d="M26,72 C19,64 19,50 26,40"/>
+        <path d="M94,72 C101,64 101,50 94,40"/>
+      </g>
+      <text x="60" y="72" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="38" fill="#3E4A38">S</text>
+    </svg>
+    <div class="brand-text">
+      <div class="name">Selaras WO</div>
+      <div class="tag">Admin Panel</div>
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <a class="nav-link" href="wo-dashboard.html"><i class="bi bi-speedometer2 menu-icon"></i>Dashboard</a>
+    <a class="nav-link" href="wo-clients.html"><i class="bi bi-people menu-icon"></i>Clients</a>
+    <a class="nav-link" href="wo-team.html"><i class="bi bi-person-badge menu-icon"></i>Team</a>
+    <a class="nav-link" href="wo-calendar.html"><i class="bi bi-calendar3 menu-icon"></i>Calendar</a>
+
+    <div class="nav-group-title">Bisnis</div>
+    <a class="nav-link active" href="wo-website.html"><i class="bi bi-globe2 menu-icon"></i>Website Saya</a>
+    <a class="nav-link" href="wo-billing.html"><i class="bi bi-credit-card menu-icon"></i>Billing</a>
+    <a class="nav-link" href="wo-settings.html"><i class="bi bi-gear menu-icon"></i>Settings</a>
+
+    <a class="nav-link logout-link mt-3" href="login.html"><i class="bi bi-box-arrow-right menu-icon"></i>Logout</a>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="main-wrap">
+  <div class="topbar">
+    <div class="sidebar-toggle icon-btn" onclick="toggleSidebar()"><i class="bi bi-list fs-5"></i></div>
+    <div class="search-box"><i class="bi bi-search" style="color:#a8a192;"></i><input type="text" placeholder="Cari sesuatu..."></div>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <div class="icon-btn"><i class="bi bi-bell"></i><span class="dot"></span></div>
+      <div class="dropdown">
+        <div class="d-flex align-items-center gap-2" style="cursor:pointer;" data-bs-toggle="dropdown">
+          <div class="avatar">S</div>
+          <div class="d-none d-md-block">
+            <div style="font-size:.85rem; font-weight:500;">Sari Wijayanti</div>
+            <div style="font-size:.72rem; opacity:.6;">Owner — Selaras WO</div>
+          </div>
+          <i class="bi bi-chevron-down" style="font-size:.7rem; opacity:.6;"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end mt-2">
+          <li><a class="dropdown-item" href="wo-settings.html">Pengaturan Akun</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="login.html">Keluar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="page-header-row">
+      <div>
+        <span class="breadcrumb-eyebrow">Selaras WO</span>
+        <h1 class="page-title">Website Saya</h1>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-gold-outline" type="button"><i class="bi bi-box-arrow-up-right me-1"></i>Lihat Live</button>
+        <button class="btn-gold-solid" type="button" onclick="showPublished()"><i class="bi bi-cloud-upload me-1"></i>Publikasikan</button>
+      </div>
+    </div>
+
+    <div class="url-bar">
+      <i class="bi bi-link-45deg"></i>
+      <span class="url-text" id="urlPreviewText">selaras-app.id/w/selaras-wedding</span>
+      <span class="badge-soft badge-green">Live</span>
+      <span class="row-action" title="Salin Link"><i class="bi bi-copy"></i></span>
+    </div>
+
+    <div class="builder-layout">
+
+      <!-- ===== EDITOR PANEL ===== -->
+      <div class="builder-panel">
+        <div class="accordion" id="builderAccordion">
+
+          <!-- Identitas -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accIdentitas">
+                <i class="bi bi-signpost-2"></i>Identitas &amp; URL
+              </button>
+            </h2>
+            <div id="accIdentitas" class="accordion-collapse collapse show">
+              <div class="accordion-body builder-body">
+                <div class="mb-3">
+                  <label class="builder-label">Nama Bisnis</label>
+                  <input type="text" class="form-control" id="inBusinessName" value="Selaras Wedding Planner" oninput="syncPreview()">
+                </div>
+                <div class="mb-3">
+                  <label class="builder-label">Slug URL</label>
+                  <input type="text" class="form-control" id="inSlug" value="selaras-wedding" oninput="syncPreview()">
+                </div>
+                <div>
+                  <label class="builder-label">Favicon / Inisial Logo</label>
+                  <input type="text" class="form-control" id="inInitial" maxlength="2" value="S" oninput="syncPreview()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Warna & Tema -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accWarna">
+                <i class="bi bi-palette"></i>Warna &amp; Tema
+              </button>
+            </h2>
+            <div id="accWarna" class="accordion-collapse collapse">
+              <div class="accordion-body builder-body">
+                <div class="row g-3">
+                  <div class="col-6">
+                    <label class="builder-label">Warna Utama</label>
+                    <div class="color-input-row">
+                      <input type="color" id="inPrimary" value="#3E4A38" oninput="syncPreview()">
+                      <input type="text" class="form-control" id="inPrimaryHex" value="#3E4A38" oninput="syncFromHex('inPrimary','inPrimaryHex')">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="builder-label">Warna Aksen</label>
+                    <div class="color-input-row">
+                      <input type="color" id="inAccent" value="#B08D4F" oninput="syncPreview()">
+                      <input type="text" class="form-control" id="inAccentHex" value="#B08D4F" oninput="syncFromHex('inAccent','inAccentHex')">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="builder-label">Warna Latar</label>
+                    <div class="color-input-row">
+                      <input type="color" id="inBg" value="#FAF6EF" oninput="syncPreview()">
+                      <input type="text" class="form-control" id="inBgHex" value="#FAF6EF" oninput="syncFromHex('inBg','inBgHex')">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label class="builder-label">Gaya Font</label>
+                    <select class="form-select" id="inFontStyle" onchange="syncPreview()">
+                      <option value="serif">Elegan (Serif)</option>
+                      <option value="sans">Modern (Sans)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Content -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accHero">
+                <i class="bi bi-type"></i>Judul &amp; Isi Utama
+              </button>
+            </h2>
+            <div id="accHero" class="accordion-collapse collapse">
+              <div class="accordion-body builder-body">
+                <div class="mb-3">
+                  <label class="builder-label">Eyebrow / Label Kecil</label>
+                  <input type="text" class="form-control" id="inEyebrow" value="Wedding Planner & Kurator Acara" oninput="syncPreview()">
+                </div>
+                <div class="mb-3">
+                  <label class="builder-label">Headline Utama</label>
+                  <textarea class="form-control" id="inHeadline" rows="2" oninput="syncPreview()">Setiap Kisah Layak Dirayakan dengan Selaras</textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="builder-label">Subheadline</label>
+                  <textarea class="form-control" id="inSubheadline" rows="3" oninput="syncPreview()">Kami merangkai detail, vendor, dan waktu menjadi satu hari yang mengalir tanpa hambatan.</textarea>
+                </div>
+                <div>
+                  <label class="builder-label">Teks Tombol CTA</label>
+                  <input type="text" class="form-control" id="inCtaText" value="Konsultasi Gratis" oninput="syncPreview()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tentang Kami -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accAbout">
+                <i class="bi bi-card-text"></i>Tentang Kami
+              </button>
+            </h2>
+            <div id="accAbout" class="accordion-collapse collapse">
+              <div class="accordion-body builder-body">
+                <div class="mb-3">
+                  <label class="builder-label">Judul Bagian</label>
+                  <input type="text" class="form-control" id="inAboutTitle" value="Mitra di Balik Layar, Saksi di Hari Bahagia" oninput="syncPreview()">
+                </div>
+                <div>
+                  <label class="builder-label">Deskripsi</label>
+                  <textarea class="form-control" id="inAboutText" rows="4" oninput="syncPreview()">Sejak 2016, kami mendampingi pasangan merancang pernikahan yang terasa personal — bukan sekadar seragam dan dekorasi, tapi cerita yang utuh.</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paket Harga -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accPaket">
+                <i class="bi bi-tags"></i>Paket Harga
+              </button>
+            </h2>
+            <div id="accPaket" class="accordion-collapse collapse">
+              <div class="accordion-body builder-body">
+                <div id="pkgEditorList"></div>
+                <button class="btn-gold-outline w-100 mt-2" type="button" onclick="addPackage()">
+                  <i class="bi bi-plus-lg me-1"></i>Tambah Paket
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kontak -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accKontak">
+                <i class="bi bi-whatsapp"></i>Kontak
+              </button>
+            </h2>
+            <div id="accKontak" class="accordion-collapse collapse">
+              <div class="accordion-body builder-body">
+                <div class="mb-3">
+                  <label class="builder-label">No. WhatsApp</label>
+                  <input type="text" class="form-control" id="inWhatsapp" value="0857-1234-5678" oninput="syncPreview()">
+                </div>
+                <div>
+                  <label class="builder-label">Instagram</label>
+                  <input type="text" class="form-control" id="inInstagram" value="@selarasweddings" oninput="syncPreview()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ===== LIVE PREVIEW ===== -->
+      <div class="builder-preview-wrap">
+        <div class="browser-frame">
+          <div class="browser-topbar">
+            <span class="browser-dot" style="background:#e0645c;"></span>
+            <span class="browser-dot" style="background:#f0b95e;"></span>
+            <span class="browser-dot" style="background:#5cb45e;"></span>
+            <div class="browser-url-pill" id="browserUrlPill">selaras-app.id/w/selaras-wedding</div>
+          </div>
+          <div class="preview-scroll" id="previewRoot">
+            <div class="prev-hero" id="prevHero">
+              <div class="prev-eyebrow" id="prevEyebrow"></div>
+              <div class="prev-headline" id="prevHeadline"></div>
+              <div class="prev-sub" id="prevSub"></div>
+              <a href="#" class="prev-cta" id="prevCta" onclick="return false;"></a>
+            </div>
+
+            <div class="prev-section" style="background:#fff;">
+              <div class="prev-section-title" id="prevAboutTitle"></div>
+              <p class="prev-about-text" id="prevAboutText"></p>
+            </div>
+
+            <div class="prev-section" id="prevPkgSection">
+              <div class="prev-section-title" id="prevPkgTitle">Paket Layanan</div>
+              <div class="prev-pkg-row" id="prevPkgRow"></div>
+            </div>
+
+            <div class="prev-footer">
+              <span id="prevFooterName"></span> &middot; WA: <span id="prevFooterWa"></span> &middot; IG: <span id="prevFooterIg"></span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-muted mt-2" style="font-size:.78rem;">Pratinjau langsung — perubahan di panel kiri langsung terlihat di sini.</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-4" style="z-index:1100;">
+  <div id="publishedToast" class="toast align-items-center" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" style="font-size:.87rem; color:var(--sage-dark); background:#fff; border-radius:8px;">
+        <i class="bi bi-check-circle-fill me-2" style="color:#4C6B3E;"></i>Website berhasil dipublikasikan.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function toggleSidebar(forceClose){
+    const sb = document.getElementById('sidebar');
+    const ov = document.getElementById('overlay');
+    if(forceClose){ sb.classList.remove('open'); ov.classList.remove('show'); return; }
+    sb.classList.toggle('open');
+    ov.classList.toggle('show');
+  }
+  function showPublished(){
+    const toastEl = document.getElementById('publishedToast');
+    new bootstrap.Toast(toastEl, { delay: 2500 }).show();
+  }
+
+  // ===== Package data =====
+  let packages = [
+    { name: "Intimate", price: "Rp 15 jt", features: "Day-of coordination\nTim 3 koordinator\nHingga 100 tamu" },
+    { name: "Signature", price: "Rp 35 jt", features: "Full wedding planning\nTim 6 koordinator\nHingga 300 tamu" },
+    { name: "Grand", price: "Rp 65 jt", features: "Full planning + desain custom\nTim 10+ koordinator\nTamu tanpa batas" }
+  ];
+
+  function renderPkgEditor(){
+    const wrap = document.getElementById('pkgEditorList');
+    wrap.innerHTML = '';
+    packages.forEach((pkg, i) => {
+      const card = document.createElement('div');
+      card.className = 'pkg-editor-card';
+      card.innerHTML = `
+        <div class="pkg-editor-head">
+          <span>Paket ${i + 1}</span>
+          <span class="row-action danger" onclick="removePackage(${i})" title="Hapus"><i class="bi bi-trash"></i></span>
+        </div>
+        <div class="mb-2">
+          <label class="builder-label">Nama Paket</label>
+          <input type="text" class="form-control" value="${pkg.name}" oninput="updatePkg(${i},'name',this.value)">
+        </div>
+        <div class="mb-2">
+          <label class="builder-label">Harga</label>
+          <input type="text" class="form-control" value="${pkg.price}" oninput="updatePkg(${i},'price',this.value)">
+        </div>
+        <div>
+          <label class="builder-label">Fitur (satu per baris)</label>
+          <textarea class="form-control" rows="3" oninput="updatePkg(${i},'features',this.value)">${pkg.features}</textarea>
+        </div>
+      `;
+      wrap.appendChild(card);
+    });
+  }
+
+  function updatePkg(i, field, val){
+    packages[i][field] = val;
+    syncPreview();
+  }
+  function addPackage(){
+    packages.push({ name: "Paket Baru", price: "Rp 0", features: "Fitur 1\nFitur 2" });
+    renderPkgEditor();
+    syncPreview();
+  }
+  function removePackage(i){
+    packages.splice(i, 1);
+    renderPkgEditor();
+    syncPreview();
+  }
+
+  function syncFromHex(colorId, hexId){
+    const hexVal = document.getElementById(hexId).value;
+    document.getElementById(colorId).value = hexVal;
+    syncPreview();
+  }
+
+  function syncPreview(){
+    const businessName = document.getElementById('inBusinessName').value;
+    const slug = document.getElementById('inSlug').value;
+    const initial = document.getElementById('inInitial').value || 'S';
+    const primary = document.getElementById('inPrimary').value;
+    const accent = document.getElementById('inAccent').value;
+    const bg = document.getElementById('inBg').value;
+    const fontStyle = document.getElementById('inFontStyle').value;
+
+    document.getElementById('inPrimaryHex').value = primary;
+    document.getElementById('inAccentHex').value = accent;
+    document.getElementById('inBgHex').value = bg;
+
+    const url = `selaras-app.id/w/${slug || 'website-anda'}`;
+    document.getElementById('urlPreviewText').textContent = url;
+    document.getElementById('browserUrlPill').textContent = url;
+
+    const fontFamily = fontStyle === 'sans' ? "'Jost', sans-serif" : "'Cormorant Garamond', serif";
+
+    // Hero
+    const hero = document.getElementById('prevHero');
+    hero.style.background = bg;
+    document.getElementById('prevEyebrow').textContent = document.getElementById('inEyebrow').value;
+    document.getElementById('prevEyebrow').style.color = accent;
+    const headlineEl = document.getElementById('prevHeadline');
+    headlineEl.textContent = document.getElementById('inHeadline').value;
+    headlineEl.style.color = primary;
+    headlineEl.style.fontFamily = fontFamily;
+    document.getElementById('prevSub').textContent = document.getElementById('inSubheadline').value;
+    const ctaEl = document.getElementById('prevCta');
+    ctaEl.textContent = document.getElementById('inCtaText').value;
+    ctaEl.style.background = accent;
+
+    // About
+    document.getElementById('prevAboutTitle').textContent = document.getElementById('inAboutTitle').value;
+    document.getElementById('prevAboutTitle').style.color = primary;
+    document.getElementById('prevAboutTitle').style.fontFamily = fontFamily;
+    document.getElementById('prevAboutText').textContent = document.getElementById('inAboutText').value;
+
+    // Packages
+    document.getElementById('prevPkgSection').style.background = bg;
+    document.getElementById('prevPkgTitle').style.color = primary;
+    document.getElementById('prevPkgTitle').style.fontFamily = fontFamily;
+    const pkgRow = document.getElementById('prevPkgRow');
+    pkgRow.innerHTML = '';
+    packages.forEach(pkg => {
+      const featuresHtml = pkg.features.split('\n').filter(f => f.trim()).map(f => `<li>${f}</li>`).join('');
+      const card = document.createElement('div');
+      card.className = 'prev-pkg-card';
+      card.innerHTML = `
+        <div class="prev-pkg-name" style="color:${accent};">${pkg.name}</div>
+        <div class="prev-pkg-price">${pkg.price}</div>
+        <ul class="prev-pkg-features">${featuresHtml}</ul>
+      `;
+      pkgRow.appendChild(card);
+    });
+
+    // Footer
+    document.getElementById('prevFooterName').textContent = businessName;
+    document.getElementById('prevFooterWa').textContent = document.getElementById('inWhatsapp').value;
+    document.getElementById('prevFooterIg').textContent = document.getElementById('inInstagram').value;
+  }
+
+  renderPkgEditor();
+  syncPreview();
+</script>
+</body>
+</html>
