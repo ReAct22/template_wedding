@@ -69,28 +69,28 @@
       </div>
 
       <div class="sidebar-nav">
-        <a class="nav-link" href="wo-dashboard.html"
+        <a class="nav-link" href="/wo-dashboard.html"
           ><i class="bi bi-speedometer2 menu-icon"></i>Dashboard</a
         >
-        <a class="nav-link active" href="wo-clients.html"
+        <a class="nav-link active" href="/pages/admin/wo-clients.html"
           ><i class="bi bi-people menu-icon"></i>Clients</a
         >
-        <a class="nav-link" href="wo-team.html"
+        <a class="nav-link" href="/pages/admin/wo-team.html"
           ><i class="bi bi-person-badge menu-icon"></i>Team</a
         >
-        <a class="nav-link" href="wo-calendar.html"
+        <a class="nav-link" href="/pages/admin/wo-calendar.html"
           ><i class="bi bi-calendar3 menu-icon"></i>Calendar</a
         >
 
         <div class="nav-group-title">Bisnis</div>
-        <a class="nav-link" href="wo-billing.html"
+        <!-- <a class="nav-link" href="/pages/admin/wo-billing.html"
           ><i class="bi bi-credit-card menu-icon"></i>Billing</a
-        >
-        <a class="nav-link" href="wo-settings.html"
+        > -->
+        <a class="nav-link" href="/pages/admin/wo-settings.html"
           ><i class="bi bi-gear menu-icon"></i>Settings</a
         >
 
-        <a class="nav-link logout-link mt-3" href="login.html"
+        <a class="nav-link logout-link mt-3" href="/login.html"
           ><i class="bi bi-box-arrow-right menu-icon"></i>Logout</a
         >
       </div>
@@ -702,32 +702,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function toggleSidebar(forceClose) {
-        const sb = document.getElementById("sidebar");
-        const ov = document.getElementById("overlay");
-        if (forceClose) {
-          sb.classList.remove("open");
-          ov.classList.remove("show");
-          return;
-        }
-        sb.classList.toggle("open");
-        ov.classList.toggle("show");
-      }
-      function filterClients() {
-        const q = document.getElementById("searchClient").value.toLowerCase();
-        const status = document.getElementById("filterStatus").value;
-        const pkg = document.getElementById("filterPackage").value;
-        document
-          .querySelectorAll("#clientList .client-item")
-          .forEach((item) => {
-            const matchQ = item.dataset.name.includes(q);
-            const matchStatus = !status || item.dataset.status === status;
-            const matchPkg = !pkg || item.dataset.package === pkg;
-            item.style.display =
-              matchQ && matchStatus && matchPkg ? "" : "none";
-          });
-      }
-    </script>
+    <script src="/assets/js/admin.js"></script>
   </body>
 </html>
