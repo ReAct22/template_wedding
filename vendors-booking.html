@@ -1,0 +1,1901 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendor Booking — Selaras Wedding Planner</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Jost:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --ivory: #faf6ef;
+        --sage: #5c6b54;
+        --sage-dark: #3e4a38;
+        --gold: #b08d4f;
+        --blush: #e3c9be;
+        --charcoal: #2b2723;
+        --sidebar-w: 272px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Jost", sans-serif;
+        font-weight: 300;
+        color: var(--charcoal);
+        background: #f2efe8;
+        letter-spacing: 0.01em;
+      }
+      h1,
+      h2,
+      h3,
+      .display-font {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+      }
+
+      /* ===== Sidebar ===== */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: var(--sidebar-w);
+        background: #fff;
+        border-right: 1px solid rgba(0, 0, 0, 0.06);
+        overflow-y: auto;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+      }
+      .sidebar-brand {
+        padding: 1.4rem 1.4rem 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .sidebar-brand svg {
+        width: 34px;
+        height: 34px;
+      }
+      .sidebar-brand span {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.25rem;
+        color: var(--sage-dark);
+      }
+
+      .sidebar-nav {
+        padding: 0.8rem 0.8rem 2rem;
+      }
+      .nav-group-title {
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #9a9488;
+        padding: 0.9rem 0.7rem 0.3rem;
+      }
+      .sidebar .nav-link {
+        color: var(--charcoal);
+        font-size: 0.88rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .sidebar .nav-link i.menu-icon {
+        font-size: 1.05rem;
+        color: var(--sage);
+        width: 20px;
+        text-align: center;
+      }
+      .sidebar .nav-link:hover {
+        background: #f5f1e9;
+      }
+      .sidebar .nav-link.parent {
+        font-weight: 500;
+      }
+      .sidebar .nav-link .chevron {
+        margin-left: auto;
+        font-size: 0.75rem;
+        transition: transform 0.25s ease;
+        color: #b3ab9c;
+      }
+      .sidebar .nav-link[aria-expanded="true"] .chevron {
+        transform: rotate(180deg);
+      }
+
+      .submenu {
+        padding-left: 2.15rem;
+      }
+      .submenu .nav-link {
+        font-size: 0.84rem;
+        padding: 0.4rem 0.6rem;
+        color: #5c574d;
+      }
+      .submenu .nav-link.active {
+        color: var(--gold);
+        font-weight: 500;
+        background: #fbf3e7;
+      }
+      .submenu .nav-link:hover {
+        color: var(--sage-dark);
+      }
+
+      .nav-link.single.active {
+        background: var(--sage-dark);
+        color: #fff;
+      }
+      .nav-link.single.active i.menu-icon {
+        color: var(--blush);
+      }
+
+      .logout-link {
+        color: #a8493d !important;
+      }
+      .logout-link i {
+        color: #a8493d !important;
+      }
+
+      /* ===== Topbar ===== */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        background: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 0.85rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .search-box {
+        background: #f5f1e9;
+        border-radius: 8px;
+        padding: 0.5rem 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+        max-width: 360px;
+      }
+      .search-box input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 0.85rem;
+        width: 100%;
+        font-family: "Jost", sans-serif;
+      }
+      .topbar .icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f1e9;
+        color: var(--sage-dark);
+        position: relative;
+        cursor: pointer;
+      }
+      .icon-btn .dot {
+        position: absolute;
+        top: 6px;
+        right: 7px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gold);
+        border: 1.5px solid #fff;
+      }
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--sage-dark);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.1rem;
+      }
+
+      /* ===== Main ===== */
+      .main-wrap {
+        margin-left: var(--sidebar-w);
+        min-height: 100vh;
+      }
+      .content {
+        padding: 1.8rem 1.8rem 3rem;
+      }
+
+      .breadcrumb-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .page-title {
+        font-size: 1.9rem;
+        color: var(--sage-dark);
+      }
+      .page-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.6rem;
+      }
+
+      .card-plain {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        padding: 1.4rem;
+      }
+
+      .stat-card {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        padding: 1.3rem 1.4rem;
+        height: 100%;
+      }
+      .stat-card .stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-bottom: 0.9rem;
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.9rem;
+        color: var(--charcoal);
+        font-weight: 600;
+      }
+      .stat-label {
+        font-size: 0.8rem;
+        color: #8a8477;
+      }
+
+      .badge-soft {
+        border-radius: 20px;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.72rem;
+        font-weight: 500;
+      }
+      .badge-green {
+        background: #e7ede3;
+        color: #4c6b3e;
+      }
+      .badge-amber {
+        background: #f6ecd9;
+        color: #96712e;
+      }
+      .badge-red {
+        background: #f5e3e0;
+        color: #a8493d;
+      }
+
+      .btn-gold-outline {
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        background: transparent;
+        padding: 0.55rem 1.2rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+      }
+      .btn-gold-outline:hover {
+        background: var(--gold);
+        color: #fff;
+      }
+      .btn-gold-solid {
+        border: 1px solid var(--gold);
+        background: var(--gold);
+        color: #fff;
+        padding: 0.55rem 1.2rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 6px;
+        transition: all 0.25s ease;
+      }
+      .btn-gold-solid:hover {
+        background: transparent;
+        color: var(--gold);
+      }
+
+      .row-action {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #8a8477;
+        background: #fff;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .row-action:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .row-action.danger:hover {
+        border-color: #a8493d;
+        color: #a8493d;
+      }
+
+      /* ===== Vendor Booking page ===== */
+      .booking-filter {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.4rem;
+        flex-wrap: wrap;
+      }
+      .booking-filter button {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: #fff;
+        color: var(--charcoal);
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        transition: all 0.2s ease;
+      }
+      .booking-filter button:hover {
+        border-color: var(--gold);
+      }
+      .booking-filter button.active {
+        background: var(--sage-dark);
+        color: #fff;
+        border-color: var(--sage-dark);
+      }
+
+      .booking-toolbar {
+        display: flex;
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+        flex-wrap: wrap;
+      }
+      .search-pill {
+        flex: 1;
+        min-width: 220px;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        padding: 0.65rem 1rem;
+        box-shadow: 0 2px 8px rgba(60, 55, 45, 0.04);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .search-pill:focus-within {
+        border-color: var(--gold);
+        box-shadow: 0 2px 12px rgba(176, 141, 79, 0.15);
+      }
+      .search-pill i {
+        color: var(--gold);
+        font-size: 1rem;
+      }
+      .search-pill input {
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 0.87rem;
+        width: 100%;
+        font-family: "Jost", sans-serif;
+        color: var(--charcoal);
+      }
+      .search-pill input::placeholder {
+        color: #a39c8d;
+      }
+
+      .booking-card {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        border-radius: 12px;
+        padding: 1.3rem 1.4rem;
+        margin-bottom: 1rem;
+        transition: all 0.25s ease;
+      }
+      .booking-card:last-child {
+        margin-bottom: 0;
+      }
+      .booking-card:hover {
+        box-shadow: 0 12px 26px rgba(60, 55, 45, 0.08);
+      }
+      .booking-card.attention {
+        border-color: #ebd9b8;
+        background: #fffdf9;
+      }
+      .booking-card.empty-booking {
+        border-style: dashed;
+        border-color: rgba(0, 0, 0, 0.14);
+      }
+
+      .booking-head {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .booking-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+      .booking-title-wrap {
+        flex: 1;
+        min-width: 200px;
+      }
+      .booking-name {
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: var(--charcoal);
+      }
+      .booking-cat {
+        font-size: 0.78rem;
+        color: #8a8477;
+        margin-top: 0.15rem;
+      }
+      .booking-price {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: var(--sage-dark);
+        text-align: right;
+        flex-shrink: 0;
+        min-width: 130px;
+      }
+      .booking-price small {
+        display: block;
+        font-family: "Jost", sans-serif;
+        font-weight: 300;
+        font-size: 0.7rem;
+        color: #8a8477;
+      }
+
+      .booking-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 0.9rem 1.4rem;
+        margin: 1.1rem 0;
+        padding: 1rem 0;
+        border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+      }
+      .bd-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #9a9488;
+        margin-bottom: 0.15rem;
+      }
+      .bd-value {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--charcoal);
+      }
+
+      /* Stepper */
+      .step-row {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.1rem;
+      }
+      .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+      }
+      .step::before {
+        content: "";
+        position: absolute;
+        top: 11px;
+        left: -50%;
+        width: 100%;
+        height: 2px;
+        background: #e4dfd3;
+        z-index: 0;
+      }
+      .step:first-child::before {
+        display: none;
+      }
+      .step.done::before,
+      .step.current::before {
+        background: var(--sage);
+      }
+      .step-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin: 0 auto 0.35rem;
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        border: 2px solid #d9d3c4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        color: #fff;
+      }
+      .step.done .step-dot {
+        background: var(--sage);
+        border-color: var(--sage);
+      }
+      .step.current .step-dot {
+        background: var(--gold);
+        border-color: var(--gold);
+        box-shadow: 0 0 0 4px rgba(176, 141, 79, 0.18);
+      }
+      .step-label {
+        font-size: 0.72rem;
+        color: #8a8477;
+      }
+      .step.done .step-label,
+      .step.current .step-label {
+        color: var(--charcoal);
+        font-weight: 500;
+      }
+
+      .booking-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+      }
+      .booking-note {
+        font-size: 0.8rem;
+        color: #6b6558;
+      }
+      .booking-note i {
+        color: var(--gold);
+        margin-right: 0.3rem;
+      }
+      .booking-note.warn {
+        color: #96712e;
+      }
+      .booking-actions {
+        display: flex;
+        gap: 0.4rem;
+        align-items: center;
+      }
+      .btn-sm-gold {
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        background: transparent;
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 0.38rem 0.9rem;
+        border-radius: 6px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .btn-sm-gold:hover {
+        background: var(--gold);
+        color: #fff;
+      }
+      .btn-sm-solid {
+        border: 1px solid var(--gold);
+        background: var(--gold);
+        color: #fff;
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 0.38rem 0.9rem;
+        border-radius: 6px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+      }
+      .btn-sm-solid:hover {
+        background: var(--sage-dark);
+        border-color: var(--sage-dark);
+      }
+
+      .no-result {
+        display: none;
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #8a8477;
+        font-size: 0.88rem;
+      }
+      .no-result i {
+        font-size: 2rem;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.6rem;
+      }
+
+      /* Mobile */
+      .sidebar-toggle {
+        display: none;
+      }
+      @media (max-width: 991.98px) {
+        .sidebar {
+          transform: translateX(-100%);
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+        .main-wrap {
+          margin-left: 0;
+        }
+        .sidebar-toggle {
+          display: flex;
+        }
+        .search-box {
+          display: none;
+        }
+        .booking-price {
+          text-align: left;
+        }
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 999;
+      }
+      .overlay.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle
+            cx="60"
+            cy="60"
+            r="42"
+            fill="none"
+            stroke="#5C6B54"
+            stroke-width="1.4"
+          />
+          <circle
+            cx="60"
+            cy="60"
+            r="37.5"
+            fill="none"
+            stroke="#B08D4F"
+            stroke-width="1"
+          />
+          <g
+            fill="none"
+            stroke="#5C6B54"
+            stroke-width="1.6"
+            stroke-linecap="round"
+          >
+            <path d="M26,72 C19,64 19,50 26,40" />
+            <path d="M94,72 C101,64 101,50 94,40" />
+          </g>
+          <text
+            x="60"
+            y="72"
+            text-anchor="middle"
+            font-family="Cormorant Garamond, serif"
+            font-style="italic"
+            font-weight="600"
+            font-size="38"
+            fill="#3E4A38"
+          >
+            S
+          </text>
+        </svg>
+        <span>Selaras Wedding</span>
+      </div>
+      <div class="sidebar-nav">
+        <a class="nav-link single" href="dashboard.html">
+          <i class="bi bi-house menu-icon"></i> Overview
+        </a>
+        <div class="nav-group-title">Perencanaan</div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-wedding"
+          aria-expanded="false"
+        >
+          <i class="bi bi-gem menu-icon"></i> Wedding
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-wedding">
+          <a class="nav-link" href="wedding-informasi.html"
+            >Informasi Wedding</a
+          >
+          <a class="nav-link" href="wedding-timeline.html">Timeline</a>
+          <a class="nav-link" href="wedding-rundown.html">Rundown Acara</a>
+          <a class="nav-link" href="wedding-venue.html">Venue</a>
+          <a class="nav-link" href="wedding-theme.html"
+            >Theme &amp; Decoration</a
+          >
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-budget"
+          aria-expanded="false"
+        >
+          <i class="bi bi-wallet2 menu-icon"></i> Budget
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-budget">
+          <a class="nav-link" href="budget-planner.html">Budget Planner</a>
+          <a class="nav-link" href="budget-categories.html">Categories</a>
+          <a class="nav-link" href="budget-expenses.html">Expenses</a>
+          <a class="nav-link" href="budget-payments.html">Payments</a>
+          <a class="nav-link" href="budget-report.html">Financial Report</a>
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-guests"
+          aria-expanded="false"
+        >
+          <i class="bi bi-people menu-icon"></i> Guests
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-guests">
+          <a class="nav-link" href="guests-list.html">Guest List</a>
+          <a class="nav-link" href="guests-groups.html">Guest Groups</a>
+          <a class="nav-link" href="guests-rsvp.html">RSVP</a>
+          <a class="nav-link" href="guests-seating.html">Seating Plan</a>
+          <a class="nav-link" href="guests-checkin.html">QR Check-in</a>
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-vendors"
+          aria-expanded="true"
+        >
+          <i class="bi bi-building menu-icon"></i> Vendors
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse show submenu" id="menu-vendors">
+          <a class="nav-link" href="vendors-list.html">Vendor List</a>
+          <a class="nav-link active" href="vendors-booking.html"
+            >Vendor Booking</a
+          >
+          <a class="nav-link" href="vendors-payments.html">Payments</a>
+          <a class="nav-link" href="vendors-contracts.html">Contracts</a>
+          <a class="nav-link" href="vendors-reviews.html">Reviews</a>
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-planning"
+          aria-expanded="false"
+        >
+          <i class="bi bi-check2-square menu-icon"></i> Planning
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-planning">
+          <a class="nav-link" href="planning-checklist.html">Checklist</a>
+          <a class="nav-link" href="planning-tasks.html">Tasks</a>
+          <a class="nav-link" href="planning-calendar.html">Calendar</a>
+          <a class="nav-link" href="planning-notes.html">Notes</a>
+        </div>
+        <div class="nav-group-title">Arsip &amp; Media</div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-documents"
+          aria-expanded="false"
+        >
+          <i class="bi bi-folder2-open menu-icon"></i> Documents
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-documents">
+          <a class="nav-link" href="documents-contracts.html">Contracts</a>
+          <a class="nav-link" href="documents-invoices.html">Invoices</a>
+          <a class="nav-link" href="documents-proof.html">Payment Proof</a>
+          <a class="nav-link" href="documents-other.html">Other Files</a>
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-gallery"
+          aria-expanded="false"
+        >
+          <i class="bi bi-image menu-icon"></i> Gallery
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-gallery">
+          <a class="nav-link" href="gallery-photos.html">Photos</a>
+          <a class="nav-link" href="gallery-videos.html">Videos</a>
+          <a class="nav-link" href="gallery-albums.html">Albums</a>
+        </div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-reports"
+          aria-expanded="false"
+        >
+          <i class="bi bi-bar-chart menu-icon"></i> Reports
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-reports">
+          <a class="nav-link" href="reports-budget.html">Budget Report</a>
+          <a class="nav-link" href="reports-guest.html">Guest Report</a>
+          <a class="nav-link" href="reports-vendor.html">Vendor Report</a>
+          <a class="nav-link" href="reports-summary.html">Wedding Summary</a>
+        </div>
+        <div class="nav-group-title">Sistem</div>
+        <a
+          class="nav-link parent"
+          data-bs-toggle="collapse"
+          href="#menu-settings"
+          aria-expanded="false"
+        >
+          <i class="bi bi-gear menu-icon"></i> Settings
+          <i class="bi bi-chevron-down chevron"></i>
+        </a>
+        <div class="collapse submenu" id="menu-settings">
+          <a class="nav-link" href="settings-wedding.html"
+            >Wedding Information</a
+          >
+          <a class="nav-link" href="settings-profile.html">Couple Profile</a>
+          <a class="nav-link" href="settings-notification.html">Notification</a>
+          <a class="nav-link" href="settings-members.html">Members</a>
+          <a class="nav-link" href="settings-account.html">Account</a>
+        </div>
+        <a class="nav-link single logout-link mt-2" href="login.html">
+          <i class="bi bi-box-arrow-right menu-icon"></i> Logout
+        </a>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="main-wrap">
+      <div class="topbar">
+        <div class="sidebar-toggle icon-btn" onclick="toggleSidebar()">
+          <i class="bi bi-list fs-5"></i>
+        </div>
+        <div class="search-box">
+          <i class="bi bi-search" style="color: #a8a192"></i>
+          <input type="text" placeholder="Cari sesuatu..." />
+        </div>
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <div class="icon-btn">
+            <i class="bi bi-bell"></i><span class="dot"></span>
+          </div>
+          <div class="icon-btn"><i class="bi bi-envelope"></i></div>
+          <div class="dropdown">
+            <div
+              class="d-flex align-items-center gap-2"
+              style="cursor: pointer"
+              data-bs-toggle="dropdown"
+            >
+              <div class="avatar">DB</div>
+              <div class="d-none d-md-block">
+                <div style="font-size: 0.85rem; font-weight: 500">
+                  Dinda &amp; Bagas
+                </div>
+                <div style="font-size: 0.72rem; opacity: 0.6">
+                  Paket Signature
+                </div>
+              </div>
+              <i
+                class="bi bi-chevron-down"
+                style="font-size: 0.7rem; opacity: 0.6"
+              ></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end mt-2">
+              <li>
+                <a class="dropdown-item" href="settings-profile.html"
+                  >Profil Pasangan</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="settings-account.html"
+                  >Pengaturan Akun</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item text-danger" href="login.html"
+                  >Keluar</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="content" id="content">
+        <div class="page-header-row">
+          <div>
+            <span class="breadcrumb-eyebrow">Vendors</span>
+            <h1 class="page-title">Vendor Booking</h1>
+          </div>
+          <button
+            class="btn-gold-solid"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#bookVendorModal"
+          >
+            <i class="bi bi-plus-lg me-1"></i>Booking Vendor
+          </button>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: #eae6f2; color: #5e4e8c"
+              >
+                <i class="bi bi-building"></i>
+              </div>
+              <div class="stat-num">9</div>
+              <div class="stat-label">Total vendor</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: #e7ede3; color: #4c6b3e"
+              >
+                <i class="bi bi-calendar-check"></i>
+              </div>
+              <div class="stat-num">6</div>
+              <div class="stat-label">Booking terkonfirmasi</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: #f6ecd9; color: #96712e"
+              >
+                <i class="bi bi-pen"></i>
+              </div>
+              <div class="stat-num">1</div>
+              <div class="stat-label">Menunggu tanda tangan</div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="stat-card">
+              <div
+                class="stat-icon"
+                style="background: #f5e3e0; color: #a8493d"
+              >
+                <i class="bi bi-calendar-x"></i>
+              </div>
+              <div class="stat-num">2</div>
+              <div class="stat-label">Belum booking</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-filter">
+          <button class="active" onclick="filterBooking(this, 'all')">
+            Semua
+          </button>
+          <button onclick="filterBooking(this, 'confirmed')">
+            Terkonfirmasi
+          </button>
+          <button onclick="filterBooking(this, 'pending')">Menunggu TTD</button>
+          <button onclick="filterBooking(this, 'none')">Belum Booking</button>
+        </div>
+
+        <div class="booking-toolbar">
+          <div class="search-pill">
+            <i class="bi bi-search"></i>
+            <input
+              type="text"
+              id="searchBooking"
+              placeholder="Cari nama vendor..."
+              onkeyup="applyBookingFilter()"
+            />
+          </div>
+        </div>
+
+        <div id="bookingList">
+          <!-- Venue -->
+          <div
+            class="booking-card"
+            data-status="confirmed"
+            data-name="the garden estate"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #e9ede7; color: #5c6b54"
+              >
+                <i class="bi bi-building"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">The Garden Estate</div>
+                <div class="booking-cat">Venue · PIC Ibu Ratna</div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 45.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">01 Jun 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Sewa Venue Indoor &amp; Outdoor</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-VEN-001</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Lunas</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-check-circle"></i>Seluruh pembayaran sudah
+                lunas.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-gold"
+                  >Lihat Kontrak</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Catering -->
+          <div
+            class="booking-card"
+            data-status="confirmed"
+            data-name="rasa nusantara catering"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #fbf3e7; color: #96712e"
+              >
+                <i class="bi bi-cup-hot"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Rasa Nusantara Catering</div>
+                <div class="booking-cat">Catering · PIC Bpk. Dedi</div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 40.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">01 Jun 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Prasmanan 200 pax</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-CAT-002</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step current">
+                <div class="step-dot">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-calendar-event"></i>Pelunasan akhir Rp
+                10.000.000 jatuh tempo 10 Feb 2026.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-gold"
+                  >Lihat Kontrak</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decoration -->
+          <div
+            class="booking-card"
+            data-status="confirmed"
+            data-name="bloom studio"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #fbf0ec; color: #a9776a"
+              >
+                <i class="bi bi-flower2"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Bloom Studio</div>
+                <div class="booking-cat">Decoration · PIC Sarah Amelia</div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 32.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">08 Jun 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Full Decoration Signature</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-DEC-003</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step current">
+                <div class="step-dot">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-calendar-event"></i>Pelunasan Rp 16.000.000
+                jatuh tempo 10 Feb 2026.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-gold"
+                  >Lihat Kontrak</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photography -->
+          <div
+            class="booking-card"
+            data-status="confirmed"
+            data-name="cahaya frame photography"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #eef0e5; color: #6b7a4b"
+              >
+                <i class="bi bi-camera"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Cahaya Frame Photography</div>
+                <div class="booking-cat">
+                  Photography &amp; Video · PIC Reza Fadillah
+                </div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 25.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">28 Okt 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Foto &amp; Video + Prewedding</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-PHV-005</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step current">
+                <div class="step-dot">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-calendar-event"></i>Pelunasan Rp 10.000.000
+                jatuh tempo 01 Mar 2026.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-gold"
+                  >Lihat Kontrak</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MUA -->
+          <div
+            class="booking-card attention"
+            data-status="confirmed"
+            data-name="kirana makeup"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #f6ecd9; color: #96712e"
+              >
+                <i class="bi bi-brush"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Kirana Makeup</div>
+                <div class="booking-cat">
+                  Attire &amp; MUA · PIC Kirana Wulandari
+                </div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 20.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">10 Sep 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Makeup Pengantin + Keluarga</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-MUA-004</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step current">
+                <div class="step-dot"><i class="bi bi-exclamation-lg"></i></div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note warn">
+                <i class="bi bi-exclamation-triangle"></i>Sisa pembayaran jatuh
+                tempo 20 Jan 2026 — segera lunasi.
+              </div>
+              <div class="booking-actions">
+                <a href="budget-payments.html" class="btn-sm-solid"
+                  >Bayar Sekarang</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invitation -->
+          <div
+            class="booking-card"
+            data-status="confirmed"
+            data-name="kertas & tinta studio"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #f3ebe2; color: #9c7b54"
+              >
+                <i class="bi bi-envelope-paper"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Kertas &amp; Tinta Studio</div>
+                <div class="booking-cat">
+                  Invitation &amp; Stationery · PIC Wulan Ayu
+                </div>
+              </div>
+              <span class="badge-soft badge-green">Terkonfirmasi</span>
+              <div class="booking-price">
+                Rp 8.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">25 Nov 2025</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Undangan Fisik &amp; Digital</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-INV-006</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Lunas</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-check-circle"></i>Undangan sudah selesai dicetak
+                dan lunas.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-gold"
+                  >Lihat Kontrak</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Band -->
+          <div
+            class="booking-card attention"
+            data-status="pending"
+            data-name="nada selaras band"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #eff1ec; color: #5f6c57"
+              >
+                <i class="bi bi-music-note-beamed"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Nada Selaras Band</div>
+                <div class="booking-cat">
+                  Entertainment · PIC Dimas Anugerah
+                </div>
+              </div>
+              <span class="badge-soft badge-amber">Menunggu TTD</span>
+              <div class="booking-price">
+                Rp 15.000.000<small>Nilai kontrak</small>
+              </div>
+            </div>
+            <div class="booking-details">
+              <div>
+                <div class="bd-label">Tanggal Booking</div>
+                <div class="bd-value">10 Jan 2026 (DP)</div>
+              </div>
+              <div>
+                <div class="bd-label">Tanggal Acara</div>
+                <div class="bd-value">Sabtu, 14 Mar 2026</div>
+              </div>
+              <div>
+                <div class="bd-label">Paket</div>
+                <div class="bd-value">Live Music 3 Sesi</div>
+              </div>
+              <div>
+                <div class="bd-label">No. Kontrak</div>
+                <div class="bd-value">SWP-ENT-007 (Draft)</div>
+              </div>
+            </div>
+            <div class="step-row">
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step current">
+                <div class="step-dot"><i class="bi bi-pen"></i></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step done">
+                <div class="step-dot"><i class="bi bi-check-lg"></i></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note warn">
+                <i class="bi bi-pen"></i>Draft kontrak dikirim 05 Jan 2026,
+                menunggu tanda tangan.
+              </div>
+              <div class="booking-actions">
+                <a href="vendors-contracts.html" class="btn-sm-solid"
+                  >Lihat Draft</a
+                >
+                <span class="row-action" title="Edit"
+                  ><i class="bi bi-pencil"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MC -->
+          <div
+            class="booking-card empty-booking"
+            data-status="none"
+            data-name="mc kevin ardiansyah"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #f0eae0; color: #7a6a55"
+              >
+                <i class="bi bi-mic"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">MC Kevin Ardiansyah</div>
+                <div class="booking-cat">Lain-lain · PIC Kevin Ardiansyah</div>
+              </div>
+              <span class="badge-soft badge-red">Belum Booking</span>
+              <div class="booking-price">
+                Rp 5.000.000<small>Estimasi harga</small>
+              </div>
+            </div>
+            <div class="step-row mt-3">
+              <div class="step current">
+                <div class="step-dot"><i class="bi bi-search"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-info-circle"></i>Disarankan konfirmasi paling
+                lambat 2 bulan sebelum hari-H.
+              </div>
+              <div class="booking-actions">
+                <button
+                  class="btn-sm-solid"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#bookVendorModal"
+                >
+                  Booking Sekarang
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Car -->
+          <div
+            class="booking-card empty-booking"
+            data-status="none"
+            data-name="elite wedding car"
+          >
+            <div class="booking-head">
+              <div
+                class="booking-icon"
+                style="background: #f0eae0; color: #7a6a55"
+              >
+                <i class="bi bi-car-front"></i>
+              </div>
+              <div class="booking-title-wrap">
+                <div class="booking-name">Elite Wedding Car</div>
+                <div class="booking-cat">Lain-lain · PIC Bpk. Farhan</div>
+              </div>
+              <span class="badge-soft badge-red">Belum Booking</span>
+              <div class="booking-price">
+                Rp 3.000.000<small>Estimasi harga</small>
+              </div>
+            </div>
+            <div class="step-row mt-3">
+              <div class="step current">
+                <div class="step-dot"><i class="bi bi-search"></i></div>
+                <div class="step-label">Dipilih</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">Kontrak TTD</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">DP</div>
+              </div>
+              <div class="step">
+                <div class="step-dot"></div>
+                <div class="step-label">Pelunasan</div>
+              </div>
+            </div>
+            <div class="booking-footer">
+              <div class="booking-note">
+                <i class="bi bi-info-circle"></i>Transportasi pengantin belum
+                dikonfirmasi.
+              </div>
+              <div class="booking-actions">
+                <button
+                  class="btn-sm-solid"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#bookVendorModal"
+                >
+                  Booking Sekarang
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="no-result" id="noResult">
+            <i class="bi bi-search"></i>Tidak ada booking yang cocok dengan
+            pencarian kamu.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="bookVendorModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 12px; border: none">
+          <div
+            class="modal-header"
+            style="border-bottom: 1px solid rgba(0, 0, 0, 0.06)"
+          >
+            <h5
+              class="modal-title"
+              style="
+                font-family: &quot;Cormorant Garamond&quot;, serif;
+                color: var(--sage-dark);
+              "
+            >
+              Booking Vendor
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form onsubmit="return false;">
+              <div class="row g-3 mb-2">
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Vendor</label
+                  >
+                  <select class="form-control">
+                    <option>MC Kevin Ardiansyah</option>
+                    <option>Elite Wedding Car</option>
+                    <option>Nada Selaras Band</option>
+                    <option>The Garden Estate</option>
+                    <option>Rasa Nusantara Catering</option>
+                    <option>Bloom Studio</option>
+                    <option>Cahaya Frame Photography</option>
+                    <option>Kirana Makeup</option>
+                    <option>Kertas &amp; Tinta Studio</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Paket / Layanan</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Contoh: MC Akad &amp; Resepsi"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Tanggal Booking</label
+                  >
+                  <input type="date" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Tanggal Acara</label
+                  >
+                  <input type="date" class="form-control" value="2026-03-14" />
+                </div>
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Nilai Kontrak</label
+                  >
+                  <input type="text" class="form-control" placeholder="Rp 0" />
+                </div>
+                <div class="col-md-6">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Nominal DP</label
+                  >
+                  <input type="text" class="form-control" placeholder="Rp 0" />
+                </div>
+                <div class="col-12">
+                  <label
+                    class="form-label"
+                    style="
+                      font-size: 0.78rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: var(--sage-dark);
+                    "
+                    >Catatan</label
+                  >
+                  <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder="Permintaan khusus, jadwal, atau syarat pembayaran..."
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div
+            class="modal-footer"
+            style="border-top: 1px solid rgba(0, 0, 0, 0.06)"
+          >
+            <button
+              type="button"
+              class="btn-gold-outline"
+              data-bs-dismiss="modal"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              class="btn-gold-solid"
+              data-bs-dismiss="modal"
+            >
+              Simpan Booking
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentStatus = "all";
+
+      function filterBooking(btn, status) {
+        document
+          .querySelectorAll(".booking-filter button")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentStatus = status;
+        applyBookingFilter();
+      }
+
+      function applyBookingFilter() {
+        const q = document.getElementById("searchBooking").value.toLowerCase();
+        let visible = 0;
+        document
+          .querySelectorAll("#bookingList .booking-card")
+          .forEach((card) => {
+            const matchQ = card.dataset.name.includes(q);
+            const matchStatus =
+              currentStatus === "all" || card.dataset.status === currentStatus;
+            const show = matchQ && matchStatus;
+            card.style.display = show ? "" : "none";
+            if (show) visible++;
+          });
+        document.getElementById("noResult").style.display =
+          visible === 0 ? "block" : "none";
+      }
+    </script>
+    <script>
+      function toggleSidebar(forceClose) {
+        const sb = document.getElementById("sidebar");
+        const ov = document.getElementById("overlay");
+        if (forceClose) {
+          sb.classList.remove("open");
+          ov.classList.remove("show");
+          return;
+        }
+        sb.classList.toggle("open");
+        ov.classList.toggle("show");
+      }
+    </script>
+  </body>
+</html>
