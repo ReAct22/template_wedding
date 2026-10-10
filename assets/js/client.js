@@ -51,3 +51,50 @@ function filterVendors() {
     card.style.display = matchQ && matchCat ? "" : "none";
   });
 }
+
+let currentStatus = "all";
+
+function filterBooking(btn, status) {
+  document
+    .querySelectorAll(".booking-filter button")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  currentStatus = status;
+  applyBookingFilter();
+}
+
+function applyBookingFilter() {
+  const q = document.getElementById("searchBooking").value.toLowerCase();
+  let visible = 0;
+  document.querySelectorAll("#bookingList .booking-card").forEach((card) => {
+    const matchQ = card.dataset.name.includes(q);
+    const matchStatus =
+      currentStatus === "all" || card.dataset.status === currentStatus;
+    const show = matchQ && matchStatus;
+    card.style.display = show ? "" : "none";
+    if (show) visible++;
+  });
+  document.getElementById("noResult").style.display =
+    visible === 0 ? "block" : "none";
+}
+
+function filterExpenses() {
+  const q = document.getElementById("searchExpense").value.toLowerCase();
+  const cat = document.getElementById("filterCategory").value;
+  document.querySelectorAll("#expenseList .expense-item").forEach((item) => {
+    const desc = item.dataset.desc;
+    const rowCat = item.dataset.category.replace("&amp;", "&");
+    const matchQ = desc.includes(q);
+    const matchCat = !cat || rowCat === cat;
+    item.style.display = matchQ && matchCat ? "" : "none";
+  });
+}
+
+
+function filterPayments(btn, status){
+    document.querySelectorAll('.payment-filter button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#paymentList .payment-item').forEach(item => {
+      item.style.display = (status === 'all' || item.dataset.status === status) ? '' : 'none';
+    });
+  }
