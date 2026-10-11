@@ -1046,6 +1046,278 @@
   .report-summary-pill .num{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; font-weight:600; }
 
   .report-meta-footer{ font-size:.78rem; color:#a39c8d; text-align:center; margin-top:1.5rem; }
+  /* QR Check-in page */
+  .preview-banner{
+    background:#FBF3E7; border:1px solid #eddcb8; color:#8a6a2f; border-radius:10px;
+    padding:.8rem 1.1rem; font-size:.83rem; display:flex; align-items:center; gap:.6rem; margin-bottom:1.4rem;
+  }
+  .scanner-box{
+    background:var(--sage-dark); border-radius:12px; padding:2.5rem 1.5rem; text-align:center; color:#fff;
+  }
+  .scanner-icon{
+    width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,.12);
+    display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 1rem;
+  }
+  .checkin-search-box{
+    display:flex; gap:.6rem; margin-top:1.2rem;
+  }
+  .checkin-search-box input{
+    flex:1; border:none; border-radius:8px; padding:.6rem .9rem; font-size:.85rem; font-family:'Jost', sans-serif;
+  }
+
+  .checkin-filter{ display:flex; gap:.5rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+  .checkin-filter button{
+    border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--charcoal);
+    font-size:.8rem; padding:.4rem 1rem; border-radius:20px; transition:all .2s ease;
+  }
+  .checkin-filter button:hover{ border-color:var(--gold); }
+  .checkin-filter button.active{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
+
+  .checkin-item{ display:flex; align-items:center; gap:.85rem; padding:.85rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .checkin-item:last-child{ border-bottom:none; }
+  .checkin-avatar{
+    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    background:var(--blush); color:var(--sage-dark); display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:.95rem;
+  }
+  .checkin-name{ font-size:.87rem; font-weight:500; }
+  .checkin-meta{ font-size:.78rem; color:#8a8477; }
+  .btn-checkin-now{
+    background:var(--gold); color:#fff; border:none; font-size:.72rem; font-weight:500;
+    padding:.4rem .9rem; border-radius:6px; letter-spacing:.03em; text-transform:uppercase; flex-shrink:0;
+  }
+  .btn-checkin-now:hover{ background:var(--sage-dark); }
+
+  /* Guest Groups page */
+  .group-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; height:100%; position:relative; transition:all .25s ease; }
+  .group-card:hover{ box-shadow:0 12px 28px rgba(60,55,45,.08); transform:translateY(-3px); }
+  .group-card-icon{
+    width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:1.3rem; margin-bottom:1rem;
+  }
+  .group-card-actions{ position:absolute; top:1.2rem; right:1.2rem; display:flex; gap:.4rem; }
+  .group-card-num{ font-family:'Cormorant Garamond', serif; font-size:2rem; font-weight:600; color:var(--charcoal); }
+  .group-card-sub{ font-size:.8rem; color:#8a8477; margin-bottom:1rem; }
+  .stack-bar{ height:8px; border-radius:6px; overflow:hidden; display:flex; margin-bottom:.7rem; background:#F0ECE2; }
+  .stack-seg{ height:100%; }
+  .stack-legend{ display:flex; gap:1rem; font-size:.72rem; color:#8a8477; flex-wrap:wrap; }
+  .stack-legend span{ display:flex; align-items:center; gap:.3rem; }
+  .stack-legend .dot{ width:7px; height:7px; border-radius:50%; }
+  .group-card-link{ font-size:.8rem; color:var(--gold); text-decoration:none; display:inline-block; margin-top:1rem; }
+  .group-card-link:hover{ color:var(--sage-dark); }
+
+  /* Guest List page */
+  .filter-bar select{
+    border:1px solid rgba(0,0,0,.12); border-radius:8px; padding:.55rem .9rem; font-size:.84rem;
+    background:#fff; font-family:'Jost', sans-serif; color:var(--charcoal);
+  }
+
+  .guest-table{ width:100%; border-collapse:collapse; }
+  .guest-table th{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:#9a9488;
+    text-align:left; padding:.8rem .7rem; border-bottom:1px solid rgba(0,0,0,.07); font-weight:500;
+    background:#FAF8F3;
+  }
+  .guest-table td{
+    padding:.8rem .7rem; border-bottom:1px solid rgba(0,0,0,.05); font-size:.87rem;
+    vertical-align:middle; color:var(--charcoal);
+  }
+  .guest-table tbody tr:hover{ background:#FBF9F5; }
+  .guest-table tr:last-child td{ border-bottom:none; }
+
+  .guest-name-cell{ display:flex; align-items:center; gap:.7rem; }
+  .guest-avatar{
+    width:36px; height:36px; border-radius:50%; flex-shrink:0;
+    background:var(--blush); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:.95rem;
+  }
+  .guest-name{ font-weight:500; color:var(--charcoal); font-size:.87rem; }
+  .guest-sub{ font-size:.76rem; color:#9a9488; }
+
+  .group-chip{
+    display:inline-block; font-size:.72rem; font-weight:500; padding:.25rem .65rem; border-radius:20px;
+  }
+
+  .table-footer-note{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:1rem; font-size:.8rem; color:#9a9488;
+  }
+
+  /* RSVP page */
+    .rsvp-link-box {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #f5f1e9;
+      border-radius: 8px;
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      color: var(--sage-dark);
+    }
+
+    .rsvp-link-box i {
+      color: var(--gold);
+    }
+
+    .qr-placeholder {
+      width: 90px;
+      height: 90px;
+      border-radius: 8px;
+      background: #f5f1e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .week-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.9rem;
+      height: 130px;
+      padding-top: 1rem;
+    }
+
+    .week-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .week-bar {
+      width: 100%;
+      max-width: 34px;
+      border-radius: 5px 5px 0 0;
+      background: var(--gold);
+    }
+
+    .week-bar-val {
+      font-size: 0.68rem;
+      color: #8a8477;
+      margin-bottom: 0.3rem;
+    }
+
+    .week-bar-label {
+      font-size: 0.72rem;
+      color: #8a8477;
+      margin-top: 0.5rem;
+    }
+
+    .rsvp-filter {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .rsvp-filter button {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #fff;
+      color: var(--charcoal);
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .rsvp-filter button:hover {
+      border-color: var(--gold);
+    }
+
+    .rsvp-filter button.active {
+      background: var(--sage-dark);
+      color: #fff;
+      border-color: var(--sage-dark);
+    }
+
+    .response-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .response-item:last-child {
+      border-bottom: none;
+    }
+
+    .response-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--blush);
+      color: var(--sage-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .response-body {
+      flex: 1;
+    }
+
+    .response-name {
+      font-size: 0.87rem;
+      font-weight: 500;
+    }
+
+    .response-wish {
+      font-size: 0.82rem;
+      color: #6b6558;
+      font-style: italic;
+      margin-top: 0.2rem;
+    }
+
+    .response-time {
+      font-size: 0.74rem;
+      color: #a39c8d;
+    }
+
+    /* Seating Plan page */
+  .seating-legend{ display:flex; gap:1.4rem; margin-bottom:1.4rem; flex-wrap:wrap; font-size:.82rem; color:#8a8477; }
+  .seating-legend span{ display:flex; align-items:center; gap:.4rem; }
+  .seating-legend .dot{ width:10px; height:10px; border-radius:50%; }
+
+  .table-card{
+    background:#fff; border:2px solid rgba(0,0,0,.06); border-radius:14px; padding:1.2rem; height:100%;
+    transition:all .25s ease;
+  }
+  .table-card:hover{ box-shadow:0 12px 26px rgba(60,55,45,.08); }
+  .table-card.full{ border-color:#c7d6c2; }
+  .table-card.partial{ border-color:#ecd8ad; }
+  .table-card.empty{ border-color:rgba(0,0,0,.06); }
+
+  .table-card-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.7rem; }
+  .table-name{ font-family:'Cormorant Garamond', serif; font-size:1.15rem; font-weight:600; color:var(--sage-dark); }
+  .table-sub{ font-size:.76rem; color:#9a9488; }
+
+  .seat-fill-bar{ height:6px; border-radius:4px; background:#F0ECE2; margin-bottom:.8rem; }
+  .seat-fill-bar-inner{ height:100%; border-radius:4px; }
+
+  .chip-avatars{ display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.9rem; }
+  .chip-avatar{
+    width:28px; height:28px; border-radius:50%; background:var(--blush); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:600;
+    font-family:'Cormorant Garamond', serif; border:1.5px solid #fff;
+  }
+  .chip-avatar.more{ background:#F0ECE2; color:#8a8477; }
+
+  .btn-manage-table{
+    width:100%; border:1px solid rgba(0,0,0,.1); background:#fff; color:var(--sage-dark);
+    font-size:.78rem; padding:.5rem; border-radius:6px; transition:all .2s ease;
+  }
+  .btn-manage-table:hover{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
 
   /* Generic placeholder page */
   .empty-state{

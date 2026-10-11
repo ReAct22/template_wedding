@@ -90,11 +90,48 @@ function filterExpenses() {
   });
 }
 
+function filterPayments(btn, status) {
+  document
+    .querySelectorAll(".payment-filter button")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll("#paymentList .payment-item").forEach((item) => {
+    item.style.display =
+      status === "all" || item.dataset.status === status ? "" : "none";
+  });
+}
 
-function filterPayments(btn, status){
-    document.querySelectorAll('.payment-filter button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('#paymentList .payment-item').forEach(item => {
-      item.style.display = (status === 'all' || item.dataset.status === status) ? '' : 'none';
-    });
-  }
+function filterCheckin(btn, status) {
+  document
+    .querySelectorAll(".checkin-filter button")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll("#checkinAllList .checkin-item").forEach((item) => {
+    item.style.display =
+      status === "all" || item.dataset.status === status ? "" : "none";
+  });
+}
+
+function filterGuests() {
+  const q = document.getElementById("searchGuest").value.toLowerCase();
+  const grp = document.getElementById("filterGroup").value;
+  const rsvp = document.getElementById("filterRsvp").value;
+  document.querySelectorAll("#guestTable tbody tr").forEach((row) => {
+    const name = row.querySelector(".guest-name").textContent.toLowerCase();
+    const matchQ = name.includes(q);
+    const matchGrp = !grp || row.dataset.group === grp;
+    const matchRsvp = !rsvp || row.dataset.rsvp === rsvp;
+    row.style.display = matchQ && matchGrp && matchRsvp ? "" : "none";
+  });
+}
+
+function filterResponses(btn, status) {
+  document
+    .querySelectorAll(".rsvp-filter button")
+    .forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll("#responseList .response-item").forEach((item) => {
+    item.style.display =
+      status === "all" || item.dataset.status === status ? "" : "none";
+  });
+}
