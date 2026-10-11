@@ -1425,6 +1425,32 @@
   .task-due{ font-size:.72rem; color:#a39c8d; }
   .task-due.overdue{ color:#A8493D; font-weight:500; }
 
+  /* Report document style */
+  .report-doc{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:2.2rem; }
+  .report-doc-header{ text-align:center; border-bottom:2px solid var(--gold); padding-bottom:1.4rem; margin-bottom:1.6rem; }
+  .report-doc-header h2{ font-size:1.7rem; color:var(--sage-dark); margin-bottom:.3rem; }
+  .report-doc-header .sub{ font-size:.85rem; color:#8a8477; }
+  .report-section-title{ font-size:1rem; font-weight:600; color:var(--sage-dark); margin:1.6rem 0 1rem; display:flex; align-items:center; gap:.5rem; }
+  .report-section-title i{ color:var(--gold); }
+  .report-summary-text{ font-size:.87rem; line-height:1.7; color:#4b463f; }
+
+  .report-table{ width:100%; border-collapse:collapse; }
+  .report-table th{
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:#9a9488;
+    text-align:left; padding:.7rem .6rem; border-bottom:1px solid rgba(0,0,0,.08); font-weight:500;
+  }
+  .report-table td{ padding:.75rem .6rem; border-bottom:1px solid rgba(0,0,0,.05); font-size:.85rem; color:var(--charcoal); }
+  .report-table tr:last-child td{ border-bottom:none; }
+  .report-table tfoot td{ font-weight:600; border-top:2px solid rgba(0,0,0,.1); border-bottom:none; padding-top:.9rem; }
+
+  .report-footer-sign{ margin-top:2rem; padding-top:1.4rem; border-top:1px dashed rgba(0,0,0,.12); text-align:center; font-size:.78rem; color:#a39c8d; }
+  
+  .summary-module{ border:1px solid rgba(0,0,0,.06); border-radius:10px; padding:1.2rem; height:100%; }
+  .summary-module-title{ font-size:.85rem; font-weight:600; color:var(--sage-dark); margin-bottom:.8rem; display:flex; align-items:center; gap:.5rem; }
+  .summary-module-title i{ color:var(--gold); }
+  .summary-mini-row{ display:flex; justify-content:space-between; font-size:.82rem; padding:.4rem 0; border-bottom:1px solid rgba(0,0,0,.04); }
+  .summary-mini-row:last-child{ border-bottom:none; }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
