@@ -1319,6 +1319,112 @@
   }
   .btn-manage-table:hover{ background:var(--sage-dark); color:#fff; border-color:var(--sage-dark); }
 
+  /* Calendar page */
+  .cal-nav{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; }
+  .cal-nav-btn{
+    width:36px; height:36px; border-radius:8px; border:1px solid rgba(0,0,0,.1); background:#fff;
+    display:flex; align-items:center; justify-content:center; color:var(--sage-dark); cursor:pointer;
+  }
+  .cal-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .cal-month-title{ font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--sage-dark); font-weight:600; }
+
+  .cal-grid{ display:grid; grid-template-columns:repeat(7, 1fr); gap:.5rem; }
+  .cal-dow{ text-align:center; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:#9a9488; padding-bottom:.4rem; }
+  .cal-cell{
+    background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:8px; min-height:88px;
+    padding:.5rem; font-size:.8rem;
+  }
+  .cal-cell.empty{ background:transparent; border:none; }
+  .cal-cell .cal-date{ font-weight:500; color:var(--charcoal); margin-bottom:.3rem; }
+  .cal-cell.highlight{ background:#FBF3E7; border-color:#eddcb8; }
+  .cal-chip{
+    display:block; font-size:.66rem; padding:.15rem .4rem; border-radius:5px; margin-bottom:.25rem;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .cal-legend{ display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:1.2rem; font-size:.78rem; color:#8a8477; }
+  .cal-legend span{ display:flex; align-items:center; gap:.4rem; }
+  .cal-legend .dot{ width:9px; height:9px; border-radius:50%; }
+
+  .agenda-item{ display:flex; align-items:center; gap:.85rem; padding:.85rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .agenda-item:last-child{ border-bottom:none; }
+  .agenda-date-box{
+    width:48px; height:48px; border-radius:8px; background:#F5F1E9; flex-shrink:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--sage-dark);
+  }
+  .agenda-date-box .d{ font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.1rem; line-height:1; }
+  .agenda-date-box .m{ font-size:.62rem; text-transform:uppercase; }
+  /* Checklist page */
+  .phase-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.4rem; margin-bottom:1rem; }
+  .phase-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+  .phase-title{ font-size:.95rem; font-weight:500; color:var(--sage-dark); }
+  .phase-count{ font-size:.78rem; color:#8a8477; }
+  .check-item{ display:flex; align-items:flex-start; gap:.7rem; padding:.55rem 0; cursor:pointer; }
+  .check-item span.item-text{ font-size:.87rem; transition:all .2s ease; }
+  .check-item.checked span.item-text{ text-decoration:line-through; color:#a39c8d; }
+
+  /* Notes page toolbar */
+  .notes-toolbar{ display:flex; gap:.8rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+  .search-pill{
+    flex:1; min-width:220px; display:flex; align-items:center; gap:.6rem;
+    background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px;
+    padding:.65rem 1rem; box-shadow:0 2px 8px rgba(60,55,45,.04);
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .search-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .search-pill i{ color:var(--gold); font-size:1rem; }
+  .search-pill input{
+    border:none; outline:none; background:transparent; font-size:.87rem; width:100%;
+    font-family:'Jost', sans-serif; color:var(--charcoal);
+  }
+  .search-pill input::placeholder{ color:#a39c8d; }
+  .select-pill{
+    position:relative; min-width:180px;
+    background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:10px;
+    box-shadow:0 2px 8px rgba(60,55,45,.04);
+    display:flex; align-items:center; gap:.6rem; padding:.65rem 1rem;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .select-pill:focus-within{ border-color:var(--gold); box-shadow:0 2px 12px rgba(176,141,79,.15); }
+  .select-pill i.select-icon{ color:var(--gold); font-size:1rem; flex-shrink:0; }
+  .select-pill select{
+    border:none; outline:none; background:transparent; font-size:.87rem; width:100%;
+    font-family:'Jost', sans-serif; color:var(--charcoal); appearance:none; -webkit-appearance:none;
+    cursor:pointer; padding-right:1.2rem;
+  }
+  .select-pill .chevron-icon{ position:absolute; right:1rem; top:50%; transform:translateY(-50%); font-size:.7rem; color:#a39c8d; pointer-events:none; }
+
+  /* Notes cards */
+  .note-card{ border-radius:12px; padding:1.2rem; height:100%; position:relative; box-shadow:0 2px 8px rgba(60,55,45,.05); }
+  .note-pin{ position:absolute; top:1rem; right:1rem; color:var(--gold); font-size:1rem; cursor:pointer; }
+  .note-cat-tag{ display:inline-block; font-size:.68rem; font-weight:600; padding:.2rem .6rem; border-radius:20px; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.7rem; }
+  .note-title{ font-size:.92rem; font-weight:600; margin-bottom:.4rem; color:var(--charcoal); padding-right:1.4rem; }
+  .note-content{ font-size:.83rem; color:#5c574d; line-height:1.5; }
+  .note-date{ font-size:.72rem; color:#8a8477; margin-top:.9rem; }
+
+  /* Tasks page - Kanban */
+  .kanban-board{ display:flex; gap:1rem; align-items:flex-start; overflow-x:auto; padding-bottom:.5rem; }
+  .kanban-column{ background:#F1EDE3; border-radius:12px; padding:1rem; flex:1; min-width:270px; }
+  .kanban-column-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding:0 .3rem; }
+  .kanban-column-title{ font-size:.85rem; font-weight:500; color:var(--sage-dark); display:flex; align-items:center; gap:.5rem; }
+  .kanban-dot{ width:8px; height:8px; border-radius:50%; }
+  .kanban-count{ background:#fff; font-size:.72rem; padding:.15rem .55rem; border-radius:20px; color:#8a8477; }
+
+  .task-card{ background:#fff; border-radius:10px; padding:1rem; margin-bottom:.8rem; box-shadow:0 1px 4px rgba(60,55,45,.05); }
+  .task-card:last-child{ margin-bottom:0; }
+  .priority-badge{ font-size:.66rem; font-weight:600; padding:.2rem .55rem; border-radius:20px; text-transform:uppercase; letter-spacing:.03em; }
+  .priority-high{ background:#F5E3E0; color:#A8493D; }
+  .priority-mid{ background:#F6ECD9; color:#96712E; }
+  .priority-low{ background:#E7EDE3; color:#4C6B3E; }
+  .task-card-title{ font-size:.87rem; font-weight:500; color:var(--charcoal); margin:.6rem 0 .7rem; }
+  .task-card-footer{ display:flex; justify-content:space-between; align-items:center; }
+  .task-assignee{ display:flex; align-items:center; gap:.4rem; font-size:.75rem; color:#6b6558; }
+  .task-assignee-avatar{
+    width:22px; height:22px; border-radius:50%; background:var(--blush); color:var(--sage-dark);
+    display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:600; flex-shrink:0;
+  }
+  .task-due{ font-size:.72rem; color:#a39c8d; }
+  .task-due.overdue{ color:#A8493D; font-weight:500; }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;
