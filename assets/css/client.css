@@ -1451,6 +1451,62 @@
   .summary-mini-row{ display:flex; justify-content:space-between; font-size:.82rem; padding:.4rem 0; border-bottom:1px solid rgba(0,0,0,.04); }
   .summary-mini-row:last-child{ border-bottom:none; }
 
+  /* Settings pages */
+  .settings-card{ background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:12px; padding:1.6rem; margin-bottom:1.2rem; }
+  .settings-card-title{ font-size:.95rem; font-weight:600; color:var(--sage-dark); display:flex; align-items:center; gap:.55rem; margin-bottom:1.3rem; }
+  .settings-card-title i{ color:var(--gold); font-size:1.1rem; }
+  .settings-card label{
+    font-size:.76rem; text-transform:uppercase; letter-spacing:.05em; color:var(--sage-dark); margin-bottom:.35rem; display:block;
+  }
+  .settings-card .form-control{ border-radius:6px; border:1px solid rgba(0,0,0,.12); padding:.6rem .85rem; font-size:.87rem; }
+  .settings-card .form-control:focus{ border-color:var(--gold); box-shadow:0 0 0 .15rem rgba(176,141,79,.15); }
+  .settings-save-bar{ position:sticky; bottom:1rem; display:flex; justify-content:flex-end; margin-top:1rem; }
+
+  .toggle-row{ display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid rgba(0,0,0,.05); }
+  .toggle-row:last-child{ border-bottom:none; }
+  .toggle-row-title{ font-size:.87rem; font-weight:500; color:var(--charcoal); }
+  .toggle-row-sub{ font-size:.76rem; color:#8a8477; margin-top:.15rem; }
+
+  .gold-switch{ position:relative; width:44px; height:24px; flex-shrink:0; }
+  .gold-switch input{ opacity:0; width:0; height:0; }
+  .gold-switch .slider{ position:absolute; inset:0; background:#ddd6c8; border-radius:20px; cursor:pointer; transition:.25s; }
+  .gold-switch .slider::before{ content:""; position:absolute; width:18px; height:18px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.25s; }
+  .gold-switch input:checked + .slider{ background:var(--gold); }
+  .gold-switch input:checked + .slider::before{ transform:translateX(20px); }
+
+  .package-banner{
+    background:var(--sage-dark); color:#fff; border-radius:10px; padding:1.3rem 1.5rem;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+  }
+  .package-banner .pkg-name{ font-family:'Cormorant Garamond', serif; font-size:1.4rem; font-weight:600; }
+
+  .danger-zone{ background:#FBF0EE; border:1px solid #f0c9c2; border-radius:12px; padding:1.6rem; }
+  .danger-zone .settings-card-title{ color:#A8493D; }
+  .danger-zone .settings-card-title i{ color:#A8493D; }
+  .danger-row{ display:flex; justify-content:space-between; align-items:center; padding:.85rem 0; border-bottom:1px solid rgba(168,73,61,.15); flex-wrap:wrap; gap:.6rem; }
+  .danger-row:last-child{ border-bottom:none; }
+  .btn-danger-outline{
+    border:1px solid #A8493D; color:#A8493D; background:transparent; padding:.5rem 1.1rem; font-size:.8rem;
+    border-radius:6px; letter-spacing:.03em;
+  }
+  .btn-danger-outline:hover{ background:#A8493D; color:#fff; }
+
+  /* Members page */
+  .member-item{ display:flex; align-items:center; gap:1rem; padding:1rem 0; border-bottom:1px solid rgba(0,0,0,.06); }
+  .member-item:last-child{ border-bottom:none; }
+  .member-avatar{
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
+    background:var(--blush); color:var(--sage-dark); display:flex; align-items:center; justify-content:center;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:1.05rem;
+  }
+  .member-name{ font-size:.9rem; font-weight:500; color:var(--charcoal); }
+  .member-email{ font-size:.78rem; color:#8a8477; }
+  .role-badge{ font-size:.7rem; font-weight:600; padding:.22rem .65rem; border-radius:20px; text-transform:uppercase; letter-spacing:.03em; }
+  .role-owner{ background:#3E4A38; color:#fff; }
+  .role-editor{ background:#F6ECD9; color:#96712E; }
+  .role-viewer{ background:#F0EAE0; color:#7A6A55; }
+  .member-active{ font-size:.75rem; color:#a39c8d; min-width:100px; text-align:right; }
+
   /* Generic placeholder page */
   .empty-state{
     background:#fff; border:1px dashed rgba(0,0,0,.12); border-radius:12px;

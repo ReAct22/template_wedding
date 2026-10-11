@@ -136,18 +136,25 @@ function filterResponses(btn, status) {
   });
 }
 
-function filterNotes(){
-    const q = document.getElementById('searchNote').value.toLowerCase();
-    const cat = document.getElementById('filterNoteCat').value;
-    document.querySelectorAll('#notesGrid > div').forEach(card => {
-      const matchQ = card.dataset.title.includes(q) || card.dataset.content.includes(q);
-      const matchCat = !cat || card.dataset.category === cat;
-      card.style.display = (matchQ && matchCat) ? '' : 'none';
-    });
-  }
-  document.querySelectorAll('.note-pin').forEach(pin => {
-    pin.addEventListener('click', () => {
-      pin.classList.toggle('bi-pin-angle');
-      pin.classList.toggle('bi-pin-angle-fill');
-    });
+function filterNotes() {
+  const q = document.getElementById("searchNote").value.toLowerCase();
+  const cat = document.getElementById("filterNoteCat").value;
+  document.querySelectorAll("#notesGrid > div").forEach((card) => {
+    const matchQ =
+      card.dataset.title.includes(q) || card.dataset.content.includes(q);
+    const matchCat = !cat || card.dataset.category === cat;
+    card.style.display = matchQ && matchCat ? "" : "none";
   });
+}
+document.querySelectorAll(".note-pin").forEach((pin) => {
+  pin.addEventListener("click", () => {
+    pin.classList.toggle("bi-pin-angle");
+    pin.classList.toggle("bi-pin-angle-fill");
+  });
+});
+
+function showSaved() {
+  const toastEl = document.getElementById("savedToast");
+  const toast = new bootstrap.Toast(toastEl, { delay: 2500 });
+  toast.show();
+}
